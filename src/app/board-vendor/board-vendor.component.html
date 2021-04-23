@@ -1,0 +1,27 @@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Employee Name</th>
+            <th>Item ordered</th>
+            <th>Qty</th>
+            <th>Shipping Address</th>
+            <th>Phone no</th>
+            <th>Order Date</th>
+            <th>Shipped Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.empName }}</td>
+            <td>{{ order.itemRequested }}</td>
+            <td>{{ order.qty }}</td>
+            <td>{{ order.shippingAddress }}</td>
+            <td>{{ order.phnNo }}</td>
+            <td>{{ order.orderDate }}</td>
+            <td>{{ order.shippedDate }}</td>
+        </tr>
+    </tbody>
+</table>
