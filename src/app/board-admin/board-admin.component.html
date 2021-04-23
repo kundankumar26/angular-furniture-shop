@@ -1,0 +1,27 @@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Email</th>
+            <th>Item ordered</th>
+            <th>Qty</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.empId }}</td>
+            <td>{{ order.empName }}</td>
+            <td>{{ order.email }}</td>
+            <td>{{ order.itemRequested }}</td>
+            <td>{{ order.qty }}</td>
+            <td><button (click)="acceptOrder(1)" class="btn btn-info"> Accept</button>
+                <button (click)="rejectOrder(2)" class="btn btn-danger" style="margin-left: 10px;"> Reject</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
