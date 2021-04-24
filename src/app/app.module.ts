@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BoardVendorComponent } from './board-vendor/board-vendor.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EmployeeComponent } from './employee/employee.component';
     ViewOrderComponent,
     BoardVendorComponent,
     BoardAdminComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
