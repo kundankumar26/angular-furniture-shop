@@ -18,9 +18,12 @@
             <td>{{ order.empName }}</td>
             <td>{{ order.email }}</td>
             <td>{{ order.itemRequested }}</td>
-            <td>{{ order.qty }}</td>
-            <td><button (click)="acceptOrder(1)" class="btn btn-info"> Accept</button>
-                <button (click)="rejectOrder(2)" class="btn btn-danger" style="margin-left: 10px;"> Reject</button>
+            <td><input type="number" class="form-control" [(ngModel)]="order.qty" [disabled]="isDisabled(order.isRejectedByAdmin)"></td>
+            <td *ngIf="order.isRejectedByAdmin==1"> Accepted </td>
+            <td *ngIf="order.isRejectedByAdmin==2"> Rejected </td>
+            <td *ngIf="order.isRejectedByAdmin==0">
+                <button (click)="acceptOrder(order.orderId, order.qty)" class="btn btn-info"> Accept</button>
+                <button (click)="rejectOrder(order.orderId, order.qty)" class="btn btn-danger" style="margin-left: 10px;"> Reject</button>
             </td>
         </tr>
     </tbody>

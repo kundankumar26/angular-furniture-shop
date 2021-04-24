@@ -20,8 +20,11 @@
             <td>{{ order.qty }}</td>
             <td>{{ order.shippingAddress }}</td>
             <td>{{ order.phnNo }}</td>
-            <td>{{ order.orderDate }}</td>
-            <td>{{ order.shippedDate }}</td>
+            <td>{{ order.orderDate | slice:0:11  }}</td>
+            <td><input [ngModel]="order.shippedDate | slice:0:11" (ngModelChange)="order.shippedDate=$event" type="string" 
+                class="form-control" [disabled]="isDisabled(order.shippedDate)">{{order.shippedDate==null ? "Hint: DD-MM-YYYY": " "}}
+                <button *ngIf="order.shippedDate" (click)="confirmOrder(order.orderId, order.shippedDate)"> OK </button>
+            </td>
         </tr>
     </tbody>
 </table>

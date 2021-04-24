@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Order } from '../models/order';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-employee',
@@ -10,62 +12,17 @@ export class EmployeeComponent implements OnInit {
 
   orders: Order[];
   
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.orders = [
-      {
-        orderId: 13,
-        empId: 1,
-        empName: "akshay kumar",
-        email: "akshay@gmail.com",
-        itemRequested: "human",
-        qty: 1,
-        shippingAddress: "banglore",
-        shippedDate: "Thu, 22 Apr 2021 15:35:12 IST",
-        phnNo: 0,
-        orderDate: "Thu, 22 Apr 2021 15:35:12 IST",
-        isRejectedByAdmin: 0
-    },
-    {
-      orderId: 13,
-      empId: 1,
-      empName: "akshay kumar",
-      email: "akshay@gmail.com",
-      itemRequested: "human",
-      qty: 1,
-      shippingAddress: "banglore",
-      shippedDate: null,
-      phnNo: 0,
-      orderDate: "Thu, 22 Apr 2021 15:35:12 IST",
-      isRejectedByAdmin: 0
-  },
-  {
-    orderId: 13,
-    empId: 1,
-    empName: "akshay kumar",
-    email: "akshay@gmail.com",
-    itemRequested: "human",
-    qty: 1,
-    shippingAddress: "banglore",
-    shippedDate: null,
-    phnNo: 0,
-    orderDate: "Thu, 22 Apr 2021 15:35:12 IST",
-    isRejectedByAdmin: 0
-},{
-  orderId: 13,
-  empId: 1,
-  empName: "akshay kumar",
-  email: "akshay@gmail.com",
-  itemRequested: "human",
-  qty: 1,
-  shippingAddress: "banglore",
-  shippedDate: null,
-  phnNo: 0,
-  orderDate: "Thu, 22 Apr 2021 15:35:12 IST",
-  isRejectedByAdmin: 0
-}
-    ]
+    if(!window.sessionStorage.getItem('auth-token')){
+      this.router.navigate(['login']);
+    }
+    this.authService.getOrdersForEmployee().subscribe(data => {
+      this.orders = data.body;
+    }, err => {
+      console.log(err.error.message);
+    });
   }
 
 }
