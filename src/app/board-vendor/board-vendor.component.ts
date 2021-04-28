@@ -10,21 +10,12 @@ import { AuthService } from '../_services/auth.service';
 })
 export class BoardVendorComponent implements OnInit {
 
+  monthArray: string[] = [' ', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   orders: Order[];
   dt: Date[];
-
-  setShippingDate(shippingDate: string): any{
-    if(shippingDate){
-      console.log(new Date(shippingDate));
-      return shippingDate;
-    }
-    return null;
-  }
-
-  getShippingDate(shippingDate: any): any {
-    //console.log(shippingDate);
-    return shippingDate;
-  }
+  //datePayload: string;
+  map: any = new Map();
+  array: any = new Map() ;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -46,27 +37,37 @@ export class BoardVendorComponent implements OnInit {
     return false;
   }
 
-  confirmOrder(orderId: number, date: string): void {
-    console.log(date);
-    if(date.length == 10 && date[2] == '-' && date[5] == '-'){
-        for(let i=0;i<10;i++){
-          if(i==2 || i==5){
-            continue;
-          } else if(date[i] >= '0' && date[i] <= '9'){
-            continue;
-          } else {
-            console.log(date[i], i);
-            return;
-          }
-        }
-        console.log(date);
-        // this.authService.updateOrderByVendor(orderId, date).subscribe(data => {
-        //   console.log(data);
-        //   window.location.reload(); 
-        // }, err => {
-        //   console.log(err);
-        // });
-      }
+  setShippingDate(shippingDate: string): any{
+    if(shippingDate){
+      const getShippingDate = shippingDate.substr(8, 2) + "-" + this.monthArray.indexOf(shippingDate.substr(4, 3)) + "-" + shippingDate.substr(24, 4);
+      //console.log(getShippingDate);
+      //console.log((new Date(getShippingDate)).toDateString());
+      return shippingDate.substr(0, 10);
+    }
+    return null;
+  }
+
+  getShippingDate(shippingDate: string, orderId: number): any {
+    const datePayload =  shippingDate.split("-").reverse().join("-");
+    console.log(datePayload);
+    this.array.set(orderId, datePayload);
+    //this.confirmOrder(orderDate);
+    return shippingDate;
+  }
+
+  confirmOrder(): void {
+    //console.log(orderId, this.datePayload);
+    this.array.forEach((element: any, index: any) => {
+      console.log(element, index);
+      this.authService.updateOrderByVendor(index, element).subscribe(data => {
+        console.log(data);
+        window.location.reload(); 
+      }, err => {
+        console.log(err);
+      });
+    });
+    
+        
   }
 
 }

@@ -1,0 +1,15 @@
+
+table  {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1em;
+}
+th, td {
+    letter-spacing: 1px;
+}
+td{
+    height: 120px;
+    vertical-align: middle;
+}
+td > span {
+    font-size: 0.8em;
+}

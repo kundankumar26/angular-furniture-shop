@@ -1,0 +1,16 @@
+.navbar{
+    background-color: #2d4659;
+    height: 80px;
+    font-size: 1.2em;
+    text-align: center;
+}
+span#brand-color{
+    color: #ffffff;
+    font-size: 1.4em;
+}
+a:hover {
+    color: #f28500;
+}
+span{
+    font-size: 0.65em;
+}

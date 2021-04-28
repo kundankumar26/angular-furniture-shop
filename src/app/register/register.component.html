@@ -1,81 +1,137 @@
-
-
-<div class="col-md-12">
-    <div class="card card-container">
-      <div class="card-header" style="text-align: center">
+<div class="container-fluid">
+  <div class="signup-component">
+    <!-- <div class="card-header" style="text-align: center">
         <h4>Register</h4>
-    </div>
+      </div> -->
 
-      <form [formGroup]="signupForm" (ngSubmit)="signup()">
-        <div class="form-group row">
-          <label for="employeeId" class="col-md-4 col-form-label text-md-right">Employee ID</label>
-          <div class="col-md-6">
-              <input type="number" [formControlName]="'empId'" id="employeeId" 
-                      class="form-control" name="email-address" required autofocus>
-              <span *ngIf="!signupForm.get('empId').valid && signupForm.get('empId').touched"> Please provide a valid employee Id </span>                                    
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label class="col-md-2 col-form-label text-md-right">First Name</label>
-          <div class="col-md-4">
-              <input type="text" [formControlName]="'empFirstName'"class="form-control" required autofocus>
-              <span *ngIf="!signupForm.get('empFirstName').valid && signupForm.get('empFirstName').touched"> 
-                Please provide a valid First Name </span>                                 
-          </div>
-
-          <label class="col-md-2 col-form-label text-md-right">Last Name</label>
-          <div class="col-md-4">
-              <input type="text" [formControlName]="'empLastName'"class="form-control" required autofocus>
-              <span *ngIf="!signupForm.get('empLastName').valid && signupForm.get('empLastName').touched"> 
-                Please provide a valid Last Name </span>                                 
-          </div>
-        </div>
-        
-        <div class="form-group row">
-          <label class="col-md-4 col-form-label text-md-right">Username</label>
-          <div class="col-md-6">
-              <input type="text" [formControlName]="'empUsername'"class="form-control" required autofocus>
-              <span *ngIf="!signupForm.get('empUsername').valid && signupForm.get('empUsername').touched"> 
-                Please provide a valid username </span>                                 
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail </label>
-          <div class="col-md-6">
-              <input type="text" [formControlName]="'email'" id="email_address" class="form-control" 
-                  name="email" required autofocus>
-              <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
-                  Please provide a valid email </span>                                    
-          </div>
+    <form [formGroup]="signupForm" (ngSubmit)="signup()" style="border: 1px solid rgb(136, 136, 136); padding: 20px;">
+      <div style="text-align: center">
+        <h2>Sign Up</h2>
       </div>
 
       <div class="form-group row">
-        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+        <label for="employeeId" class="col-md-4 col-form-label text-md-right">Employee ID</label>
         <div class="col-md-6">
-            <input type="password" [formControlName]="'empPassword'" id="password" class="form-control" name="empPassword" required>
-            <span *ngIf="">
-                Please provide a valid Password </span>  
+          <input type="number" [formControlName]="'empId'" id="employeeId" class="form-control" name="email-address" required autofocus
+            required aria-describedby="empIdHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('empId').errors }">
+          <small *ngIf="!submitted" id="empIdHelpBlock" class="form-text text-muted"> Your emp ID must have 6 digits only. </small>
+          <span *ngIf="submitted" class="invalid-feedback"> Your emp ID must have 6 digits only. </span>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right"> Role </label>
+        <label for="employeeFirstName" class="col-md-4 col-form-label text-md-right">First Name</label>
         <div class="col-md-6">
-            <input type="text" [formControlName]="'role'"class="form-control" required autofocus>
-            <span *ngIf="!signupForm.get('role').valid && signupForm.get('role').touched"> 
-              Please provide a valid role </span>                                 
+          <input type="text" id="employeeFirstName" [formControlName]="'empFirstName'" class="form-control" required autofocus aria-describedby="firstNameHelpBlock"
+            [ngClass]="{ 'is-invalid': submitted && signupForm.get('empFirstName').errors }">
+          <small *ngIf="!submitted" id="firstNameHelpBlock" class="form-text text-muted"> Your first name must be 1-20 characters. </small>
+          <span *ngIf="submitted" class="invalid-feedback"> Your first name must be 1-20 characters. </span>
         </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-md-right">Last Name</label>
+        <div class="col-md-6">
+          <input type="text" [formControlName]="'empLastName'" class="form-control" required autofocus
+            aria-describedby="lastnameHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('empLastName').errors }">
+          <small *ngIf="!submitted" id="lastnameHelpBlock" class="form-text text-muted"> Your last name must be 1-20 characters. </small>
+          <span *ngIf="submitted" class="invalid-feedback"> Your last name must be 1-20 characters. </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-md-right">Username</label>
+        <div class="col-md-6">
+          <input type="text" [formControlName]="'empUsername'" class="form-control" required autofocus
+            aria-describedby="usernameHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('empUsername').errors }">
+          <small *ngIf="!submitted" id="usernameHelpBlock" class="form-text text-muted">Your username must be 8-20 characters.</small>
+          <span *ngIf="submitted" class="invalid-feedback"> Your username must be 6-20 characters. </span>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label for="email_address" class="col-md-4 col-form-label text-md-right"> E-Mail </label>
+        <div class="col-md-6">
+          <input type="text" [formControlName]="'email'" id="email_address" class="form-control" name="email" required autofocus
+            aria-describedby="emailHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('email').errors }">
+          <small *ngIf="!submitted" id="emailHelpBlock" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <span *ngIf="submitted" class="invalid-feedback"> Please provide a valid email. </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="password" class="col-md-4 col-form-label text-md-right"> Password </label>
+        <div class="col-md-6">
+          <input type="password" [formControlName]="'empPassword'" id="password" class="form-control" name="empPassword" required autofocus
+            aria-describedby="passwordHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('empPassword').errors }">
+          <small *ngIf="!submitted" id="passwordHelpBlock" class="form-text text-muted">
+            Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji. </small>
+          <span *ngIf="submitted" class="invalid-feedback"> Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.  </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+
+          <label for="role" class="col-md-4 col-form-label text-md-right">Role</label>
+          <div class="col-md-6">
+            <select [formControlName]="'role'" class="form-control" [ngClass]="{ 'is-invalid': submitted && signupForm.get('role').errors }" 
+              aria-describedby="passwordHelpBlock">
+                <option value="employee" active> Employee </option>
+                <option value="vendor"> Vendor </option>
+            </select>
+          
+          <small *ngIf="!submitted" id="emailHelpBlock" class="form-text text-muted"> Role can be Employee or Vendor.</small>
+          <div *ngIf="submitted && signupForm.get('role').errors" class="invalid-feedback">
+              <div *ngIf="signupForm.get('role').errors.required">Role is required.</div>
+          </div>
+        </div>
+
+
+        <!-- <div class="btn-group">
+          <button class="btn btn-info dropdown-toggle" [formControlName]="'role'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Role
+          </button>
+          <div class="dropdown-menu">
+            <option class="dropdown-item" *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+            <a class="dropdown-item" [ngValue]="employee" > Employee </a>
+          </div>
+        </div> -->
+
+        <!-- <label class="col-md-4 col-form-label text-md-right"> Role </label>
+        <div class="col-md-6">
+            <input type="text" [formControlName]="'role'" class="form-control" required autofocus>
+            <span *ngIf="!signupForm.get('role').valid && signupForm.get('role').touched"> Please provide a valid role </span>                                 
+        </div> -->
       </div>
 
       <span class="col-md-6 offset-md-4">
-        <button type="submit" class="sign-up">
-            Sign Up
-        </button>
+        <button type="submit" [disabled]="loading" class="btn btn-success"> <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>  Sign up </button>
         <span style="padding-left: 15px">Existing user? <a routerLink="/login">Log In</a></span>
       </span>
+      <div class="form-group">
+        <div class="alert alert-danger" role="alert" *ngIf="isSignUpFailed"> Login failed: {{ errorMessage }} </div>
+        <div class="alert alert-success" role="alert" *ngIf="isSignUpSuccess">
+          This is a success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+        </div>
+      </div>
 
     </form>
   </div>
+
 </div>
+
+
+
+<!-- <div class="form-group row">
+  <label for="employeeId" class="col-md-4 col-form-label text-md-right">Employee ID</label>
+  <div class="col-md-6">
+    <input type="number" [formControlName]="'empId'" id="employeeId" class="form-control" name="email-address" required autofocus
+      required aria-describedby="empIdHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('empId').errors }">
+    <small *ngIf="!submitted" id="empIdHelpBlock" class="form-text text-muted"> Your emp ID must have 6 digits only. </small>
+    <div *ngIf="submitted && signupForm.get('empId').errors" class="invalid-feedback">
+      <div *ngIf="signupForm.get('empId').errors">Employee Id is required</div>
+    </div>
+    <div *ngIf="!signupForm.get('empId').valid && signupForm.get('empId').touched"> Please provide a valid employee Id </div>                                    
+  </div>
+</div> -->
