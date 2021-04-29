@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from '../models/order';
 import { AuthService } from '../_services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './board-vendor.component.html',
   styleUrls: ['./board-vendor.component.css']
 })
-export class BoardVendorComponent implements OnInit {
+export class BoardVendorComponent implements OnInit, OnChanges {
 
   loading: boolean = false;
   anyOrderChanged: boolean = false;
@@ -17,6 +17,9 @@ export class BoardVendorComponent implements OnInit {
   map: any = new Map();
   
   constructor(private authService: AuthService, private router: Router) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
   //CHECK IF VENDOR LOGGED IN, THEN GET ALL THE ORDERS
   ngOnInit(): void {
@@ -57,7 +60,7 @@ export class BoardVendorComponent implements OnInit {
       //console.log(element, index);
       this.authService.updateOrderByVendor(index, element).subscribe(data => {
         this.loading = false;
-        window.location.reload(); 
+        //window.location.reload(); 
       }, err => {
         this.loading = false;
         console.log(err);

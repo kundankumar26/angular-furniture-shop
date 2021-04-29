@@ -15,7 +15,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
 export class LoginComponent implements OnInit {
 
   user: User = new User();
-  isLoggedIn = false;
+  isLoginSuccess = false;
   isLoginFailed = false;
   signInForm: FormGroup;
   submitted: boolean = false;
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
+      this.isLoginSuccess = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
     this.signInForm = new FormGroup({
@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-
     if (this.signInForm.invalid) {
       return;
     }
@@ -55,21 +54,21 @@ export class LoginComponent implements OnInit {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
       this.isLoginFailed = false;
-      this.isLoggedIn = true;
+      this.isLoginSuccess = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.sharedServices.sendClickEvent();
-
+      
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showVendorBoard = this.roles.includes('ROLE_VENDOR');
       this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
       
       if(this.showEmployeeBoard){
-        this.router.navigate(['employee']);
+        this.router.navigate(['orders']);
       } else if(this.showVendorBoard){
         this.router.navigate(['vendor']);
       } else if(this.showAdminBoard){
         this.router.navigate(['admin']);
       }
+      this.sharedServices.sendClickEvent();
     }, err => {
       this.errorMessage = err.error.message;
       this.isLoginFailed = true;
