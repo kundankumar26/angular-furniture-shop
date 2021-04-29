@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'employee', component: EmployeeComponent},
   {path: 'admin', component: BoardAdminComponent},
   {path: 'vendor', component: BoardVendorComponent},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', redirectTo: 'orders', pathMatch: 'full'},
 ];
 
 @NgModule({

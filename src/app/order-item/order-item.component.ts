@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Order } from '../models/order';
 import { AuthService } from '../_services/auth.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-order-item',
@@ -11,7 +12,6 @@ import { AuthService } from '../_services/auth.service';
 })
 export class OrderItemComponent implements OnInit {
 
-  
   order: Order[] = [];
   form: any = {};
   index: number = 0;
@@ -25,10 +25,13 @@ export class OrderItemComponent implements OnInit {
   buttonMouseDisabled: boolean = false;
   buttonChairDisabled: boolean = false;
   buttonTableDisabled: boolean = false;
+  isLoggedIn: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService, private modalService: NgbModal) { }
+  constructor(private tokenStorageService: TokenStorageService, private router: Router, 
+    private authService: AuthService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
     this.index = 0;
   }
 

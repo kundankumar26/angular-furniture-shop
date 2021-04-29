@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   errorMessage = '';
   roles: String[];
+  showEmployeeBoard: any;
+  showVendorBoard: any;
+  showAdminBoard: any;
   constructor(private authService: AuthService, private router: Router, 
     private tokenStorage: TokenStorageService, private sharedServices: SharedService) { }
 
@@ -54,7 +57,19 @@ export class LoginComponent implements OnInit {
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.sharedServices.sendClickEvent();      
+      this.sharedServices.sendClickEvent();
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showVendorBoard = this.roles.includes('ROLE_VENDOR');
+      this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
+      
+      if(this.showEmployeeBoard){
+        this.router.navigate(['employee']);
+      } else if(this.showVendorBoard){
+        this.router.navigate(['vendor']);
+      } else if(this.showAdminBoard){
+        this.router.navigate(['admin']);
+      }
     }, err => {
       this.errorMessage = err.error.message;
       this.isLoginFailed = true;
