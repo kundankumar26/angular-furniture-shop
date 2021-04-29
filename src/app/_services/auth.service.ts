@@ -32,6 +32,16 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'employee/', httpOptions);
   }
 
+  createOrderForEmployee(payload: any): Observable<any>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
+      })
+    };
+    return this.httpClient.post(AUTH_API + 'employee/', payload, httpOptions);
+  }
+
   getOrdersForVendor(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 

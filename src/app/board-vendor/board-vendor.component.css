@@ -4,7 +4,7 @@ table  {
     font-size: 1em;
 }
 th, td {
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
 }
 td{
     height: 120px;

@@ -1,25 +1,31 @@
 <div class="container-fluid">
   <div class="login-component">
 
-    <form (ngSubmit)="onSubmit()" *ngIf="!isLoggedIn" style="border: 1px solid rgb(136, 136, 136); padding: 30px;">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" style="border: 1px solid rgb(136, 136, 136); padding: 30px;">
       <div style="text-align: center">
         <h2>Sign In</h2>
       </div>
 
-      <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right">Username</label>
-        <div class="col-md-6">
-          <input type="text"  class="form-control" required name='emailid' [(ngModel)]="username"
-            >
-          <span *ngIf="submitted" class="invalid-feedback">Your username must be 8-20 characters. </span>
+      <div class="form-group">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isLoginFailed"> {{ errorMessage }} 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-md-4 col-form-label text-md-right">Password</label>
-        <div class="col-md-6">
-          <input type="password" class="form-control" name='password' [(ngModel)]="password"
-            >
+        <div class="col-md-12">
+          <input type="text" [formControlName]="'username'" class="form-control" required
+            [ngClass]="{ 'is-invalid': submitted && signInForm.get('username').errors }" placeholder="username">
+          <span *ngIf="submitted" class="invalid-feedback">Your username must be 4-20 characters. </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-md-12">
+          <input type="password" [formControlName]="'password'" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && signInForm.get('password').errors }" placeholder="password">
           <span *ngIf="submitted" class="invalid-feedback"> Your password must be 6-20 characters. </span>
         </div>
       </div>
@@ -27,12 +33,6 @@
       <div style="display:flex; justify-content: center;">
         <button class="btn btn-success" type="submit">Sign in</button>
       </div>
-
-      <div class="form-group">
-        <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed"> Login failed: {{ errorMessage }} </div>
-      </div>
-
-      <div class="alert alert-success" *ngIf="isLoggedIn"> Logged in as {{ roles }}. </div>
     </form>
   </div>
 </div>

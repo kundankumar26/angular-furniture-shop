@@ -14,6 +14,7 @@ export class SharedService {
   sendClickEvent() {
     this.subject.next();
   }
+  
   getClickEvent(): Observable<any>{ 
     return this.subject.asObservable();
   }

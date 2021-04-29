@@ -10,64 +10,59 @@ import { AuthService } from '../_services/auth.service';
 })
 export class BoardVendorComponent implements OnInit {
 
+  loading: boolean = false;
+  anyOrderChanged: boolean = false;
   monthArray: string[] = [' ', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   orders: Order[];
-  dt: Date[];
-  //datePayload: string;
   map: any = new Map();
-  array: any = new Map() ;
-
+  
   constructor(private authService: AuthService, private router: Router) { }
 
+  //CHECK IF VENDOR LOGGED IN, THEN GET ALL THE ORDERS
   ngOnInit(): void {
     if(!window.sessionStorage.getItem('auth-token')){
       this.router.navigate(['login']);
     }
     this.authService.getOrdersForVendor().subscribe(data => {
       this.orders = data.body;
-      //console.log(data.body);
     }, err => {
       console.log(err.error.message);
     });
   }
 
-  isDisabled(value: string): boolean {
-    if(value!=null && value.length >=11)
-      return true;
-    return false;
-  }
-
   setShippingDate(shippingDate: string): any{
     if(shippingDate){
       const getShippingDate = shippingDate.substr(8, 2) + "-" + this.monthArray.indexOf(shippingDate.substr(4, 3)) + "-" + shippingDate.substr(24, 4);
-      //console.log(getShippingDate);
-      //console.log((new Date(getShippingDate)).toDateString());
       return shippingDate.substr(0, 10);
     }
     return null;
   }
 
+  //CHANGE THE SHIPPING DATE ACCORDING TO DATABASE FORMAT
   getShippingDate(shippingDate: string, orderId: number): any {
+    //console.log(shippingDate.split("-"), shippingDate.split("-").reverse(), shippingDate.split("-").reverse().join("-"));
     const datePayload =  shippingDate.split("-").reverse().join("-");
-    console.log(datePayload);
-    this.array.set(orderId, datePayload);
-    //this.confirmOrder(orderDate);
+    this.map.set(orderId, datePayload);
+    this.anyOrderChanged = true;
     return shippingDate;
   }
 
-  confirmOrder(): void {
-    //console.log(orderId, this.datePayload);
-    this.array.forEach((element: any, index: any) => {
-      console.log(element, index);
+  changeOrders(orders: any){
+    console.log(orders);
+  }
+
+  updateOrders(): void {
+    this.loading = true;
+    this.map.forEach((element: any, index: any) => {
+      //console.log(element, index);
       this.authService.updateOrderByVendor(index, element).subscribe(data => {
-        console.log(data);
+        this.loading = false;
         window.location.reload(); 
       }, err => {
+        this.loading = false;
         console.log(err);
       });
     });
-    
-        
   }
 
 }

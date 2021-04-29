@@ -1,3 +1,4 @@
+import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,8 +19,6 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   signInForm: FormGroup;
   submitted: boolean = false;
-  username: string;
-  password: string;
   errorMessage = '';
   roles: String[];
   constructor(private authService: AuthService, private router: Router, 
@@ -31,39 +30,36 @@ export class LoginComponent implements OnInit {
       this.roles = this.tokenStorage.getUser().roles;
     }
     this.signInForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+      username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
 
+
   onSubmit(): void {
     this.submitted = true;
-    console.log(this.user);
-    var payload: any = {
-      username: this.username,
-      password: this.password,
+
+    if (this.signInForm.invalid) {
+      return;
     }
+
+    var payload: any = {
+      username: this.signInForm.get('username').value,
+      password: this.signInForm.get('password').value,
+    }
+
     this.authService.signin(payload).subscribe(data => {
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
-
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.sharedServices.sendClickEvent();
-      console.log(this.roles[0]);
-      
-
-      // console.log(this.roles);
-      // setTimeout(() => 
-      // {
-      //     this.router.navigate(['/employee']);
-      // },
-      // 1000);
+      this.sharedServices.sendClickEvent();      
     }, err => {
       this.errorMessage = err.error.message;
       this.isLoginFailed = true;
-    })
+    });
+    this.isLoginFailed = false;
   }
 
 }
