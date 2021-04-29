@@ -22,33 +22,25 @@ export class HeaderComponent implements OnInit {
   constructor(private tokenStorageService: TokenStorageService, private sharedService: SharedService, 
       private router: Router) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
-      window.location.reload();
-      console.log("inside header");
+      this.checkIfUserLoggedIn();
     });
   }
 
   ngOnInit(): void {
+    this.checkIfUserLoggedIn();
+  }
+
+  checkIfUserLoggedIn(){
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-
-    if (this.isLoggedIn) {
-      const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showVendorBoard = this.roles.includes('ROLE_VENDOR');
-      this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
-
-      this.username = user.username;
-      console.log(user.roles);
-
-      if(this.showEmployeeBoard){
-        this.router.navigate(['employee']);
-      } else if(this.showVendorBoard){
-        this.router.navigate(['vendor']);
-      } else if(this.showAdminBoard){
-        this.router.navigate(['admin']);
+      if(this.isLoggedIn){
+        const user = this.tokenStorageService.getUser();
+        this.roles = user.roles;
+        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+        this.showVendorBoard = this.roles.includes('ROLE_VENDOR');
+        this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
+        this.username = user.username;
+        console.log(this.username);
       }
-    }
   }
 
   logout(): void {
