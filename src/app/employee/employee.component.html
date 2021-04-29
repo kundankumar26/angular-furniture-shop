@@ -1,25 +1,23 @@
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Order Id</th>
-            <th>Item ordered</th>
-            <th>Qty</th>
-            <th>Shipping Address</th>
-            <th>Phone no</th>
-            <th>Order Date</th>
-            <th>Shipped Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let order of orders">
-            <td>{{ order.orderId }}</td>
-            <td>{{ order.itemRequested }}</td>
-            <td>{{ order.qty }}</td>
-            <td>{{ order.shippingAddress }}</td>
-            <td>{{ order.phnNo }}</td>
-            <td>{{ order.orderDate | slice:0:11 }}</td>
-            <td>{{ order.shippedDate | slice:0:11 }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table table-striped" style="text-align: center;">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Item ordered</th>
+                <th>Shipping Address</th>
+                <th>Order Date</th>
+                <th>Shipped Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{ order.orderId }}</td>
+                <td>{{ order.itemRequested | titlecase}} <br> <span>Qty: {{ order.qty }}</span></td>
+                <td>{{ order.shippingAddress | titlecase}} <br> {{ order.phnNo }}</td>
+                <td>{{ order.orderDate | slice:0:11 }}</td>
+                <td><b>{{ order.shippedDate | slice:0:11 }}</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

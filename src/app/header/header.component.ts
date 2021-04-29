@@ -41,13 +41,13 @@ export class HeaderComponent implements OnInit {
       this.username = user.username;
       console.log(user.roles);
 
-      if(this.showEmployeeBoard){
-        this.router.navigate(['employee']);
-      } else if(this.showVendorBoard){
-        this.router.navigate(['vendor']);
-      } else if(this.showAdminBoard){
-        this.router.navigate(['admin']);
-      }
+      // if(this.showEmployeeBoard){
+      //   this.router.navigate(['employee']);
+      // } else if(this.showVendorBoard){
+      //   this.router.navigate(['vendor']);
+      // } else if(this.showAdminBoard){
+      //   this.router.navigate(['admin']);
+      // }
     }
   }
 

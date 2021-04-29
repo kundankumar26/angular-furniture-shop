@@ -13,6 +13,8 @@ import { BoardVendorComponent } from './board-vendor/board-vendor.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { HeaderComponent } from './header/header.component';
+import { OrderItemComponent } from './order-item/order-item.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { HeaderComponent } from './header/header.component';
     BoardVendorComponent,
     BoardAdminComponent,
     EmployeeComponent,
-    HeaderComponent
+    HeaderComponent,
+    OrderItemComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

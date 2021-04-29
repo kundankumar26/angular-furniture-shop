@@ -1,0 +1,9 @@
+.signup-component {
+    max-width: 50%;
+    margin: 50px auto;
+}
+
+form > div > h2 {
+    letter-spacing: 0.2px;
+    color: rgba(0, 0, 0, 0.7);
+}

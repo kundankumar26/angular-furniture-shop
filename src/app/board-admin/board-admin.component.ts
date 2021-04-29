@@ -27,6 +27,13 @@ export class BoardAdminComponent implements OnInit {
     });
   }
 
+  ifAcceptedByAdmin(isRejectedByAdmin: number): string{
+    if(isRejectedByAdmin == 1){
+      return "Accepted";
+    }
+    return "Rejected";
+  }
+
   acceptOrder(orderId: number, qty: number){
     this.authService.acceptOrderByAdmin(orderId, qty).subscribe(data => {
       console.log(data);
