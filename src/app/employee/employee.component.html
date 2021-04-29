@@ -16,7 +16,7 @@
                 <td>{{ order.itemRequested | titlecase}} <br> <span>Qty: {{ order.qty }}</span></td>
                 <td>{{ order.shippingAddress | titlecase}} <br> {{ order.phnNo }}</td>
                 <td>{{ order.orderDate | slice:0:11 }}</td>
-                <td><b>{{ order.shippedDate | slice:0:11 }}</b></td>
+                <td><b>{{ order.isRejectedByAdmin == 1 ? (order.shippedDate | slice:0:11) : "Rejected" }}</b></td>
             </tr>
         </tbody>
     </table>
