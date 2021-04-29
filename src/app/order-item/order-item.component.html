@@ -28,123 +28,121 @@
 </head> -->
 
 
-
+<div class="container" style="padding: 0 0 10px 0;">
 <!-- products -->
-<div class="new-products text-center">
-  <h3>Products</h3>
-  <div class="container">
-    <div class="row col-md-4">
-      <div class="col-md-4 text-center img-thumbnail shadow">
-          <img src="assets/images/25.jpg" class="rounded" /><br>
-          <label style="color: rgb(107, 107, 107);">LG Monitor</label><br>
-          <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary btn-lg"
-              (click)="addLGMonitor(true)">Add to cart</button>
-          <!-- <div class="simpleCart_shelfItem">
-            
-          </div> -->
-      </div>
+  <div class="new-products text-center">
+    <div class="container">
+      <div class="row col-md-4">
+        <div class="col-md-4 text-center img-thumbnail shadow">
+            <img src="assets/images/25.jpg" class="rounded" /><br>
+            <label style="color: rgb(107, 107, 107);">LG Monitor</label><br>
+            <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
+                (click)="addLGMonitor(true)">Add to cart</button>
+            <!-- <div class="simpleCart_shelfItem">
+              
+            </div> -->
+        </div>
 
-      <div class="col-md-4 text-center img-thumbnail shadow">
-        <img src="assets/images/42.jpg" class="rounded" /><br>
-        <label style="color: rgb(107, 107, 107);">HP Monitor</label><br>
-        <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
-            (click)="addHPMonitor(true)">Add to cart</button>
-      </div>
+        <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/42.jpg" class="rounded" /><br>
+          <label style="color: rgb(107, 107, 107);">HP Monitor</label><br>
+          <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
+              (click)="addHPMonitor(true)">Add to cart</button>
+        </div>
 
-      <div class="col-md-4 text-center img-thumbnail shadow">
-        <img src="assets/images/27.jpg" class="rounded" /><br>
-        <label style="color: rgb(107, 107, 107);">KeyBoard</label><br>
-        <button type="submit" id="keyboard" [disabled]="buttonKeyboardDisabled" class="btn btn-primary"
-              (click)="addKeybord(true)">Add to cart</button>
-      </div>
+        <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/27.jpg" class="rounded" /><br>
+          <label style="color: rgb(107, 107, 107);">KeyBoard</label><br>
+          <button type="submit" id="keyboard" [disabled]="buttonKeyboardDisabled" class="btn btn-primary"
+                (click)="addKeybord(true)">Add to cart</button>
+        </div>
 
-      <div class="col-md-4 text-center img-thumbnail shadow">
-        <img src="assets/images/34.jpg" class="rounded" /><br>
-        <label style="color: rgb(107, 107, 107);"> Mouse </label><br>
-        <button type="submit" id="mouse" [disabled]="buttonMouseDisabled" class="btn btn-primary"
-              (click)="addMouser(true)">Add to cart</button>
-      </div>
+        <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/34.jpg" class="rounded" /><br>
+          <label style="color: rgb(107, 107, 107);"> Mouse </label><br>
+          <button type="submit" id="mouse" [disabled]="buttonMouseDisabled" class="btn btn-primary"
+                (click)="addMouser(true)">Add to cart</button>
+        </div>
 
-      <div class="col-md-4 text-center img-thumbnail shadow">
-        <img src="assets/images/47.jpg" class="rounded"/><br>
-        <label style="color: rgb(107, 107, 107);"> Table 1 </label><br>
-        <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
-              (click)="addtable1(true)">Add to cart</button>
-      </div>
+        <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/47.jpg" class="rounded"/><br>
+          <label style="color: rgb(107, 107, 107);"> Table 1 </label><br>
+          <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
+                (click)="addtable1(true)">Add to cart</button>
+        </div>
 
-      <div class="col-md-4 text-center img-thumbnail shadow">
-        <img src="assets/images/48.jpg" class="rounded"/><br>
-        <label style="color: rgb(107, 107, 107);"> Table 2 </label><br>
-        <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
-              (click)="addtable2(true)">Add to cart</button>
-      </div>
+        <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/48.jpg" class="rounded"/><br>
+          <label style="color: rgb(107, 107, 107);"> Table 2 </label><br>
+          <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
+                (click)="addtable2(true)">Add to cart</button>
+        </div>
 
-      <div class="col-md-4 text-center img-thumbnail shadow">
-        <img src="assets/images/37.jpg" class="rounded"/><br>
-        <label style="color: rgb(107, 107, 107);">Chair</label><br>
-        <button type="submit" id="chair" class="btn btn-primary" [disabled]="buttonChairDisabled"
-              (click)="addchair(true)">Add to cart</button>
+        <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/37.jpg" class="rounded"/><br>
+          <label style="color: rgb(107, 107, 107);">Chair</label><br>
+          <button type="submit" id="chair" class="btn btn-primary" [disabled]="buttonChairDisabled"
+                (click)="addchair(true)">Add to cart</button>
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <div class="container" *ngIf="map.size != 0">
-    <table class="table table-bordered" id="Items-list">
-      <thead>
-        <th>Items Selected</th>
-        <th>Quantity</th>
-        <th>Remove</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mapEntry of map| keyvalue">
-          <td>{{ mapEntry.key }}</td>
-          <td>1</td>
-          <td>
-            <button type="button" class="btn btn-outline-danger" (click)="Remove(mapEntry.key)">Remove</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <button type="button" class="btn btn-secondary" style="margin: 50px;" (click)="confirmOrder()">Confirm
-      Orders </button>
+    <div class="container" *ngIf="map.size != 0">
+      <table class="table table-bordered" id="Items-list">
+        <thead>
+          <th>Items Selected</th>
+          <th>Quantity</th>
+          <th>Remove</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mapEntry of map| keyvalue">
+            <td>{{ mapEntry.key }}</td>
+            <td>1</td>
+            <td>
+              <button type="button" class="btn btn-outline-danger" (click)="Remove(mapEntry.key)">Remove</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-secondary" *ngIf="isLoggedIn" style="margin: 20px;" (click)="confirmOrder()">Confirm
+        Orders </button>
+    </div>
   </div>
-</div>
 
 <!--button-->
-<div class="container" id="TestsDiv" style="display: none;">
-  <h2>Details</h2>
-
-  <form name="form" (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>
-
-    <div class="form-group">
-      <label for="address">Address </label>
-      <input type="text" class="form-control" name="employeeShippingAddress" [(ngModel)]="employeeShippingAddress"
-        placeholder="shipping Address" required #ShippingAddress="ngModel">
-      <div class="alert alert-danger" role="alert" *ngIf="f.submitted && ShippingAddress.invalid">
-        Address is required!
+  <div class="container col-md-8" id="TestsDiv" style="display: none;">
+  
+    <form name="form" class="border rounded" style="color: rgb(107, 107, 107);padding: 50px; margin: 10px auto 100px auto;" 
+      (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>
+      <h2>Delivery Address</h2>
+      <div class="form-group row col-md-12">
+        <label for="address">Address </label>
+        <input type="text" class="form-control" name="employeeShippingAddress" [(ngModel)]="employeeShippingAddress"
+          placeholder="Shipping Address" required #ShippingAddress="ngModel">
+        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && ShippingAddress.invalid">
+          Address is required!
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="phno">Contact details</label>
-      <input type="number" class="form-control" [(ngModel)]="employeePhoneNumber" placeholder="phone number"
-        name="employeePhoneNumber" required minlength="10" maxlength="10" #PhoneNumber="ngModel" />
-
-      <div class="alert alert-danger" role="alert" *ngIf="f.submitted && PhoneNumber.invalid">
-
-        <div *ngIf="PhoneNumber.errors.required">Phone Number is required</div>
-        <div *ngIf="PhoneNumber.errors.maxlength">Phone Number should be at least 10</div>
-
+      <div class="form-group row col-md-12">
+        <label for="phno">Contact details</label>
+        <input type="number" class="form-control" [(ngModel)]="employeePhoneNumber" placeholder="Phone Number"
+          name="employeePhoneNumber" required minlength="10" maxlength="10" #PhoneNumber="ngModel" />
+        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && PhoneNumber.invalid">
+          <div *ngIf="PhoneNumber.errors.required">Phone Number is required</div>
+          <div *ngIf="PhoneNumber.errors.maxlength">Phone Number should be at least 10</div>
+        </div>
       </div>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
 
-    <div class="alert alert-success" id="onsubmit" style="display:none">
-      <strong>Success!</strong> Order placed sucessfully.
-    </div>
+      <div class="alert alert-success" id="onsubmit" style="display:none">
+        <strong>Success!</strong> Order placed sucessfully.
+      </div>
 
-  </form>
+    </form>
+  </div>
+
 </div>
 
