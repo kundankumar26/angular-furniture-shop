@@ -31,7 +31,7 @@ export class OrderItemComponent implements OnInit {
     private authService: AuthService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    //this.isLoggedIn = !!this.tokenStorageService.getToken();
     this.index = 0;
   }
 
