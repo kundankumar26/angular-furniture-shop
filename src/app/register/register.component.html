@@ -1,1 +1,81 @@
-<p>register works!</p>
+
+
+<div class="col-md-12">
+    <div class="card card-container">
+      <div class="card-header" style="text-align: center">
+        <h4>Register</h4>
+    </div>
+
+      <form [formGroup]="signupForm" (ngSubmit)="signup()">
+        <div class="form-group row">
+          <label for="employeeId" class="col-md-4 col-form-label text-md-right">Employee ID</label>
+          <div class="col-md-6">
+              <input type="number" [formControlName]="'empId'" id="employeeId" 
+                      class="form-control" name="email-address" required autofocus>
+              <span *ngIf="!signupForm.get('empId').valid && signupForm.get('empId').touched"> Please provide a valid employee Id </span>                                    
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-2 col-form-label text-md-right">First Name</label>
+          <div class="col-md-4">
+              <input type="text" [formControlName]="'empFirstName'"class="form-control" required autofocus>
+              <span *ngIf="!signupForm.get('empFirstName').valid && signupForm.get('empFirstName').touched"> 
+                Please provide a valid First Name </span>                                 
+          </div>
+
+          <label class="col-md-2 col-form-label text-md-right">Last Name</label>
+          <div class="col-md-4">
+              <input type="text" [formControlName]="'empLastName'"class="form-control" required autofocus>
+              <span *ngIf="!signupForm.get('empLastName').valid && signupForm.get('empLastName').touched"> 
+                Please provide a valid Last Name </span>                                 
+          </div>
+        </div>
+        
+        <div class="form-group row">
+          <label class="col-md-4 col-form-label text-md-right">Username</label>
+          <div class="col-md-6">
+              <input type="text" [formControlName]="'empUsername'"class="form-control" required autofocus>
+              <span *ngIf="!signupForm.get('empUsername').valid && signupForm.get('empUsername').touched"> 
+                Please provide a valid username </span>                                 
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail </label>
+          <div class="col-md-6">
+              <input type="text" [formControlName]="'email'" id="email_address" class="form-control" 
+                  name="email" required autofocus>
+              <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
+                  Please provide a valid email </span>                                    
+          </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+        <div class="col-md-6">
+            <input type="password" [formControlName]="'empPassword'" id="password" class="form-control" name="empPassword" required>
+            <span *ngIf="">
+                Please provide a valid Password </span>  
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-4 col-form-label text-md-right"> Role </label>
+        <div class="col-md-6">
+            <input type="text" [formControlName]="'role'"class="form-control" required autofocus>
+            <span *ngIf="!signupForm.get('role').valid && signupForm.get('role').touched"> 
+              Please provide a valid role </span>                                 
+        </div>
+      </div>
+
+      <span class="col-md-6 offset-md-4">
+        <button type="submit" class="sign-up">
+            Sign Up
+        </button>
+        <span style="padding-left: 15px">Existing user? <a routerLink="/login">Log In</a></span>
+      </span>
+
+    </form>
+  </div>
+</div>

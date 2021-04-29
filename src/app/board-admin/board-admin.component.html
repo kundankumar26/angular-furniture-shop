@@ -1,0 +1,30 @@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Email</th>
+            <th>Item ordered</th>
+            <th>Qty</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{ order.orderId }}</td>
+            <td>{{ order.empId }}</td>
+            <td>{{ order.empName }}</td>
+            <td>{{ order.email }}</td>
+            <td>{{ order.itemRequested }}</td>
+            <td><input type="number" class="form-control" [(ngModel)]="order.qty" [disabled]="isDisabled(order.isRejectedByAdmin)"></td>
+            <td *ngIf="order.isRejectedByAdmin==1"> Accepted </td>
+            <td *ngIf="order.isRejectedByAdmin==2"> Rejected </td>
+            <td *ngIf="order.isRejectedByAdmin==0">
+                <button (click)="acceptOrder(order.orderId, order.qty)" class="btn btn-info"> Accept</button>
+                <button (click)="rejectOrder(order.orderId, order.qty)" class="btn btn-danger" style="margin-left: 10px;"> Reject</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
