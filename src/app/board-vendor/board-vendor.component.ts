@@ -15,6 +15,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
   monthArray: string[] = [' ', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   orders: Order[];
   map: any = new Map();
+  updatedItems: any;
   
   constructor(private authService: AuthService, private router: Router) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,17 +51,15 @@ export class BoardVendorComponent implements OnInit, OnChanges {
     return shippingDate;
   }
 
-  changeOrders(orders: any){
-    console.log(orders);
-  }
-
   updateOrders(): void {
     this.loading = true;
     this.map.forEach((element: any, index: any) => {
       //console.log(element, index);
       this.authService.updateOrderByVendor(index, element).subscribe(data => {
         this.loading = false;
-        //window.location.reload(); 
+        this.updatedItems = data.size;
+        console.log(data);
+        //window.location.reload();
       }, err => {
         this.loading = false;
         console.log(err);
