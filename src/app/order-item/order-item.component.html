@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -17,132 +17,79 @@
   <meta charset="utf-8">
   <base href="/">
   <title>Order Items</title>
-  <!-- for-mobile-apps -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
-  <link href="/assets/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-
-  <!-- //Custom Theme files -->
-  <!-- font-awesome icons -->
+  
   <link href="/assets/css/font-awesome.css" rel="stylesheet">
-  <!-- //font-awesome icons -->
   <link href='https://fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
   <link
     href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
     rel='stylesheet' type='text/css'>
-</head>
+</head> -->
 
 
 
 <!-- products -->
-<div class="new-products">
+<div class="new-products text-center">
+  <h3>Products</h3>
   <div class="container">
-    <h3>Products</h3>
-    <div class="agileinfo_new_products_grids">
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/25.jpg" alt=" " class="img-responsive" />
-
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">LG
-              Monitor</label></h5>
-
-          <div class="simpleCart_shelfItem">
-            <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
-              (click)="addLGMonitor(true)">Add tocart</button>
-          </div>
-        </div>
+    <div class="row col-md-4">
+      <div class="col-md-4 text-center img-thumbnail shadow">
+          <img src="assets/images/25.jpg" class="rounded" /><br>
+          <label style="color: rgb(107, 107, 107);">LG Monitor</label><br>
+          <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary btn-lg"
+              (click)="addLGMonitor(true)">Add to cart</button>
+          <!-- <div class="simpleCart_shelfItem">
+            
+          </div> -->
       </div>
 
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/42.jpg" alt=" " class="img-responsive" />
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">HP
-              Monitor</label></h5>
-          <div class="simpleCart_shelfItem">
-            <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
-              (click)="addHPMonitor(true)">Add to cart</button>
-          </div>
-        </div>
+      <div class="col-md-4 text-center img-thumbnail shadow">
+        <img src="assets/images/42.jpg" class="rounded" /><br>
+        <label style="color: rgb(107, 107, 107);">HP Monitor</label><br>
+        <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
+            (click)="addHPMonitor(true)">Add to cart</button>
       </div>
 
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/27.jpg" alt=" " class="img-responsive" />
-
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">KeyBoard</label>
-          </h5>
-
-          <div class="simpleCart_shelfItem">
-
-            <button type="submit" id="keyboard" [disabled]="buttonKeyboardDisabled" class="btn btn-primary"
+      <div class="col-md-4 text-center img-thumbnail shadow">
+        <img src="assets/images/27.jpg" class="rounded" /><br>
+        <label style="color: rgb(107, 107, 107);">KeyBoard</label><br>
+        <button type="submit" id="keyboard" [disabled]="buttonKeyboardDisabled" class="btn btn-primary"
               (click)="addKeybord(true)">Add to cart</button>
-
-          </div>
-        </div>
       </div>
 
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/34.jpg" alt=" " class="img-responsive" />
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">Mouse</label>
-          </h5>
-          <div class="simpleCart_shelfItem">
-
-            <button type="submit" id="mouse" [disabled]="buttonMouseDisabled" class="btn btn-primary"
+      <div class="col-md-4 text-center img-thumbnail shadow">
+        <img src="assets/images/34.jpg" class="rounded" /><br>
+        <label style="color: rgb(107, 107, 107);"> Mouse </label><br>
+        <button type="submit" id="mouse" [disabled]="buttonMouseDisabled" class="btn btn-primary"
               (click)="addMouser(true)">Add to cart</button>
-
-          </div>
-        </div>
       </div>
 
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/47.jpg" alt=" " class="img-responsive" />
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">Table
-              1</label></h5>
-          <div class="simpleCart_shelfItem">
-            <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
-              (click)="addtable1(true)">Add to
-              cart</button>
-          </div>
-        </div>
+      <div class="col-md-4 text-center img-thumbnail shadow">
+        <img src="assets/images/47.jpg" class="rounded"/><br>
+        <label style="color: rgb(107, 107, 107);"> Table 1 </label><br>
+        <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
+              (click)="addtable1(true)">Add to cart</button>
       </div>
 
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/48.jpg" alt=" " class="img-responsive" />
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">Table
-              2</label></h5>
-          <div class="simpleCart_shelfItem">
-            <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
+      <div class="col-md-4 text-center img-thumbnail shadow">
+        <img src="assets/images/48.jpg" class="rounded"/><br>
+        <label style="color: rgb(107, 107, 107);"> Table 2 </label><br>
+        <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
               (click)="addtable2(true)">Add to cart</button>
-          </div>
-        </div>
       </div>
 
-      <div class="col-md-3 agileinfo_new_products_grid">
-        <div class="agile_ecommerce_tab_left agileinfo_new_products_grid1">
-          <img src="assets/images/37.jpg" alt=" " class="img-responsive" />
-          <h5><label
-              style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: crimson;">Chair</label>
-          </h5>
-
-          <div class="simpleCart_shelfItem">
-            <button type="submit" id="chair" class="btn btn-primary" [disabled]="buttonChairDisabled"
+      <div class="col-md-4 text-center img-thumbnail shadow">
+        <img src="assets/images/37.jpg" class="rounded"/><br>
+        <label style="color: rgb(107, 107, 107);">Chair</label><br>
+        <button type="submit" id="chair" class="btn btn-primary" [disabled]="buttonChairDisabled"
               (click)="addchair(true)">Add to cart</button>
-          </div>
-        </div>
       </div>
-      <div class="clearfix"> </div>
     </div>
+  </div>
+
+
+  <div class="container" *ngIf="map.size != 0">
     <table class="table table-bordered" id="Items-list">
       <thead>
         <th>Items Selected</th>
@@ -159,16 +106,13 @@
         </tr>
       </tbody>
     </table>
-    <!-- <button type="button" class="btn btn-secondary" style="margin: 50px;" (click)="confirmOrder()">Confirm
-      Orders </button> -->
+    <button type="button" class="btn btn-secondary" style="margin: 50px;" (click)="confirmOrder()">Confirm
+      Orders </button>
   </div>
-</div>
-<!-- //new-products -->
-<div>
 </div>
 
 <!--button-->
-<!-- <div class="container" id="TestsDiv" style="display: none">
+<div class="container" id="TestsDiv" style="display: none;">
   <h2>Details</h2>
 
   <form name="form" (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>
@@ -193,7 +137,6 @@
         <div *ngIf="PhoneNumber.errors.maxlength">Phone Number should be at least 10</div>
 
       </div>
-
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
@@ -203,49 +146,5 @@
     </div>
 
   </form>
-</div> -->
+</div>
 
-<div class="container" id="TestsDiv" style="display: block">
-
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Delivery Details</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form name="form" (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>
-        <div class="form-group">
-          <label for="dateOfBirth">Delivery Details</label>
-          <div class="input-group">
-              <input type="text" class="form-control" name="employeeShippingAddress" [(ngModel)]="employeeShippingAddress"
-                placeholder="shipping Address" required #ShippingAddress="ngModel">
-            </div>
-      
-            <div class="form-group">
-              <!-- <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)] = "_date" > -->
-              <input type="text" class="form-control" name="employeePhoneNumber" [(ngModel)]="employeePhoneNumber"
-                placeholder="Phone Number" required #ShippingAddress="ngModel">
-            </div>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar"  type="button"></button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">OK</button>
-    </div>
-  </ng-template>
-  
-  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">confirm order</button>
-  
-  <hr>
-  
-  <pre>{{ closeResult }}</pre>
-  </div>
-
-<!--button-->
-
-</html>
