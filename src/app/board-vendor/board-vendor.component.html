@@ -1,8 +1,14 @@
 <div class="container text-center" *ngIf="isAllowedToViewPage == 1" style="padding: 50px 0 0 0;">
-    <img src="https://raw.githubusercontent.com/Rain-shilpa/furniture-shop-angular/main/src/assets/images/403-.jpg"  />
+    <img src="assets/images/403-.jpg"  />
 </div>
 
-<div class="container"  *ngIf="isAllowedToViewPage == 0">
+<div class="container text-center" *ngIf="tokenExpired">
+    <img src="assets/images/404.jpg" class="rounded"/><br>
+    <strong style="font-size:larger; height: 50px;">404 - Page not Found. Token expired. <br> 
+        <a href="http://localhost:4200/login" class='nav-link'> Log in </a></strong>
+</div>
+
+<div class="container"  *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
     <!-- <div class="form-group">
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="anyOrderChanged"> {{ anyOrderChanged }} 
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -39,14 +45,14 @@
         
     </table>
 
-    <!-- <div class="form-group">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="map.size > 0"> 
-            {{ map.size }} item's shipped date updated successfully.
+    <div class="form-group">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage.length > 0"> 
+            {{ errorMessage }} 
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-      </div> -->
+      </div>
 
     <div style="display:flex; justify-content: center;">
         <button style="width: 15%;" class="btn btn-success" *ngIf="anyOrderChanged" (click)="updateOrders()"> 

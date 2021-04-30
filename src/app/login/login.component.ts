@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   showEmployeeBoard: any;
   showVendorBoard: any;
   showAdminBoard: any;
+  
   constructor(private authService: AuthService, private router: Router, 
     private tokenStorage: TokenStorageService, private sharedServices: SharedService) { }
 
@@ -37,7 +38,6 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
   }
-
 
   onSubmit(): void {
     this.submitted = true;
