@@ -12,6 +12,7 @@ export class BoardAdminComponent implements OnInit {
 
   orders: Order[];
   _isDisabled: boolean = false;
+  isAllowedToViewPage: number = 0;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -23,6 +24,8 @@ export class BoardAdminComponent implements OnInit {
       this.orders = data.body;
       //console.log(data.body);
     }, err => {
+      if((err.error.message) == 'Forbidden')
+        this.isAllowedToViewPage = 1;
       console.log(err.error.message);
     });
   }

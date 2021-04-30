@@ -16,6 +16,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
   orders: Order[];
   map: any = new Map();
   updatedItems: any;
+  isAllowedToViewPage: number = 0;
   
   constructor(private authService: AuthService, private router: Router) { }
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,6 +31,8 @@ export class BoardVendorComponent implements OnInit, OnChanges {
     this.authService.getOrdersForVendor().subscribe(data => {
       this.orders = data.body;
     }, err => {
+      if((err.error.message) == 'Forbidden')
+        this.isAllowedToViewPage = 1;
       console.log(err.error.message);
     });
   }
@@ -59,7 +62,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
         this.loading = false;
         this.updatedItems = data.size;
         console.log(data);
-        //window.location.reload();
+        window.location.reload();
       }, err => {
         this.loading = false;
         console.log(err);

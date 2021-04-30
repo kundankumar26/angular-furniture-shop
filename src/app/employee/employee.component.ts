@@ -13,6 +13,7 @@ export class EmployeeComponent implements OnInit {
 
   orders: Order[];
   clickEventsubscription: any;
+  isAllowedToViewPage: number = 0;
   
   constructor(private authService: AuthService, private router: Router, private sharedService: SharedService) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
@@ -28,6 +29,8 @@ export class EmployeeComponent implements OnInit {
     this.authService.getOrdersForEmployee().subscribe(data => {
       this.orders = data.body;
     }, err => {
+      if((err.error.message) == 'Forbidden')
+        this.isAllowedToViewPage = 1;
       console.log(err.error.message);
     });
   }

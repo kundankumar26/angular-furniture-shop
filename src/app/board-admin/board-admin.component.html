@@ -1,4 +1,8 @@
-<div class='container'>
+<div  class="container text-center" *ngIf="isAllowedToViewPage == 1" style="padding: 50px 0 0 0;">
+    <img src="https://raw.githubusercontent.com/Rain-shilpa/furniture-shop-angular/main/src/assets/images/403-.jpg"/>
+</div>
+
+<div class='container' *ngIf="isAllowedToViewPage == 0">
 <table class="table table-striped" style="text-align: center;">
     <thead>
         <tr>
