@@ -26,12 +26,16 @@ export class OrderItemComponent implements OnInit {
   buttonChairDisabled: boolean = false;
   buttonTableDisabled: boolean = false;
   isLoggedIn: boolean = false;
+  loading: boolean = false;
+  orderPlaced: number = 0;
+  orderNotPlaced: number = 0;
 
   constructor(private tokenStorageService: TokenStorageService, private router: Router, 
     private authService: AuthService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    //this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+    console.log(this.tokenStorageService.getToken());
     this.index = 0;
   }
 
@@ -86,7 +90,9 @@ export class OrderItemComponent implements OnInit {
   }
 
   confirmOrder() {
-
+    if(!this.isLoggedIn){
+      return;
+    }
     console.log("confirmOrder " + this.map.size);
     if (this.map.size != 0) {
       var T = document.getElementById("TestsDiv");
@@ -95,9 +101,10 @@ export class OrderItemComponent implements OnInit {
   }
 
   addToCart() {
+    this.loading = true;
 
-    document.getElementById("TestsDiv").style.display = "none";
-    document.getElementById("Items-list").style.display = "none";
+    // document.getElementById("TestsDiv").style.display = "none";
+    // document.getElementById("Items-list").style.display = "none";
     console.log(this.map);
 
     const payload: Order[] = [];
@@ -111,9 +118,21 @@ export class OrderItemComponent implements OnInit {
       order1.qty = 1;
       payload.push(order1);
     });
+    
     this.authService.createOrderForEmployee(payload).subscribe(data => {
-    },
-      error => console.log(error));
+      this.loading = false;
+      this.orderPlaced = data.length;
+      this.orderNotPlaced = this.map.size - this.orderPlaced;
+      console.log(data);
+    }, err => {
+      this.loading = false;
+      if(err.error.error == 'Unauthorized'){
+        this.tokenStorageService.signOut();
+        this.router.navigate(['login']);
+      }
+      console.log(err.error.error);
+    });
+    console.log(this.orderPlaced, this.orderNotPlaced, this.map.size);
     this.clearArray();
   }
 
