@@ -34,7 +34,7 @@
             <td *ngIf="order.isRejectedByAdmin!=0"> <b><i>{{ ifAcceptedByAdmin(order.isRejectedByAdmin) }}</i></b>
             </td>
             <td *ngIf="order.isRejectedByAdmin==0">
-                <button (click)="acceptOrder(order.orderId, order.qty)" class="btn btn-info"> Accept</button>
+                <button (click)="acceptOrder(order.orderId, order.qty)" class="btn btn-success"> Approve </button>
                 <button (click)="rejectOrder(order.orderId, order.qty)" class="btn btn-danger" style="margin: 10px;"> Reject</button>
             </td>
         </tr>

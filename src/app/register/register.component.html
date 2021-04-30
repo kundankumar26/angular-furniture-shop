@@ -12,8 +12,8 @@
         </div>
       </div>
 
-      <div class="form-group row">  
-        <div class="col-md-12">
+      <div class="form-group row">
+        <div class="col-md-12 dropdown-primary dropdown-menu-right">
           <select [formControlName]="'role'" class="form-control" required
             [ngClass]="{ 'is-invalid': submitted && signupForm.get('role').errors }">
             <option value="" disabled selected hidden>Choose a Role</option>
@@ -77,23 +77,24 @@
         <div class="col-md-12">
           <input type="password" [formControlName]="'empPassword'" class="form-control" required autofocus placeholder="Password"
             [ngClass]="{ 'is-invalid': submitted && signupForm.get('empPassword').errors }" id="myInputPassword" [type]="showPasswordBool ? 'text' : 'password'" >
-          <!-- <small *ngIf="!submitted" class="form-text text-muted">
+          
+            <!-- <small *ngIf="!submitted" class="form-text text-muted">
             Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji. </small> -->
           <span *ngIf="submitted" class="invalid-feedback"> 
             Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.  </span>
+            <div class="custom-control custom-switch" style="margin-top: 10px;">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1" (click)="showPassword()" unchecked>
+              <label class="custom-control-label" for="customSwitch1">Show Password</label>
+            </div>
         </div>
-        <button (click)="showPassword()">Show</button>
+        <!-- <button (click)="showPassword()">Show</button> -->
       </div>
       
-      <div class="form-group">
-        <span class="col-md-6 offset-md-4">
-          <button type="submit" [disabled]="loading" class="btn btn-success">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign up 
-          </button>
-          <span style="padding-left: 15px">Existing user? <a routerLink="/login">Log In</a></span>
-        </span>
+      <div class="form-group text-center">
+        <button type="submit" [disabled]="loading" class="btn btn-success">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign up 
+        </button>
       </div>
-
     </form>
   </div>
 

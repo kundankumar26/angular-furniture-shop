@@ -138,6 +138,10 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <div class="alert alert-danger" role="alert" *ngIf="shippingAddressError != null">
+          {{ shippingAddressError }}
+        </div>
       </div>
 
       <h2>Delivery Address</h2>

@@ -83,5 +83,6 @@ export class RegisterComponent implements OnInit {
   showPassword(){
     this.showPasswordBool = !this.showPasswordBool;
   }
+  
 
 }
