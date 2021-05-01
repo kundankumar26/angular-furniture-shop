@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit {
     };
 
     this.loading = true;
-    this.errorMessageDisplay = true;
+    this.errorMessageDisplay = false;
     
     this.authService.signup(this.signupRequestPayload)
       .subscribe(data => {
@@ -70,12 +70,14 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = false;
         this.isSignUpSuccess = true;
         this.loading = false;
+        this.errorMessageDisplay = true;
         //this.router.navigate(['/login'], { queryParams: { registered: 'true' } });
       }, err => {
         this.errorMessage = err.error.message;
         this.isSignUpSuccess = false;
         this.isSignUpFailed = true;
         this.loading = false;
+        this.errorMessageDisplay = true;
         console.log(this.errorMessage, err);
       });
     
