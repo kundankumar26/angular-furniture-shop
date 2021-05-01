@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from '../models/order';
 import { AuthService } from '../_services/auth.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-board-admin',
@@ -11,10 +12,10 @@ import { AuthService } from '../_services/auth.service';
 export class BoardAdminComponent implements OnInit {
 
   orders: Order[];
-  _isDisabled: boolean = false;
   isAllowedToViewPage: number = 0;
+  tokenExpired: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     if(!window.sessionStorage.getItem('auth-token')){
@@ -22,17 +23,24 @@ export class BoardAdminComponent implements OnInit {
     }
     this.authService.getOrdersForAdmin().subscribe(data => {
       this.orders = data.body;
-      //console.log(data.body);
     }, err => {
-      if((err.error.message) == 'Forbidden')
+      //Authentication Failed
+      if(err.error.status == 401){
+        this.tokenExpired = true;
+        this.tokenStorage.signOut();
+      }
+      //Access not Authorised
+      if(err.error.status == 403){
         this.isAllowedToViewPage = 1;
-      console.log(err.error.message);
+        return;
+      }
+      console.log(err);
     });
   }
 
   ifAcceptedByAdmin(isRejectedByAdmin: number): string{
     if(isRejectedByAdmin == 1){
-      return "Accepted";
+      return "Approved";
     }
     return "Rejected";
   }

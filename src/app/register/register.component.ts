@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   isSignUpSuccess: boolean = false;
   errorMessageDisplay: boolean;
   verificationEmail: string;
+  showPasswordBool: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private alertService: AlertService) { }
 
@@ -79,5 +80,9 @@ export class RegisterComponent implements OnInit {
       });
     
   }
+  showPassword(){
+    this.showPasswordBool = !this.showPasswordBool;
+  }
+  
 
 }

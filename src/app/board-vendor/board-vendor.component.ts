@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { Router } from '@angular/router';
 import { Order } from '../models/order';
 import { AuthService } from '../_services/auth.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-board-vendor',
@@ -17,8 +18,10 @@ export class BoardVendorComponent implements OnInit, OnChanges {
   map: any = new Map();
   updatedItems: any;
   isAllowedToViewPage: number = 0;
+  errorMessage: string = '';
+  tokenExpired: boolean = false;
   
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
   }
@@ -31,9 +34,17 @@ export class BoardVendorComponent implements OnInit, OnChanges {
     this.authService.getOrdersForVendor().subscribe(data => {
       this.orders = data.body;
     }, err => {
-      if((err.error.message) == 'Forbidden')
+      //Authentication Failed
+      if(err.error.status == 401){
+        this.tokenExpired = true;
+        this.tokenStorage.signOut();
+      }
+      //Access not Authorised
+      if(err.error.status == 403){
         this.isAllowedToViewPage = 1;
-      console.log(err.error.message);
+        return;
+      }
+      console.log(err);
     });
   }
 
@@ -49,6 +60,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
   getShippingDate(shippingDate: string, orderId: number): any {
     //console.log(shippingDate.split("-"), shippingDate.split("-").reverse(), shippingDate.split("-").reverse().join("-"));
     const datePayload =  shippingDate.split("-").reverse().join("-");
+    console.log(new Date(), shippingDate);
     this.map.set(orderId, datePayload);
     this.anyOrderChanged = true;
     return shippingDate;
@@ -65,6 +77,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
         window.location.reload();
       }, err => {
         this.loading = false;
+        this.errorMessage = err.error.message;
         console.log(err);
       });
     });

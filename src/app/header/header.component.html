@@ -11,7 +11,7 @@
         <a href="/vendor" class="nav-link" routerLink="vendor">Vendor Board</a>
       </li>
       <li class="nav-item"  *ngIf="showEmployeeBoard">
-        <a href="/employee" class="nav-link" routerLink="employee">Employee</a>
+        <a href="/employee" class="nav-link" routerLink="employee">Orders</a>
       </li>
     </ul>
   
@@ -25,12 +25,12 @@
     </ul>
   
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <li class="nav-item">
-        <a href="#" class="nav-link">Hey {{ username | titlecase}}<br>
-          <span *ngIf="showEmployeeBoard">- the Dedicated Employee </span>
-          <span *ngIf="showVendorBoard">- the Vendor Boy</span>
-          <span *ngIf="showAdminBoard">- the Cool Admin </span>
-        </a>
+      <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px;" title="Hi" ></mdb-icon>
+      <li class="nav-item" style="margin-right: 20px;">
+        Hey {{ username | titlecase}}<br>
+          <span *ngIf="showEmployeeBoard">Employee </span>
+          <span *ngIf="showVendorBoard">Vendor</span>
+          <span *ngIf="showAdminBoard">Admin </span>
       </li>
       <li class="nav-item">
         <a href class="nav-link" (click)="logout()">LogOut</a>

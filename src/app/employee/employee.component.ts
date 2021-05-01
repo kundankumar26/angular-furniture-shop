@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Order } from '../models/order';
 import { AuthService } from '../_services/auth.service';
 import { SharedService } from '../_services/shared.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-employee',
@@ -14,8 +15,10 @@ export class EmployeeComponent implements OnInit {
   orders: Order[];
   clickEventsubscription: any;
   isAllowedToViewPage: number = 0;
+  tokenExpired: boolean = false;
   
-  constructor(private authService: AuthService, private router: Router, private sharedService: SharedService) { 
+  constructor(private authService: AuthService, private router: Router, private sharedService: SharedService,
+    private tokenStorage: TokenStorageService) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       window.location.reload();
       console.log("inside header");
@@ -29,9 +32,17 @@ export class EmployeeComponent implements OnInit {
     this.authService.getOrdersForEmployee().subscribe(data => {
       this.orders = data.body;
     }, err => {
-      if((err.error.message) == 'Forbidden')
+      //Authentication Failed
+      if(err.error.status == 401){
+        this.tokenExpired = true;
+        this.tokenStorage.signOut();
+      }
+      //Access not Authorised
+      if(err.error.status == 403){
         this.isAllowedToViewPage = 1;
-      console.log(err.error.message);
+        return;
+      }
+      console.log(err);
     });
   }
 

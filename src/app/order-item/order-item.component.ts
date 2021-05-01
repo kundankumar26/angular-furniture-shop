@@ -29,6 +29,7 @@ export class OrderItemComponent implements OnInit {
   loading: boolean = false;
   orderPlaced: number = 0;
   orderNotPlaced: number = 0;
+  shippingAddressError: string;
 
   constructor(private tokenStorageService: TokenStorageService, private router: Router, 
     private authService: AuthService, private modalService: NgbModal) { }
@@ -102,6 +103,7 @@ export class OrderItemComponent implements OnInit {
 
   addToCart() {
     this.loading = true;
+    this.shippingAddressError = null;
 
     // document.getElementById("TestsDiv").style.display = "none";
     // document.getElementById("Items-list").style.display = "none";
@@ -129,8 +131,12 @@ export class OrderItemComponent implements OnInit {
       if(err.error.error == 'Unauthorized'){
         this.tokenStorageService.signOut();
         this.router.navigate(['login']);
+        return;
       }
-      console.log(err.error.error);
+      if(err.status == 406){
+        this.shippingAddressError = err.error.message;
+      }
+      console.log(err, err.status);
     });
     console.log(this.orderPlaced, this.orderNotPlaced, this.map.size);
     this.clearArray();

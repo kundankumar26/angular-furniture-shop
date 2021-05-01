@@ -1,8 +1,14 @@
-<div  class="container text-center" *ngIf="isAllowedToViewPage == 1" style="padding: 50px 0 0 0;">
-    <img src="https://raw.githubusercontent.com/Rain-shilpa/furniture-shop-angular/main/src/assets/images/403-.jpg"/>
+<div class="container text-center" *ngIf="isAllowedToViewPage == 1" style="padding: 50px 0 0 0;">
+    <img src="assets/images/403-.jpg"  />
 </div>
 
-<div class='container' *ngIf="isAllowedToViewPage == 0">
+<div class="container text-center" *ngIf="tokenExpired">
+    <img src="assets/images/404.jpg" class="rounded"/><br>
+    <strong style="font-size:larger; height: 50px;">404 - Page not Found. Token expired. <br> 
+        <a href="http://localhost:4200/login" class='nav-link'> Log in </a></strong>
+</div>
+
+<div class='container' *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
 <table class="table table-striped" style="text-align: center;">
     <thead>
         <tr>
@@ -28,7 +34,7 @@
             <td *ngIf="order.isRejectedByAdmin!=0"> <b><i>{{ ifAcceptedByAdmin(order.isRejectedByAdmin) }}</i></b>
             </td>
             <td *ngIf="order.isRejectedByAdmin==0">
-                <button (click)="acceptOrder(order.orderId, order.qty)" class="btn btn-info"> Accept</button>
+                <button (click)="acceptOrder(order.orderId, order.qty)" class="btn btn-success"> Approve </button>
                 <button (click)="rejectOrder(order.orderId, order.qty)" class="btn btn-danger" style="margin: 10px;"> Reject</button>
             </td>
         </tr>

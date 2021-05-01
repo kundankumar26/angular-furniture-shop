@@ -12,15 +12,15 @@
         </div>
       </div>
 
-      <div class="form-group row">  
-        <div class="col-md-12">
+      <div class="form-group row">
+        <div class="col-md-12 dropdown-primary dropdown-menu-right">
           <select [formControlName]="'role'" class="form-control" required
             [ngClass]="{ 'is-invalid': submitted && signupForm.get('role').errors }">
             <option value="" disabled selected hidden>Choose a Role</option>
             <option value="employee" active> Employee </option>
             <option value="vendor"> Vendor </option>
           </select>
-          <small *ngIf="!submitted" class="form-text text-muted"> Role can be Employee or Vendor.</small>
+          <!-- <small *ngIf="!submitted" class="form-text text-muted"> Role can be Employee or Vendor.</small> -->
           <div *ngIf="submitted && signupForm.get('role').errors" class="invalid-feedback">
             <div *ngIf="signupForm.get('role').errors.required">Role is required.</div>
           </div>
@@ -31,7 +31,7 @@
         <div class="col-md-12">
           <input type="number" [formControlName]="'empId'" class="form-control" required autofocus placeholder="Employee ID"
             [ngClass]="{ 'is-invalid': submitted && signupForm.get('empId').errors }" maxlength="6" minlength="5">
-          <small *ngIf="!submitted" class="form-text text-muted"> Your emp ID must be 6 digits only. </small>
+          <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your emp ID must be 6 digits only. </small> -->
           <span *ngIf="submitted" class="invalid-feedback"> Your emp ID must be 6 digits only. </span>
         </div>
       </div>
@@ -40,7 +40,7 @@
         <div class="col-md-12">
           <input type="text" [formControlName]="'empFirstName'" class="form-control" required autofocus placeholder="First name"
            [ngClass]="{ 'is-invalid': submitted && signupForm.get('empFirstName').errors }">
-          <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small>
+          <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
           <span *ngIf="submitted" class="invalid-feedback"> Your first name must be 1-20 characters. </span>
         </div>
       </div>
@@ -49,7 +49,7 @@
         <div class="col-md-12">
           <input type="text" [formControlName]="'empLastName'" class="form-control" required autofocus placeholder="Last name"
             [ngClass]="{ 'is-invalid': submitted && signupForm.get('empLastName').errors }">
-          <small *ngIf="!submitted" class="form-text text-muted"> Your last name must be 1-20 characters. </small>
+          <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your last name must be 1-20 characters. </small> -->
           <span *ngIf="submitted" class="invalid-feedback"> Your last name must be 1-20 characters. </span>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <div class="col-md-12">
           <input type="text" [formControlName]="'empUsername'" class="form-control" required autofocus placeholder="Username"
             [ngClass]="{ 'is-invalid': submitted && signupForm.get('empUsername').errors }">
-          <small *ngIf="!submitted" class="form-text text-muted">Your username must be 6-20 characters.</small>
+          <!-- <small *ngIf="!submitted" class="form-text text-muted">Your username must be 6-20 characters.</small> -->
           <span *ngIf="submitted" class="invalid-feedback"> Your username must be 6-20 characters. </span>
         </div>
       </div>
@@ -68,7 +68,7 @@
         <div class="col-md-12">
           <input type="email" [formControlName]="'email'" class="form-control" required autofocus placeholder="E-mail"
             aria-describedby="emailHelpBlock" [ngClass]="{ 'is-invalid': submitted && signupForm.get('email').errors }">
-          <small *ngIf="!submitted" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <!-- <small *ngIf="!submitted" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
           <span *ngIf="submitted" class="invalid-feedback"> Please provide a valid email. </span>
         </div>
       </div>
@@ -76,23 +76,25 @@
       <div class="form-group row">
         <div class="col-md-12">
           <input type="password" [formControlName]="'empPassword'" class="form-control" required autofocus placeholder="Password"
-            [ngClass]="{ 'is-invalid': submitted && signupForm.get('empPassword').errors }">
-          <small *ngIf="!submitted" class="form-text text-muted">
-            Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji. </small>
+            [ngClass]="{ 'is-invalid': submitted && signupForm.get('empPassword').errors }" id="myInputPassword" [type]="showPasswordBool ? 'text' : 'password'" >
+          
+            <!-- <small *ngIf="!submitted" class="form-text text-muted">
+            Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji. </small> -->
           <span *ngIf="submitted" class="invalid-feedback"> 
             Your password must be 6-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.  </span>
+            <div class="custom-control custom-switch" style="margin-top: 10px;">
+              <input type="checkbox" class="custom-control-input" id="customSwitch1" (click)="showPassword()" unchecked>
+              <label class="custom-control-label" for="customSwitch1">Show Password</label>
+            </div>
         </div>
+        <!-- <button (click)="showPassword()">Show</button> -->
       </div>
       
-      <div class="form-group">
-        <span class="col-md-6 offset-md-4">
-          <button type="submit" [disabled]="loading" class="btn btn-success">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign up 
-          </button>
-          <span style="padding-left: 15px">Existing user? <a routerLink="/login">Log In</a></span>
-        </span>
+      <div class="form-group text-center">
+        <button type="submit" [disabled]="loading" class="btn btn-success">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign up 
+        </button>
       </div>
-
     </form>
   </div>
 
