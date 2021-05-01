@@ -31,7 +31,7 @@
 <div class="container" style="padding: 10px 0 10px 0;">
 <!-- products -->
 <div class="form-group">
-  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="!isLoggedIn"> Log in to place an order. 
+  <div class="alert alert-danger alert-dismissible fade show hoverable animated fadeInUp" role="alert" *ngIf="!isLoggedIn"> Log in to place an order. 
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -39,64 +39,61 @@
   
   <div class="new-products text-center">
     <div class="container">
-      <div class="row col-md-4">
-        <div class="col-md-4 text-center img-thumbnail shadow">
+      <div class="row col-md-4 animated slideInUp">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
             <img src="assets/images/25.jpg" class="rounded" /><br>
             <label style="color: rgb(107, 107, 107);">LG Monitor</label><br>
-            <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
+            <button type="submit" id="monitor" [class.grey]="buttonMDisabled" [disabled]="buttonMDisabled" class="btn btn-primary"
                 (click)="addLGMonitor(true)">Add to cart</button>
-            <!-- <div class="simpleCart_shelfItem">
-              
-            </div> -->
         </div>
 
-        <div class="col-md-4 text-center img-thumbnail shadow">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
           <img src="assets/images/42.jpg" class="rounded" /><br>
           <label style="color: rgb(107, 107, 107);">HP Monitor</label><br>
-          <button type="submit" id="monitor" [disabled]="buttonMDisabled" class="btn btn-primary"
+          <button type="submit" id="monitor" [class.grey]="buttonMDisabled" [disabled]="buttonMDisabled" class="btn btn-primary"
               (click)="addHPMonitor(true)">Add to cart</button>
         </div>
 
-        <div class="col-md-4 text-center img-thumbnail shadow">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
           <img src="assets/images/27.jpg" class="rounded" /><br>
           <label style="color: rgb(107, 107, 107);">KeyBoard</label><br>
-          <button type="submit" id="keyboard" [disabled]="buttonKeyboardDisabled" class="btn btn-primary"
+          <button type="submit" id="keyboard" [class.grey]="buttonKeyboardDisabled" [disabled]="buttonKeyboardDisabled" class="btn btn-primary"
                 (click)="addKeybord(true)">Add to cart</button>
         </div>
 
-        <div class="col-md-4 text-center img-thumbnail shadow">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
           <img src="assets/images/34.jpg" class="rounded" /><br>
           <label style="color: rgb(107, 107, 107);"> Mouse </label><br>
-          <button type="submit" id="mouse" [disabled]="buttonMouseDisabled" class="btn btn-primary"
+          <button type="submit" id="mouse" [class.grey]="buttonMouseDisabled" [disabled]="buttonMouseDisabled" class="btn btn-primary"
                 (click)="addMouser(true)">Add to cart</button>
         </div>
 
-        <div class="col-md-4 text-center img-thumbnail shadow">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
           <img src="assets/images/47.jpg" class="rounded"/><br>
           <label style="color: rgb(107, 107, 107);"> Table 1 </label><br>
-          <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
+          <button type="submit" id="table" [class.grey]="buttonTableDisabled" [disabled]="buttonTableDisabled" class="btn btn-primary"
                 (click)="addtable1(true)">Add to cart</button>
         </div>
 
-        <div class="col-md-4 text-center img-thumbnail shadow">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
           <img src="assets/images/48.jpg" class="rounded"/><br>
           <label style="color: rgb(107, 107, 107);"> Table 2 </label><br>
-          <button type="submit" id="table" [disabled]="buttonTableDisabled" class="btn btn-primary"
+          <button type="submit" id="table" [class.grey]="buttonTableDisabled" [disabled]="buttonTableDisabled" class="btn btn-primary"
                 (click)="addtable2(true)">Add to cart</button>
         </div>
 
-        <div class="col-md-4 text-center img-thumbnail shadow">
+        <div class="col-md-4 text-center img-thumbnail hoverable">
           <img src="assets/images/37.jpg" class="rounded"/><br>
           <label style="color: rgb(107, 107, 107);">Chair</label><br>
-          <button type="submit" id="chair" class="btn btn-primary" [disabled]="buttonChairDisabled"
+          <button type="submit" id="chair" [class.grey]="buttonChairDisabled" class="btn btn-primary" [disabled]="buttonChairDisabled"
                 (click)="addchair(true)">Add to cart</button>
         </div>
       </div>
     </div>
 
 
-    <div class="container" *ngIf="map.size != 0">
-      <table class="table table-bordered" id="Items-list">
+    <div class="container animated slideInUp" *ngIf="map.size != 0">
+      <table class="table table-bordered shadow-sm" id="Items-list">
         <thead>
           <th>Items Selected</th>
           <th>Quantity</th>
@@ -113,34 +110,35 @@
         </tbody>
       </table>
 
-      <button type="button" class="btn btn-secondary" style="margin: 20px;" (click)="confirmOrder()">Confirm
+      <button type="button" class="btn btn-primary" style="margin: 20px;" (click)="confirmOrder()">Confirm
         Orders </button>
     </div>
   </div>
 
 <!--button-->
-  <div class="container col-md-8" *ngIf="map.size != 0" id="TestsDiv" style="display: none;">
+  <div class="container col-md-8 animated slideInUp" *ngIf="map.size != 0" id="TestsDiv" style="display: none;">
   
-    <form name="form" class="border rounded" style="color: rgb(107, 107, 107);padding: 50px; margin: 10px auto 100px auto;" 
+    <form name="form" class="border rounded shadow-sm" style="color: rgb(107, 107, 107);padding: 50px; margin: 10px auto 100px auto;" 
       (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>
 
       <div class="form-group">
-        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="isLoggedIn && orderPlaced > 0"> 
-          {{ orderPlaced }} {{ orderPlaced == 1 ? "item " : "items are " }} ordered successfully from your list.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="alert alert-success alert-dismissible shadow animated zoomIn" role="alert" *ngIf="isLoggedIn && orderPlaced > 0"> 
+            {{ orderPlaced }} {{ orderPlaced == 1 ? "item " : "items are " }} ordered successfully from your list.
+          
         </div>
+      </div>
 
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isLoggedIn && orderNotPlaced > 0"> 
-          {{ orderNotPlaced }} {{ orderNotPlaced == 1 ? "item " : "items are " }} already ordered from your list.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <div class="form-group">
+        <div class="alert alert-danger alert-dismissible shadow animated zoomIn" role="alert" *ngIf="isLoggedIn && orderNotPlaced > 0"> 
+            {{ orderNotPlaced }} {{ orderNotPlaced == 1 ? "item " : "items are " }} already ordered from your list.
+          
         </div>
+      </div>
 
-        <div class="alert alert-danger" role="alert" *ngIf="shippingAddressError != null">
-          {{ shippingAddressError }}
+      <div class="form-group">
+        <div class="alert alert-danger alert-dismissible shadow animated zoomIn" role="alert" *ngIf="shippingAddressError != null">
+            {{ shippingAddressError }}
+          
         </div>
       </div>
 
@@ -149,7 +147,7 @@
         <label for="address">Address </label>
         <input type="text" class="form-control" name="employeeShippingAddress" [(ngModel)]="employeeShippingAddress"
           placeholder="Shipping Address" required #ShippingAddress="ngModel">
-        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && ShippingAddress.invalid">
+        <div class="alert alert-danger animated zoomIn" role="alert" *ngIf="f.submitted && ShippingAddress.invalid">
           Address is required!
         </div>
       </div>
@@ -158,7 +156,7 @@
         <label for="phno">Contact details</label>
         <input type="number" class="form-control" [(ngModel)]="employeePhoneNumber" placeholder="Phone Number"
           name="employeePhoneNumber" required minlength="10" maxlength="10" #PhoneNumber="ngModel" />
-        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && PhoneNumber.invalid">
+        <div class="alert alert-danger animated zoomIn" role="alert" *ngIf="f.submitted && PhoneNumber.invalid">
           <div *ngIf="PhoneNumber.errors.required">Phone Number is required</div>
           <div *ngIf="PhoneNumber.errors.maxlength">Phone Number should be at least 10</div>
         </div>

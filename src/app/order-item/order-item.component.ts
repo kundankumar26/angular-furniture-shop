@@ -104,6 +104,8 @@ export class OrderItemComponent implements OnInit {
   addToCart() {
     this.loading = true;
     this.shippingAddressError = null;
+    this.orderNotPlaced = 0;
+    this.orderPlaced = 0;
 
     // document.getElementById("TestsDiv").style.display = "none";
     // document.getElementById("Items-list").style.display = "none";
@@ -186,28 +188,5 @@ export class OrderItemComponent implements OnInit {
     this.map.delete(emporder);
     console.log("Inside Remove button " + emporder + " tota qty = " + this.map);
   }
-//------------------------------------------------------------------------------------
-
-closeResult = '';
-open(content: any) {
-  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result: any) => {
-    console.log(this.employeeShippingAddress);
-    console.log(this.employeePhoneNumber);
-    this.closeResult = `Closed with: ${result}`;
-  }, (reason: any) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
-}
-
-private getDismissReason(reason: any): string {
-  if (reason === ModalDismissReasons.ESC) {
-    return 'by pressing ESC';
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-    return 'by clicking on a backdrop';
-  } else {
-    return `with: ${reason}`;
-  }
-}
-
 
 }
