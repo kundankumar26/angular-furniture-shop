@@ -17,3 +17,8 @@ img{
     max-height: fit-content;
     max-width: 150px;
 }
+
+.grey {
+    background-color: grey;
+    border: 2px solid rgb(121, 121, 121);;
+}
