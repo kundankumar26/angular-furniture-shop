@@ -19,6 +19,8 @@ export class OrderItemComponent implements OnInit {
   employeePhoneNumber: number;
 
   map: any = new Map();
+  unorderedItems: string[] = [];
+  orderedItems: string[] = [];
 
   buttonMDisabled = false;
   buttonKeyboardDisabled: boolean = false;
@@ -38,6 +40,7 @@ export class OrderItemComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     console.log(this.tokenStorageService.getToken());
     this.index = 0;
+    
   }
 
   addLGMonitor(status: boolean) {
@@ -109,12 +112,14 @@ export class OrderItemComponent implements OnInit {
 
     // document.getElementById("TestsDiv").style.display = "none";
     // document.getElementById("Items-list").style.display = "none";
-    console.log(this.map);
+    console.log("this is start map ", this.map);
 
     const payload: Order[] = [];
+    this.unorderedItems = [];
+    this.orderedItems = [];
 
     this.map.forEach((element: any, index: string) => {
-
+      this.map.set(index, 1);
       const order1 = new Order();
       order1.itemRequested = index;
       order1.phnNo = this.employeePhoneNumber;
@@ -127,8 +132,11 @@ export class OrderItemComponent implements OnInit {
       this.loading = false;
       this.orderPlaced = data.length;
       this.orderNotPlaced = this.map.size - this.orderPlaced;
-      console.log(data);
+      this.clearOrderedProductsFromMap(data);
+
+      console.log(data, this.map);
     }, err => {
+      this.clearOrderedProductsFromMap(err);
       this.loading = false;
       if(err.error.error == 'Unauthorized'){
         this.tokenStorageService.signOut();
@@ -138,10 +146,23 @@ export class OrderItemComponent implements OnInit {
       if(err.status == 406){
         this.shippingAddressError = err.error.message;
       }
-      console.log(err, err.status);
+      //console.log(err, err.status);
     });
-    console.log(this.orderPlaced, this.orderNotPlaced, this.map.size);
+    console.log(this.orderPlaced, this.orderNotPlaced, this.orderedItems, this.unorderedItems);
     this.clearArray();
+  }
+  clearOrderedProductsFromMap(data: any) {
+    data.forEach((element: any) => {
+      //console.log(element, element.itemRequested);
+      this.orderedItems.push(" " + element.itemRequested);
+      this.map.set(element.itemRequested, 2);
+    });
+    console.log(this.map);
+    this.map.forEach((element: any, index: string) => {
+      if(element == 1){
+        this.unorderedItems.push(" " + index);
+      }
+    });
   }
 
   Remove(emporder: any) {
