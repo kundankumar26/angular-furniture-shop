@@ -9,7 +9,7 @@
     </strong>
 </div>
 
-<div class="container animated slideInUp"  *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
+<div class="container"  *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
     <!-- <div class="form-group">
         <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="anyOrderChanged"> {{ anyOrderChanged }} 
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -55,7 +55,7 @@
         </div>
       </div>
 
-    <div style="display:flex; justify-content: center;">
+    <div style="display:flex; justify-content: center; margin-bottom: 100px;">
         <button style="width: 15%;" class="btn btn-success" *ngIf="anyOrderChanged" (click)="updateOrders()"> 
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> OK 
         </button>

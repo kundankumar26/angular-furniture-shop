@@ -14,8 +14,8 @@ div.shadow > label {
 }
 
 img{
-    max-height: fit-content;
-    max-width: 150px;
+    height: 200px;
+    width: 170px;
 }
 
 .grey {

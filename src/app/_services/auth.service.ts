@@ -11,7 +11,7 @@ const AUTH_API = 'http://localhost:8080/';
   providedIn: 'root'
 })
 export class AuthService {
-  
+    
   constructor(private httpClient: HttpClient) { }
 
   signup(payload: SignupRequestPayload): Observable<any> {
