@@ -136,7 +136,6 @@ export class OrderItemComponent implements OnInit {
 
       console.log(data, this.map);
     }, err => {
-      this.clearOrderedProductsFromMap(err);
       this.loading = false;
       if(err.error.error == 'Unauthorized'){
         this.tokenStorageService.signOut();
