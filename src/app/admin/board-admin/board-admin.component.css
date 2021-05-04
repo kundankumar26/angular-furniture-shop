@@ -12,3 +12,9 @@ td{
 td > span {
     font-size: 0.8em;
 }
+
+.btn {
+    height: 40px;
+    width: 40px;
+    padding: 0;
+}

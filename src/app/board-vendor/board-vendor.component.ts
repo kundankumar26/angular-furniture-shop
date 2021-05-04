@@ -9,7 +9,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
   templateUrl: './board-vendor.component.html',
   styleUrls: ['./board-vendor.component.css']
 })
-export class BoardVendorComponent implements OnInit, OnChanges {
+export class BoardVendorComponent implements OnInit {
 
   loading: boolean = false;
   anyOrderChanged: boolean = false;
@@ -20,12 +20,12 @@ export class BoardVendorComponent implements OnInit, OnChanges {
   isAllowedToViewPage: number = 0;
   errorMessage: string = '';
   tokenExpired: boolean = false;
+  ordersMap = new Map();
+  errorOccured: boolean = false;
+  orderUpdatedSuccess: boolean = false;
   
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
-
+  
   //CHECK IF VENDOR LOGGED IN, THEN GET ALL THE ORDERS
   ngOnInit(): void {
     if(!window.sessionStorage.getItem('auth-token')){
@@ -33,6 +33,9 @@ export class BoardVendorComponent implements OnInit, OnChanges {
     }
     this.authService.getOrdersForVendor().subscribe(data => {
       this.orders = data.body;
+      data['body'].forEach((element: any, index: any) => {
+        this.ordersMap.set(data['body'][index].orderId, index);
+      });
     }, err => {
       //Authentication Failed
       if(err.error.status == 401){
@@ -44,6 +47,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
         this.isAllowedToViewPage = 1;
         return;
       }
+      this.errorOccured = true;
       console.log(err);
     });
   }
@@ -58,9 +62,7 @@ export class BoardVendorComponent implements OnInit, OnChanges {
 
   //CHANGE THE SHIPPING DATE ACCORDING TO DATABASE FORMAT
   getShippingDate(shippingDate: string, orderId: number): any {
-    //console.log(shippingDate.split("-"), shippingDate.split("-").reverse(), shippingDate.split("-").reverse().join("-"));
     const datePayload =  shippingDate.split("-").reverse().join("-");
-    console.log(new Date(), shippingDate);
     this.map.set(orderId, datePayload);
     this.anyOrderChanged = true;
     return shippingDate;
@@ -68,15 +70,19 @@ export class BoardVendorComponent implements OnInit, OnChanges {
 
   updateOrders(): void {
     this.loading = true;
+    this.orderUpdatedSuccess = false;
+
     this.map.forEach((element: any, index: any) => {
-      //console.log(element, index);
       this.authService.updateOrderByVendor(index, element).subscribe(data => {
         this.loading = false;
         this.updatedItems = data.size;
-        console.log(data);
-        window.location.reload();
+        this.orders[this.ordersMap.get(data.orderId)].shippedDate = data.shippedDate;
+        this.orderUpdatedSuccess = true;
+        console.log(data, this.orders[this.ordersMap.get(data.orderId)]);
       }, err => {
+        this.orderUpdatedSuccess = false;
         this.loading = false;
+        this.errorOccured = true;
         this.errorMessage = err.error.message;
         console.log(err);
       });

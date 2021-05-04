@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
+import { BoardAdminComponent } from './admin/board-admin/board-admin.component';
 import { BoardVendorComponent } from './board-vendor/board-vendor.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { LoginComponent } from './login/login.component';
