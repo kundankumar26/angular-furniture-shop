@@ -1,14 +1,30 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { StarRatingComponent } from 'ng-starrating';
+import { ToastrService } from 'ngx-toastr';
+import { HeaderComponentService } from '../header/header-component.service';
 import { Order } from '../models/order';
+import { Product } from '../models/product';
 import { AuthService } from '../_services/auth.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-order-item',
   templateUrl: './order-item.component.html',
-  styleUrls: ['./order-item.component.css']
+  styleUrls: ['./order-item.component.css'],
+  animations: [
+    trigger('EnterLeave', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('0.5s 300ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-out', style({ transform: 'translateX(100%)' }))
+      ])
+    ])]
 })
 export class OrderItemComponent implements OnInit {
 
@@ -17,6 +33,7 @@ export class OrderItemComponent implements OnInit {
   index: number = 0;
   employeeShippingAddress: string;
   employeePhoneNumber: number;
+  isUserEmployee: boolean = false;
 
   map: any = new Map();
   unorderedItems: string[] = [];
@@ -33,56 +50,50 @@ export class OrderItemComponent implements OnInit {
   orderNotPlaced: number = 0;
   shippingAddressError: string;
 
+  products: Product[] = [];
+  employeeCartMap = new Map();
+  filteredList: Product[] = [];
+  sortBy: string;
+  searchText: string;
+
   constructor(private tokenStorageService: TokenStorageService, private router: Router, 
-    private authService: AuthService, private modalService: NgbModal) { }
+    private authService: AuthService, private modalService: NgbModal, private toastr: ToastrService,
+    private headerComponentService: HeaderComponentService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    console.log(this.tokenStorageService.getToken());
     this.index = 0;
-    
+    if(this.isLoggedIn){
+      this.isUserEmployee = this.tokenStorageService.getUser().roles[0].includes('ROLE_EMPLOYEE');
+    }
+    this.authService.getAllProducts().subscribe(data => {
+      //console.log(data['body']);
+      this.products = data['body'];
+      this.filteredList = data['body'];
+      console.log(this.products);
+    }, err => {
+      console.log(err);
+    });
+    this.headerComponentService.getSearchText().subscribe(data => {
+      this.searchText = data;
+    });
   }
 
-  addLGMonitor(status: boolean) {
-
-    this.buttonMDisabled = status;
-    this.map.set("LG Monitor", 1);
+  sortByMethod(value: string){
+    this.sortBy = value;
+    if(this.sortBy == 'name'){
+      this.products.sort(sortByName);
+    } else if(this.sortBy == 'price_low_to_high'){
+      this.products.sort(sortByPriceLowToHigh);
+    } else {
+      this.products.sort(sortByPriceHighToLow);
+    }
   }
 
-  addHPMonitor(status: boolean) {
 
-    this.buttonMDisabled = status;
-    this.map.set("HP Monitor", 1);
-  }
-
-  addMouser(status: boolean) {
-
-    this.buttonMouseDisabled = status;
-    this.map.set("Mouse", 1);
-  }
-
-  addKeybord(status: boolean) {
-
-    this.buttonKeyboardDisabled = status;
-    this.map.set("Keyboard", 1);
-  }
-
-  addchair(status: boolean) {
-
-    this.buttonChairDisabled = status;
-    this.map.set("Chair", 1);
-  }
-
-  addtable1(status: boolean) {
-
-    this.buttonTableDisabled = status;
-    this.map.set("Table 1", 1);
-  }
-
-  addtable2(status: boolean) {
-
-    this.buttonTableDisabled = status;
-    this.map.set("Table 2", 1);
+  addProduct(productId: number, productName: string){
+    this.employeeCartMap.set(productId, productName);
+    console.log(productId, productName);
   }
 
 
@@ -97,8 +108,8 @@ export class OrderItemComponent implements OnInit {
     if(!this.isLoggedIn){
       return;
     }
-    console.log("confirmOrder " + this.map.size);
-    if (this.map.size != 0) {
+    console.log("confirmOrder " + this.employeeCartMap.size);
+    if (this.employeeCartMap.size != 0) {
       var T = document.getElementById("TestsDiv");
       T.style.display = "block";
     }
@@ -114,18 +125,13 @@ export class OrderItemComponent implements OnInit {
     // document.getElementById("Items-list").style.display = "none";
     console.log("this is start map ", this.map);
 
-    const payload: Order[] = [];
+    const payload: number[] = [];
     this.unorderedItems = [];
     this.orderedItems = [];
 
-    this.map.forEach((element: any, index: string) => {
-      this.map.set(index, 1);
-      const order1 = new Order();
-      order1.itemRequested = index;
-      order1.phnNo = this.employeePhoneNumber;
-      order1.shippingAddress = this.employeeShippingAddress;
-      order1.qty = 1;
-      payload.push(order1);
+    this.employeeCartMap.forEach((element: string, index: number) => {
+      console.log(index, element);
+      payload.push(index);
     });
     
     this.authService.createOrderForEmployee(payload).subscribe(data => {
@@ -165,48 +171,27 @@ export class OrderItemComponent implements OnInit {
   }
 
   Remove(emporder: any) {
-
-    switch (emporder) {
-
-      case "LG Monitor": {
-
-        this.addLGMonitor(false);
-        break;
-      }
-      case "HP Monitor": {
-
-        this.addHPMonitor(false);
-        break;
-      }
-      case "Mouse": {
-
-        this.addMouser(false)
-        break;
-      }
-      case "Keyboard": {
-
-        this.addKeybord(false);
-        break;
-      }
-      case "Chair": {
-
-        this.addchair(false)
-        break;
-      }
-      case "Table 1": {
-
-        this.addtable1(false)
-        break;
-      }
-      case "Table 2": {
-
-        this.addtable2(false)
-        break;
-      }
-    }
-
-    this.map.delete(emporder);
+    this.employeeCartMap.delete(emporder);
     console.log("Inside Remove button " + emporder + " tota qty = " + this.map);
   }
 
 }
+
+function sortByName(p1: Product, p2: Product) {
+  if(p1.productName > p2.productName) return 1;
+  else if(p1.productName == p2.productName) return 0;
+  else return -1;
+}
+
+function sortByPriceLowToHigh(p1: Product, p2: Product) {
+  if(p1.productPrice > p2.productPrice) return 1;
+  else if(p1.productPrice === p2.productPrice) return 0;
+  else return -1;
+}
+
+function sortByPriceHighToLow(p1: Product, p2: Product) {
+  if(p1.productPrice < p2.productPrice) return 1;
+  else if(p1.productPrice === p2.productPrice) return 0;
+  else return -1;
+}
+

@@ -7,9 +7,12 @@ th, td {
     letter-spacing: 0.8px;
 }
 td{
-    height: 60px;
+    height: 120px;
     vertical-align: middle;
 }
 td > span {
     font-size: 0.8em;
+}
+img {
+    width: 150px;
 }

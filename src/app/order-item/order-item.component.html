@@ -1,34 +1,22 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title>Order</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
-
-
-
-<head>
-  <meta charset="utf-8">
-  <base href="/">
-  <title>Order Items</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  
-  <link href="/assets/css/font-awesome.css" rel="stylesheet">
-  <link href='https://fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
-  <link
-    href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic'
-    rel='stylesheet' type='text/css'>
-</head> -->
 
 
 <div class="container" style="padding: 10px 0 10px 0;">
+
+  <div class="navbar-expand"> 
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item nav-link"> <b style="color: rgb(92, 92, 92);"> Sort By: </b></li>
+      <li class="nav-item" style="margin-left: 20px;" [class.active]="sortBy==='name'"> 
+        <button class="btn btn-link" (click)="sortByMethod('name')"> Name </button> 
+      </li>
+      <li class="nav-item" style="margin-left: 20px;"> 
+        <button class="btn btn-link" (click)="sortByMethod('price_low_to_high')"> Price - Low to High </button> 
+      </li>
+      <li class="nav-item" style="margin-left: 20px;"> 
+        <button class="btn btn-link" (click)="sortByMethod('price_high_to_low')"> Price - High to Low </button> 
+      </li>
+    </ul>
+  </div>
+  <hr>
 <!-- products -->
 <div class="form-group">
   <div class="alert alert-danger alert-dismissible fade show hoverable animated fadeInUp" role="alert" *ngIf="!isLoggedIn"> Log in to place an order. 
@@ -37,10 +25,22 @@
     </button>
   </div>
   
-  <div class="new-products text-center">
-    <div class="container">
-      <div class="row col-md-4 animated slideInUp">
-        <div class="col-md-4 text-center img-thumbnail hoverable">
+  <div class="new-products container animated fadeInUp">
+    <div class="row">
+      <div class="col-md-4 text-center img-thumbnail hoverable" *ngFor="let product of products | filter:searchText" >
+        <!-- <div class="text-center img-thumbnail hoverable"> -->
+          <img [src]="product?.productImageUrl" class="img-fluid rounded"/><br>
+          <label><h3>{{ product?.productName }}</h3></label><br>
+          <label><i class="fas fa-tag"></i> {{ product?.productCategory }}</label><br>
+          <label><b> {{ product?.productPrice | currency:'INR' }}</b></label><br>
+          <!-- <app-star [rating]="5"></app-star><br> -->
+          <star-rating [value]="product?.productRating" [totalstars]="5" checkedcolor="orange" uncheckedcolor="white" size="24px" [readonly]="true" ></star-rating>
+          <button type="submit" id="monitor" [class.grey]="buttonMDisabled" class="btn btn-primary"
+              (click)="addProduct(product?.productId, product?.productName)">Add to cart</button>
+        <!-- </div> -->
+
+
+        <!-- <div class="col-md-4 text-center img-thumbnail hoverable">
             <img src="assets/images/25.jpg" class="rounded" /><br>
             <label style="color: rgb(107, 107, 107);">LG Monitor</label><br>
             <button type="submit" id="monitor" [class.grey]="buttonMDisabled" [disabled]="buttonMDisabled" class="btn btn-primary"
@@ -87,12 +87,12 @@
           <label style="color: rgb(107, 107, 107);">Chair</label><br>
           <button type="submit" id="chair" [class.grey]="buttonChairDisabled" class="btn btn-primary" [disabled]="buttonChairDisabled"
                 (click)="addchair(true)">Add to cart</button>
-        </div>
+        </div> -->
       </div>
     </div>
 
 
-    <div class="container animated slideInUp" *ngIf="map.size != 0">
+    <div class="container animated slideInUp" *ngIf="employeeCartMap.size != 0 && isUserEmployee">
       <table class="table table-bordered shadow-sm" id="Items-list">
         <thead>
           <th>Items Selected</th>
@@ -100,8 +100,8 @@
           <th>Remove</th>
         </thead>
         <tbody>
-          <tr *ngFor="let mapEntry of map| keyvalue">
-            <td>{{ mapEntry.key }}</td>
+          <tr *ngFor="let mapEntry of employeeCartMap | keyvalue">
+            <td>{{ mapEntry.value }}</td>
             <td>1</td>
             <td>
               <button type="button" class="btn btn-outline-danger" (click)="Remove(mapEntry.key)">Remove</button>
@@ -116,7 +116,7 @@
   </div>
 
 <!--button-->
-  <div class="container col-md-8 animated slideInUp" *ngIf="map.size != 0" id="TestsDiv" style="display: none;">
+  <div class="container col-md-8 animated slideInUp" *ngIf="employeeCartMap.size != 0" id="TestsDiv" style="display: none;">
   
     <form name="form" class="border rounded shadow-sm" style="color: rgb(107, 107, 107);padding: 50px; margin: 10px auto 100px auto;" 
       (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>

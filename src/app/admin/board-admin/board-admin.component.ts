@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order } from '../models/order';
-import { AuthService } from '../_services/auth.service';
-import { TokenStorageService } from '../_services/token-storage.service';
+import { Order } from '../../models/order';
+import { AuthService } from '../../_services/auth.service';
+import { TokenStorageService } from '../../_services/token-storage.service';
+import { AgGridModule } from 'ag-grid-angular';
+import { map } from 'jquery';
+import { AdminResponse } from 'src/app/models/adminResponse';
 
 @Component({
   selector: 'app-board-admin',
@@ -11,9 +14,11 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class BoardAdminComponent implements OnInit {
 
-  orders: Order[];
+  orders: AdminResponse[];
+  ordersMap = new Map();
   isAllowedToViewPage: number = 0;
   tokenExpired: boolean = false;
+  errorOccured: boolean = false;
 
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
 
@@ -22,6 +27,10 @@ export class BoardAdminComponent implements OnInit {
       this.router.navigate(['login']);
     }
     this.authService.getOrdersForAdmin().subscribe(data => {
+      data['body'].forEach((element: any, index: any) => {
+        this.ordersMap.set(data['body'][index].orderId, index);
+      });
+      console.log(data.body);
       this.orders = data.body;
     }, err => {
       //Authentication Failed
@@ -34,40 +43,36 @@ export class BoardAdminComponent implements OnInit {
         this.isAllowedToViewPage = 1;
         return;
       }
+      this.errorOccured = true;
       console.log(err);
     });
   }
 
   ifAcceptedByAdmin(isRejectedByAdmin: number): string{
-    if(isRejectedByAdmin == 1){
-      return "Approved";
-    }
-    return "Rejected";
+    return isRejectedByAdmin == 1 ? "Approved" : "Rejected";
   }
 
   acceptOrder(orderId: number, qty: number){
     this.authService.acceptOrderByAdmin(orderId, qty).subscribe(data => {
-      console.log(data);
-      this.reloadPage();
+      const order = data['body'];
+      this.orders[this.ordersMap.get(order.orderId)].isRejectedByAdmin = order.isRejectedByAdmin; 
     }, err => {
+      this.errorOccured = true;
       console.log(err);
     });
   }
 
   rejectOrder(orderId: number, qty: number){
     this.authService.rejectOrderByAdmin(orderId, qty).subscribe(data => {
-      console.log(data);
-      this.reloadPage();
+      const order = data['body'];
+      this.orders[this.ordersMap.get(order.orderId)].isRejectedByAdmin = order.isRejectedByAdmin; 
     }, err => {
+      this.errorOccured = true;
       console.log(err);
     });
   }
 
   isDisabled(value: number): boolean {
     return value == 0 ? false : true;
-  }
-
-  reloadPage(){
-    window.location.reload();
   }
 }

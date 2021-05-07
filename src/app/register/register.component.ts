@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertService } from '../_services/alert.service';
 import { AuthService } from '../_services/auth.service';
 import { SignupRequestPayload } from './register-request.payload';
 
@@ -23,7 +22,7 @@ export class RegisterComponent implements OnInit {
   verificationEmail: string;
   showPasswordBool: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private alertService: AlertService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     console.log("hey there");

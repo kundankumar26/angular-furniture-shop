@@ -1,0 +1,69 @@
+
+<div class="container">
+    <form [formGroup]="productForm" (ngSubmit)="createProduct(productForm.value)" style="padding: 20px;">
+        <div style="margin-bottom: 40px;">
+        <h2>Create Product</h2>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+            <input type="text" formControlName="productName" class="form-control" placeholder="Product name"
+            [ngClass]="{ 'is-invalid': form.productName.touched && form.productName.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+            <span *ngIf="form.productName.touched && form.productName.invalid" class="invalid-feedback"> Please eneter product name </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+            <input type="text" formControlName="productCategory" class="form-control" placeholder="Product category"
+            [ngClass]="{ 'is-invalid': form.productCategory.touched && form.productCategory.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+            <span *ngIf="form.productCategory.touched && form.productCategory.invalid" class="invalid-feedback"> Please eneter product name </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+            <input type="number" formControlName="productPrice" class="form-control" placeholder="Product price"
+            [ngClass]="{ 'is-invalid': form.productPrice.touched && form.productPrice.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+            <span *ngIf="form.productPrice.invalid && form.productPrice.touched" class="invalid-feedback"> Please enter product price </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+            <input type="text" formControlName="productDescription" class="form-control" placeholder="Product description"
+            [ngClass]="{ 'is-invalid': form.productDescription.touched && form.productDescription.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+            <span *ngIf="form.productDescription.invalid && form.productDescription.touched" class="invalid-feedback"> 
+                Product must have a description </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <input type="number" formControlName="productQty" class="form-control" placeholder="Product qty"
+                    [ngClass]="{ 'is-invalid': form.productQty.touched && form.productQty.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+                <span *ngIf="form.productQty.invalid && form.productQty.touched" class="invalid-feedback"> Enter product qty </span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <input type="text" formControlName="productImageUrl" class="form-control" placeholder="Product image url"
+                    [ngClass]="{ 'is-invalid': form.productImageUrl.touched && form.productImageUrl.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+                <span *ngIf="form.productImageUrl.invalid && form.productImageUrl.touched" class="invalid-feedback"> Enter image url </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" [disabled]="loading || productForm.invalid" class="btn btn-success">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Create
+            </button>
+        </div>
+    </form>
+</div>
