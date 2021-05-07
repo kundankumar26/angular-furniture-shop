@@ -5,6 +5,7 @@ export class AdminResponse {
     empLastName: string;
     isRejectedByAdmin: number;
     orderId: number;
+    productId: number;
     productName: string;
     productPrice: number;
     productQty: number;

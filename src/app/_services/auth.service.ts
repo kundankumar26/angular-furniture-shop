@@ -99,24 +99,24 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'admin/view-all/', httpOptions);
   }
 
-  acceptOrderByAdmin(orderId: number, qty: number): Observable<any> {
+  acceptOrderByAdmin(orderId: number, qty: number, productId: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
       })
     };
-    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"qty": qty, "isRejectedByAdmin": 1}, httpOptions);
+    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"qty": qty, "isRejectedByAdmin": 1, "productId": productId}, httpOptions);
   }
 
-  rejectOrderByAdmin(orderId: number, qty: number): Observable<any> {
+  rejectOrderByAdmin(orderId: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
       })
     };
-    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"qty": qty, "isRejectedByAdmin": 2}, httpOptions);
+    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"isRejectedByAdmin": 2}, httpOptions);
   }
 
 

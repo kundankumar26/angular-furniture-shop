@@ -35,7 +35,9 @@
                 <td>{{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
                     {{ order?.email }}</td>
                 <td>{{ order?.address | titlecase}} <br> {{ order?.phoneNumber }}</td>
-                <td>{{ showDate(order?.orderDate, order?.shippedDate, order?.deliveryDate) }}</td>
+                <td>{{ showDate(order?.orderDate, order?.shippedDate, order?.deliveryDate) | date:'h:mm a'}}
+                    <br>{{ showDate(order?.orderDate, order?.shippedDate, order?.deliveryDate) | date:' EEE, MMM d'}}
+                </td>
                 <td><b>{{ order?.isRejectedByAdmin == 1 ? "Approved" : "Not approved" }}</b></td>
             </tr>
         </tbody>

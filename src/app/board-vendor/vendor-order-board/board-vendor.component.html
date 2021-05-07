@@ -33,12 +33,15 @@
                 <td>{{ order?.orderId }}</td>
                 <td>{{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
                     {{ order?.email }}</td>
+
                 <td>{{ order?.productName | titlecase }} <br>
                     <span><i class="fas fa-tag"></i>{{ order?.productCategory }}</span><br>
-                    <span>Qty: {{ order?.qty }}</span><br>
-                    <span>Product left: {{ order?.productQty }}</span></td>
+                    <span>Qty: {{ order?.qty }}</span><br></td>
+                    <!-- <span>Product left: {{ order?.productQty }}</span> -->
+
                 <td>{{ order?.address | titlecase}}<br> {{ order?.phoneNumber }}</td>
-                <td>{{ order?.orderDate }}</td>
+                <td>{{ order?.orderDate | date:'h:mm a'}}<br>
+                    {{ order?.orderDate | date:'EE, MMM d'}}</td>
                 <td>
                     <b>{{ order?.shippedDate }}</b><br><br>
                     <input type="date" [ngModel] ="setShippingDate()"

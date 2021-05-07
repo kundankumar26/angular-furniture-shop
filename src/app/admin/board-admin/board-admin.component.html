@@ -8,12 +8,6 @@
     <a href="http://localhost:4200/login" class='nav-link'> Log in </a></strong>
 </div>
 
-<div class="form-group" *ngIf="errorOccured">
-    <div class="alert alert-danger alert-dismissible shadow animated zoomIn" role="alert" > 
-        There was some problem in fetching the data.
-    </div>
-</div>
-
 <div class="container animated slideInUp" *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
 
 <!-- <ag-grid-angular style="width: 100%; height: 500px; align-items: center;" class="ag-theme-balham" [rowData]="rowData" 
@@ -35,17 +29,17 @@
         <tbody>
             <tr *ngFor="let order of orders">
                 <td>{{ order?.orderId }}</td>
-                <td>{{ order?.empId }}<br>
+                <td><b>{{ order?.empId }}</b><br>
                     {{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
                     {{ order?.email }}</td>
                 <td>{{ order?.productName | titlecase}}<br>
-                    <span>{{ order?.productPrice | currency:"INR"}}</span><br>
-                    <span>Only {{ order?.productQty }} left</span></td>
+                    <span><b>{{ order?.productPrice | currency:"INR"}}</b></span><br>
+                    <span>{{ showProductQty(order?.productQty) }} </span></td>
                 <td><input type="number" class="form-control" [(ngModel)]="order.qty" [disabled]="isDisabled(order?.isRejectedByAdmin)"></td>
                 <td *ngIf="order.isRejectedByAdmin!=0"> <b><i>{{ order?.isRejectedByAdmin == 1 ? "Approved" : "Rejected" }}</i></b></td>
                 <td *ngIf="order.isRejectedByAdmin==0">
-                    <button (click)="acceptOrder(order?.orderId, order?.qty)" class="btn btn-outline-dark"><i class="fas fa-check"></i></button>
-                    <button (click)="rejectOrder(order?.orderId, order?.qty)" class="btn btn-outline-dark" style="margin: 10px;"><i class="fas fa-times"></i></button>
+                    <button (click)="acceptOrder(order?.orderId, order?.qty, order?.productId)" class="btn btn-outline-dark"><i class="fas fa-check"></i></button>
+                    <button (click)="rejectOrder(order?.orderId)" class="btn btn-outline-dark" style="margin: 10px;"><i class="fas fa-times"></i></button>
                 </td>
             </tr>
         </tbody>

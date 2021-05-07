@@ -32,7 +32,8 @@ export class HeaderComponent implements OnInit {
     this.checkIfUserLoggedIn();
   }
 
-  sendTextToComponent(){
+  sendTextToComponent(value: string){
+    this.filterText = value;
     this.headerService.setSearchText(this.filterText);
   }
 
