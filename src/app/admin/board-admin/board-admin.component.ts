@@ -5,6 +5,7 @@ import { AuthService } from '../../_services/auth.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { AgGridModule } from 'ag-grid-angular';
 import { map } from 'jquery';
+import { AdminResponse } from 'src/app/models/adminResponse';
 
 @Component({
   selector: 'app-board-admin',
@@ -13,25 +14,7 @@ import { map } from 'jquery';
 })
 export class BoardAdminComponent implements OnInit {
 
-  rowData: Order[] = [];
-  rowClassRules: any;
-  columnDefs = [
-    { headerName: "Order Id", field: "orderId", cellStyle: {minHeight: '100px', color: 'black'}},
-    { headerName: "Employee Id", field: "empId"},
-    { headerName: "Employee Name", field: "empName"},
-    { headerName: "Email", field: "email"},
-    { headerName: "Item Ordered", field: "itemRequested"},
-    { headerName: "Qty", field: "qty"},
-    { headerName: "Actions", field: "isRejectedByAdmin"},
-  ];
-  defaultColDef = {
-    width: 150,
-    sortable: true,
-    resizable: true,
-    filter: true,
-  };
-
-  orders: Order[];
+  orders: AdminResponse[];
   ordersMap = new Map();
   isAllowedToViewPage: number = 0;
   tokenExpired: boolean = false;
@@ -47,8 +30,8 @@ export class BoardAdminComponent implements OnInit {
       data['body'].forEach((element: any, index: any) => {
         this.ordersMap.set(data['body'][index].orderId, index);
       });
+      console.log(data.body);
       this.orders = data.body;
-      this.rowData = data.body;
     }, err => {
       //Authentication Failed
       if(err.error.status == 401){

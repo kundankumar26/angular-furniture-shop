@@ -31,13 +31,17 @@
         <tbody>
             <tr *ngFor="let order of orders">
                 <td>{{ order?.orderId }}</td>
-                <td>{{ order?.empName | titlecase}}</td>
-                <td>{{ order?.itemRequested | titlecase }} <br> <span>Qty: {{ order?.qty }}</span></td>
-                <td>{{ order?.shippingAddress | titlecase}}<br> {{ order?.phnNo }}</td>
-                <td>{{ order?.orderDate | slice:0:11  }}</td>
+                <td>{{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
+                    {{ order?.email }}</td>
+                <td>{{ order?.productName | titlecase }} <br>
+                    <span><i class="fas fa-tag"></i>{{ order?.productCategory }}</span><br>
+                    <span>Qty: {{ order?.qty }}</span><br>
+                    <span>Product left: {{ order?.productQty }}</span></td>
+                <td>{{ order?.address | titlecase}}<br> {{ order?.phoneNumber }}</td>
+                <td>{{ order?.orderDate }}</td>
                 <td>
-                    <b>{{ order?.shippedDate | slice:0:10 }}</b><br><br>
-                    <input type="date" [ngModel] ="setShippingDate(order?.shippedDate)"
+                    <b>{{ order?.shippedDate }}</b><br><br>
+                    <input type="date" [ngModel] ="setShippingDate()"
                         (ngModelChange)="getShippingDate($event, order?.orderId)">
                 </td>
             </tr>

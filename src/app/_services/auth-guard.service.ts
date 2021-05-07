@@ -17,18 +17,7 @@ export class AuthGuardService implements CanActivate {
     if(!this.tokenStorage.getToken()){
       return true;
     }
-    const roles = this.tokenStorage.getUser().roles[0];
-    //console.log(route.data, roles);
-    if(route.data.expectedRole == roles){
-      return true;
-    } else if(roles == 'ROLE_VENDOR'){
-      this.router.navigate(['vendor']);
-      return true;
-    } else if(roles == 'ROLE_ADMIN'){
-      this.router.navigate(['admin']);
-      return true;
-    } 
-    this.router.navigate(['orders']);
+    this.router.navigate(['home']);
     return false;
   }
 }

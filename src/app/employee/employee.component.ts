@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { HeaderComponentService } from '../header/header-component.service';
 import { Order } from '../models/order';
 import { AuthService } from '../_services/auth.service';
 import { SharedService } from '../_services/shared.service';
@@ -18,12 +20,7 @@ export class EmployeeComponent implements OnInit {
   tokenExpired: boolean = false;
   
   constructor(private authService: AuthService, private router: Router, private sharedService: SharedService,
-    private tokenStorage: TokenStorageService) { 
-    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
-      window.location.reload();
-      console.log("inside header");
-    });
-  }
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     if(!window.sessionStorage.getItem('auth-token')){
@@ -44,6 +41,15 @@ export class EmployeeComponent implements OnInit {
       }
       console.log(err);
     });
+  }
+
+  showDate(orderDate: Date, shippedDate: Date, deliveryDate: Date){
+    if(deliveryDate != null){
+      return deliveryDate;
+    } else if(shippedDate != null){
+      return shippedDate;
+    }
+    return orderDate;
   }
 
 }

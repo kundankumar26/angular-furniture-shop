@@ -1,26 +1,52 @@
 <nav class="navbar navbar-expand">
     <a class="navbar-brand"><span id="brand-color">Perpendicular<br>Shop</span></a>
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+
+    <a class="nav-link" routerLink="home" [routerLinkActive]="['is-active']">Home </a>
+    
+    <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn && showAdminBoard">
       <li class="nav-item">
-        <a href="#" class="nav-link">Home </a>
+        <a class="nav-link" routerLink="admin" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+          true}">Admin Board</a>
       </li>
-      <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="admin/view-all" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+          true}">View all</a>
       </li>
-      <li class="nav-item" *ngIf="showVendorBoard">
-        <a href="/vendor" class="nav-link" routerLink="vendor">Vendor Board</a>
+    </ul>
+
+    <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn && showVendorBoard">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="vendor" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+          true}">Vendor Board</a>
       </li>
-      <li class="nav-item"  *ngIf="showEmployeeBoard">
-        <a href="/employee" class="nav-link" routerLink="employee">Orders</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="vendor/create-product" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+          true}">Create Product</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn && showEmployeeBoard">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="employee" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+          true}">Orders</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"><input type="text" class="form-control" [(ngModel)]="filterText" placeholder="search"/></li>
+      <li class="nav-item" style="margin-left: 5px;"><button class="btn btn-outline-light" (click)="sendTextToComponent()"><i class="fas fa-search"></i></button></li>
+      <li class="nav-item" style="margin-left: 5px;">
+        <a class="btn btn-outline-light" routerLink="employee/cart" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+          true}"><i class="fab fa-opencart"></i></a>
       </li>
     </ul>
   
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item">
-        <a href="/signup" class="nav-link" routerLink="signup">Sign Up</a>
+        <a class="nav-link" routerLink="signup" [routerLinkActive]="['is-active']">Sign Up</a>
       </li>
       <li class="nav-item">
-        <a href="/login" class="nav-link" routerLink="login">Login</a>
+        <a class="nav-link" routerLink="login" [routerLinkActive]="['is-active']">Login</a>
       </li>
     </ul>
   
@@ -33,7 +59,7 @@
           <span *ngIf="showAdminBoard">Admin </span>
       </li>
       <li class="nav-item">
-        <a href class="nav-link" (click)="logout()">LogOut</a>
+        <a class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
   </nav>  

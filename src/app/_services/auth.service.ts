@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SignupRequestPayload } from '../register/register-request.payload';
-import { LocalStorageService } from 'ngx-webstorage';
-import { User } from '../models/user';
+import { TokenStorageService } from './token-storage.service';
+import { Product } from '../models/product';
 
 const AUTH_API = 'http://localhost:8080/';
 
@@ -12,7 +12,7 @@ const AUTH_API = 'http://localhost:8080/';
 })
 export class AuthService {
     
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private tokenStorage: TokenStorageService) { }
 
   signup(payload: SignupRequestPayload): Observable<any> {
     return this.httpClient.post(AUTH_API + "signup/", payload, { responseType: 'json' });
@@ -22,6 +22,8 @@ export class AuthService {
     return this.httpClient.post(AUTH_API + 'signin/', payload, {responseType: 'json'});
   }
 
+
+  //Methods for Employee only
   getOrdersForEmployee(): Observable<any>{
     const httpOptions = {
       headers: new HttpHeaders({ 
@@ -36,12 +38,14 @@ export class AuthService {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
       })
     };
     return this.httpClient.post(AUTH_API + 'employee/', payload, httpOptions);
   }
 
+
+  //Methods for Vendor only
   getOrdersForVendor(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
@@ -52,6 +56,29 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'vendor/', httpOptions);
   }
 
+  updateOrderByVendor(orderId: number, date: string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
+      })
+    };
+    return this.httpClient.patch(AUTH_API + 'vendor/' + orderId, {"shippedDate": date}, httpOptions);
+  }
+
+  createProductByVendor(body: any): Observable<any> {
+    const userId = this.tokenStorage.getUser().id;
+    console.log(userId);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
+      })
+    };
+    return this.httpClient.post(AUTH_API + 'products/' + userId, body, httpOptions);
+  }
+
+  //Methods for Admin only
   getOrdersForAdmin(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
@@ -60,6 +87,16 @@ export class AuthService {
       })
     };
     return this.httpClient.get(AUTH_API + 'admin/', httpOptions);
+  }
+
+  getOldOrdersForAdmin(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
+      })
+    };
+    return this.httpClient.get(AUTH_API + 'admin/view-all/', httpOptions);
   }
 
   acceptOrderByAdmin(orderId: number, qty: number): Observable<any> {
@@ -82,13 +119,15 @@ export class AuthService {
     return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"qty": qty, "isRejectedByAdmin": 2}, httpOptions);
   }
 
-  updateOrderByVendor(orderId: number, date: string): Observable<any> {
+
+  //Methods for products
+  getAllProducts(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
       })
     };
-    return this.httpClient.patch(AUTH_API + 'vendor/' + orderId, {"shippedDate": date}, httpOptions);
+    return this.httpClient.get(AUTH_API + 'products/', httpOptions);
   }
 }

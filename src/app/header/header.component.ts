@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../_services/shared.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { HeaderComponentService } from './header-component.service';
 
 @Component({
   selector: 'app-header',
@@ -18,9 +19,10 @@ export class HeaderComponent implements OnInit {
   showEmployeeBoard: boolean = false;
   username: string;
   clickEventsubscription: Subscription;
+  filterText: string;
 
   constructor(private tokenStorageService: TokenStorageService, private sharedService: SharedService, 
-      private router: Router) { 
+      private router: Router, private headerService: HeaderComponentService) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.checkIfUserLoggedIn();
     });
@@ -28,6 +30,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkIfUserLoggedIn();
+  }
+
+  sendTextToComponent(){
+    this.headerService.setSearchText(this.filterText);
   }
 
   checkIfUserLoggedIn(){
@@ -45,6 +51,8 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.tokenStorageService.signOut();
+    this.isLoggedIn = false;
+    this.router.navigate(['login']);
   }
 
 }

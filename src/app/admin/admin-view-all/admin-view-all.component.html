@@ -26,7 +26,8 @@
         <thead>
             <tr>
                 <th>Order Id</th>
-                <th>Employee Details</th>
+                <th>Employee ID</th>
+                <th>Employee Name</th>
                 <th>Item ordered</th>
                 <th>Qty</th>
                 <th>Actions</th>
@@ -35,18 +36,14 @@
         <tbody>
             <tr *ngFor="let order of orders">
                 <td>{{ order?.orderId }}</td>
-                <td>{{ order?.empId }}<br>
-                    {{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
+                <td>{{ order?.empId }}</td>
+                <td>{{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
                     {{ order?.email }}</td>
                 <td>{{ order?.productName | titlecase}}<br>
-                    <span>{{ order?.productPrice | currency:"INR"}}</span><br>
-                    <span>Only {{ order?.productQty }} left</span></td>
-                <td><input type="number" class="form-control" [(ngModel)]="order.qty" [disabled]="isDisabled(order?.isRejectedByAdmin)"></td>
+                    {{ order?.productPrice | currency:"INR" }} </td>
+                <td>{{ order?.qty }}</td>
                 <td *ngIf="order.isRejectedByAdmin!=0"> <b><i>{{ order?.isRejectedByAdmin == 1 ? "Approved" : "Rejected" }}</i></b></td>
-                <td *ngIf="order.isRejectedByAdmin==0">
-                    <button (click)="acceptOrder(order?.orderId, order?.qty)" class="btn btn-outline-dark"><i class="fas fa-check"></i></button>
-                    <button (click)="rejectOrder(order?.orderId, order?.qty)" class="btn btn-outline-dark" style="margin: 10px;"><i class="fas fa-times"></i></button>
-                </td>
+                
             </tr>
         </tbody>
     </table>

@@ -12,21 +12,31 @@
     <table class="table table-striped" style="text-align: center;">
         <thead>
             <tr>
+                <th> </th>
                 <th>Order Id</th>
                 <th>Item ordered</th>
+                <th>Price</th>
+                <th>Emp Name</th>
                 <th>Shipping Address</th>
                 <th>Order Date</th>
-                <th>Shipped Date</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let order of orders">
-                <td>{{ order.orderId }}</td>
-                <td>{{ order.itemRequested | titlecase}} <br> <span>Qty: {{ order.qty }}</span></td>
-                <td>{{ order.shippingAddress | titlecase}} <br> {{ order.phnNo }}</td>
-                <td>{{ order.orderDate | slice:0:11 }}</td>
-                <td><b>{{ order.isRejectedByAdmin == 1 ? (order.shippedDate == null ? "Approved" : order.shippedDate | slice:0:11) : 
-                    (order.isRejectedByAdmin == 0 ? "Not approved" : "Rejected") }}</b></td>
+                <td><img [src]="order?.productImageUrl" class="rounded"/></td>
+                <td>{{ order?.orderId }}</td>
+                
+                <td>{{ order?.productName | titlecase}} <br> 
+                    <span>Qty: {{ order?.qty }}</span></td>
+
+                <td><b>{{ order?.productPrice | currency:'INR' }}</b></td>
+
+                <td>{{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
+                    {{ order?.email }}</td>
+                <td>{{ order?.address | titlecase}} <br> {{ order?.phoneNumber }}</td>
+                <td>{{ showDate(order?.orderDate, order?.shippedDate, order?.deliveryDate) }}</td>
+                <td><b>{{ order?.isRejectedByAdmin == 1 ? "Approved" : "Not approved" }}</b></td>
             </tr>
         </tbody>
     </table>

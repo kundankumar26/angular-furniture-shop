@@ -1,7 +1,9 @@
+import { SlicePipe } from '@angular/common';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from '../models/user';
 import { AuthService } from '../_services/auth.service';
 import { SharedService } from '../_services/shared.service';
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
   showVendorBoard: any;
   showAdminBoard: any;
   
-  constructor(private authService: AuthService, private router: Router, 
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService,
     private tokenStorage: TokenStorageService, private sharedServices: SharedService) { }
 
   ngOnInit(): void {
@@ -61,18 +63,15 @@ export class LoginComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showVendorBoard = this.roles.includes('ROLE_VENDOR');
       this.showEmployeeBoard = this.roles.includes('ROLE_EMPLOYEE');
+
+      this.toastr.success('Logged in as ' + this.roles[0].substr(5, this.roles[0].length), 'Hey ' + data.username, {closeButton: true});
       
-      if(this.showEmployeeBoard){
-        this.router.navigate(['orders']);
-      } else if(this.showVendorBoard){
-        this.router.navigate(['vendor']);
-      } else if(this.showAdminBoard){
-        this.router.navigate(['admin']);
-      }
+      this.router.navigate(['home']);
       this.sharedServices.sendClickEvent();
     }, err => {
       this.errorMessage = err.error.message;
       this.isLoginFailed = true;
+      console.log(err);
     });
     this.isLoginFailed = false;
   }
