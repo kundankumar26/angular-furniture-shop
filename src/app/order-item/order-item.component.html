@@ -24,8 +24,13 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+
+  <div class="container text-center" style="width: 100%; height: 100%;" *ngIf="screenLoading" >
+    <img src="https://acegif.com/wp-content/uploads/loading-95.gif" 
+        style="margin-top: 6%; text-align: center; height: 30%; width: 40%;" />
+  </div>
   
-  <div class="new-products container animated fadeInUp">
+  <div class="new-products container animated fadeInUp" *ngIf="!screenLoading">
     <div class="row">
       <div class="col-md-4 text-center img-thumbnail hoverable" *ngFor="let product of products | filter:searchText" >
         <!-- <div class="text-center img-thumbnail hoverable"> -->

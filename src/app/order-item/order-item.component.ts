@@ -56,6 +56,7 @@ export class OrderItemComponent implements OnInit {
   filteredList: Product[] = [];
   sortBy: string;
   searchText: string;
+  screenLoading: boolean = true;
 
   constructor(private tokenStorageService: TokenStorageService, private router: Router, 
     private authService: AuthService, private modalService: NgbModal, private toastr: ToastrService,
@@ -72,6 +73,12 @@ export class OrderItemComponent implements OnInit {
       //console.log(data['body']);
       this.products = data['body'];
       this.filteredList = data['body'];
+
+      setTimeout(() => {
+        console.log('sleep');
+        this.screenLoading = false;
+      }, 1000);
+
       console.log(this.products);
     }, err => {
       console.log(err);

@@ -36,7 +36,7 @@
       <li class="nav-item"><input type="text" class="form-control" [ngModel]="filterText" (ngModelChange)="sendTextToComponent($event)" placeholder="search"/></li>
       <li class="nav-item" style="margin-left: 5px;"><button class="btn btn-outline-light" (click)="sendTextToComponent(filterText)">
         <i class="fas fa-search"></i></button></li>
-      <li class="nav-item" style="margin-left: 5px;">
+      <li class="nav-item" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
         <a class="btn btn-outline-light" routerLink="employee/cart" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
           true}"><i class="fab fa-opencart"></i></a>
       </li>
