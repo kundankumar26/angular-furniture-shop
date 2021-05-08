@@ -94,8 +94,10 @@ export class OrderItemComponent implements OnInit {
       this.products.sort(sortByName);
     } else if(this.sortBy == 'price_low_to_high'){
       this.products.sort(sortByPriceLowToHigh);
-    } else {
+    } else if(this.sortBy == 'price_high_to_low'){
       this.products.sort(sortByPriceHighToLow);
+    } else {
+      this.products.sort(sortByPopularity);
     }
   }
 
@@ -103,6 +105,13 @@ export class OrderItemComponent implements OnInit {
     this.employeeCartMap.set(productId, productName);
     this.map.set(productId, productName);
     console.log(productId, productName);
+  }
+
+  isAddedToCart(productId: number){
+    if(this.map.get(productId) != null){
+      return true;
+    }
+    return false;
   }
 
 
@@ -181,6 +190,7 @@ export class OrderItemComponent implements OnInit {
 
   Remove(emporder: any) {
     this.employeeCartMap.delete(emporder);
+    this.isAddedToCart(emporder);
     console.log("Inside Remove button " + emporder + " tota qty = " + this.map);
   }
 
@@ -201,6 +211,12 @@ function sortByPriceLowToHigh(p1: Product, p2: Product) {
 function sortByPriceHighToLow(p1: Product, p2: Product) {
   if(p1.productPrice < p2.productPrice) return 1;
   else if(p1.productPrice === p2.productPrice) return 0;
+  else return -1;
+}
+
+function sortByPopularity(p1: Product, p2: Product) {
+  if(p1.productRating < p2.productRating) return 1;
+  else if(p1.productRating == p2.productRating) return 0;
   else return -1;
 }
 
