@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { LoadingScreenService } from 'src/app/_services/loading-screen.service';
 import { Order } from '../../models/order';
 import { AuthService } from '../../_services/auth.service';
 import { TokenStorageService } from '../../_services/token-storage.service';
@@ -13,18 +16,14 @@ export class BoardVendorComponent implements OnInit {
 
   loading: boolean = false;
   anyOrderChanged: boolean = false;
-  monthArray: string[] = [' ', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   orders: Order[];
   map: any = new Map();
-  updatedItems: any;
   isAllowedToViewPage: number = 0;
-  errorMessage: string = '';
   tokenExpired: boolean = false;
   ordersMap = new Map();
-  errorOccured: boolean = false;
-  orderUpdatedSuccess: boolean = false;
   
-  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService) { }
+  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService, 
+    private toastr: ToastrService) { }
   
   //CHECK IF VENDOR LOGGED IN, THEN GET ALL THE ORDERS
   ngOnInit(): void {
@@ -37,6 +36,7 @@ export class BoardVendorComponent implements OnInit {
       data['body'].forEach((element: any, index: any) => {
         this.ordersMap.set(data['body'][index].orderId, index);
       });
+      
     }, err => {
       //Authentication Failed
       if(err.error.status == 401){
@@ -48,7 +48,7 @@ export class BoardVendorComponent implements OnInit {
         this.isAllowedToViewPage = 1;
         return;
       }
-      this.errorOccured = true;
+      this.toastr.error("Something went wrong", null, {closeButton: true});
       console.log(err);
     });
   }
@@ -63,31 +63,33 @@ export class BoardVendorComponent implements OnInit {
 
   //CHANGE THE SHIPPING DATE ACCORDING TO DATABASE FORMAT
   getShippingDate(shippingDate: string, orderId: number): any {
+    console.log(shippingDate, new Date(shippingDate));
     const datePayload =  shippingDate.split("-").reverse().join("-");
-    this.map.set(orderId, datePayload);
+    this.map.set(orderId, new Date(shippingDate));
     this.anyOrderChanged = true;
     return shippingDate;
   }
 
   updateOrders(): void {
     this.loading = true;
-    this.orderUpdatedSuccess = false;
 
     this.map.forEach((element: any, index: any) => {
-      this.authService.updateOrderByVendor(index, element).subscribe(data => {
+      const updatedOrder = this.orders[this.ordersMap.get(index)];
+      updatedOrder.shippedDate = element;
+      console.log(updatedOrder);
+      this.authService.updateOrderByVendor(index, updatedOrder).subscribe(data => {
+        //console.log(data, this.orders[this.ordersMap.get(data.orderId)]);
         this.loading = false;
-        this.updatedItems = data.size;
         this.orders[this.ordersMap.get(data.orderId)].shippedDate = data.shippedDate;
-        this.orderUpdatedSuccess = true;
-        console.log(data, this.orders[this.ordersMap.get(data.orderId)]);
+        
+        
       }, err => {
-        this.orderUpdatedSuccess = false;
         this.loading = false;
-        this.errorOccured = true;
-        this.errorMessage = err.error.message;
+        this.toastr.error("Failed to update the order", null, {closeButton: true});
         console.log(err);
       });
     });
+    //this.toastr.success(" orders updated successfully", null, {closeButton: true});
   }
 
 }

@@ -9,13 +9,7 @@
     </strong>
 </div>
 
-<div class="form-group" *ngIf="errorOccured">
-    <div class="alert alert-danger alert-dismissible shadow animated zoomIn" role="alert" > 
-        There was some problem in fetching the data.
-    </div>
-</div>
-
-<div class="container animated slideInUp"  *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
+<div class="container animated fadeIn"  *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
 
     <table class="table table-striped" style="text-align: center;">
         <thead>
@@ -43,29 +37,13 @@
                 <td>{{ order?.orderDate | date:'h:mm a'}}<br>
                     {{ order?.orderDate | date:'EE, MMM d'}}</td>
                 <td>
-                    <b>{{ order?.shippedDate }}</b><br><br>
+                    <b>{{ order?.shippedDate | date:'EE, MMM d' }}</b><br><br>
                     <input type="date" [ngModel] ="setShippingDate()"
                         (ngModelChange)="getShippingDate($event, order?.orderId)">
                 </td>
             </tr>
         </tbody>
     </table>
-
-    <div class="form-group">
-        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="orderUpdatedSuccess"> 
-            Orders shipped date updated successfully. 
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="errorMessage.length > 0"> 
-            {{ errorMessage }} 
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    </div>
 
     <div style="display:flex; justify-content: center; margin-bottom: 20px;">
         <button style="width: 15%;" class="btn btn-success" *ngIf="anyOrderChanged" (click)="updateOrders()"> 

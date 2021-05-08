@@ -8,7 +8,7 @@
         <a href="http://localhost:4200/login" class='nav-link'> Log in </a></strong>
 </div>
 
-<div class="container animated slideInUp" *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
+<div class="container animated fadeIn" *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
     <table class="table table-striped" style="text-align: center;">
         <thead>
             <tr>

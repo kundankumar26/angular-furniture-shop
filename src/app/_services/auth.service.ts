@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SignupRequestPayload } from '../register/register-request.payload';
 import { TokenStorageService } from './token-storage.service';
 import { Product } from '../models/product';
+import { Order } from '../models/order';
 
 const AUTH_API = 'http://localhost:8080/';
 
@@ -56,14 +57,14 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'vendor/', httpOptions);
   }
 
-  updateOrderByVendor(orderId: number, date: string): Observable<any> {
+  updateOrderByVendor(orderId: number, payload: Order): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
       })
     };
-    return this.httpClient.patch(AUTH_API + 'vendor/' + orderId, {"shippedDate": date}, httpOptions);
+    return this.httpClient.patch(AUTH_API + 'vendor/' + orderId, payload, httpOptions);
   }
 
   createProductByVendor(body: any): Observable<any> {
