@@ -5,6 +5,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StarRatingComponent } from 'ng-starrating';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderComponentService } from '../header/header-component.service';
+import { EmployeeRequestPayload } from '../models/EmployeeRequestPayload';
 import { Order } from '../models/order';
 import { Product } from '../models/product';
 import { AuthService } from '../_services/auth.service';
@@ -32,7 +33,7 @@ export class OrderItemComponent implements OnInit {
   form: any = {};
   index: number = 0;
   employeeShippingAddress: string;
-  employeePhoneNumber: number;
+  employeePhoneNumber: string;
   isUserEmployee: boolean = false;
 
   map: any = new Map();
@@ -66,6 +67,7 @@ export class OrderItemComponent implements OnInit {
     if(this.isLoggedIn){
       this.isUserEmployee = this.tokenStorageService.getUser().roles[0].includes('ROLE_EMPLOYEE');
     }
+
     this.authService.getAllProducts().subscribe(data => {
       //console.log(data['body']);
       this.products = data['body'];
@@ -90,9 +92,9 @@ export class OrderItemComponent implements OnInit {
     }
   }
 
-
   addProduct(productId: number, productName: string){
     this.employeeCartMap.set(productId, productName);
+    this.map.set(productId, productName);
     console.log(productId, productName);
   }
 
@@ -108,7 +110,6 @@ export class OrderItemComponent implements OnInit {
     if(!this.isLoggedIn){
       return;
     }
-    console.log("confirmOrder " + this.employeeCartMap.size);
     if (this.employeeCartMap.size != 0) {
       var T = document.getElementById("TestsDiv");
       T.style.display = "block";
@@ -121,26 +122,28 @@ export class OrderItemComponent implements OnInit {
     this.orderNotPlaced = 0;
     this.orderPlaced = 0;
 
-    // document.getElementById("TestsDiv").style.display = "none";
-    // document.getElementById("Items-list").style.display = "none";
-    console.log("this is start map ", this.map);
-
-    const payload: number[] = [];
+    const payload: EmployeeRequestPayload[] = [];
     this.unorderedItems = [];
     this.orderedItems = [];
 
     this.employeeCartMap.forEach((element: string, index: number) => {
-      console.log(index, element);
-      payload.push(index);
+      const orderRequest = new EmployeeRequestPayload();
+      orderRequest.productId = index;
+      orderRequest.qty = 1;
+      payload.push(orderRequest);
     });
-    
+    if(payload != null){
+      payload[0].address = this.employeeShippingAddress;
+      payload[0].phoneNumber = this.employeePhoneNumber;
+    }
+    console.log(this.employeeCartMap);
+
     this.authService.createOrderForEmployee(payload).subscribe(data => {
       this.loading = false;
-      this.orderPlaced = data.length;
-      this.orderNotPlaced = this.map.size - this.orderPlaced;
-      this.clearOrderedProductsFromMap(data);
-
-      console.log(data, this.map);
+      this.orderPlaced = data.body.length;
+      this.showToastMessage(this.orderPlaced, payload.length - this.orderPlaced);
+      
+      console.log(data);
     }, err => {
       this.loading = false;
       if(err.error.error == 'Unauthorized'){
@@ -148,26 +151,25 @@ export class OrderItemComponent implements OnInit {
         this.router.navigate(['login']);
         return;
       }
-      if(err.status == 406){
+      if(err.status == 404){
+        this.toastr.error(err.error.message, null, {closeButton: true});
+      } else{
         this.shippingAddressError = err.error.message;
+        this.showToastMessage(this.orderPlaced, payload.length - this.orderPlaced);
       }
-      //console.log(err, err.status);
+      console.log(err);
     });
-    console.log(this.orderPlaced, this.orderNotPlaced, this.orderedItems, this.unorderedItems);
     this.clearArray();
   }
-  clearOrderedProductsFromMap(data: any) {
-    data.forEach((element: any) => {
-      //console.log(element, element.itemRequested);
-      this.orderedItems.push(" " + element.itemRequested);
-      this.map.set(element.itemRequested, 2);
-    });
-    console.log(this.map);
-    this.map.forEach((element: any, index: string) => {
-      if(element == 1){
-        this.unorderedItems.push(" " + index);
-      }
-    });
+
+  showToastMessage(orderPlaced: number, orderNotPlaced: number){
+    if(orderPlaced > 0){
+      this.toastr.success(orderPlaced + " item ordered successfully.", null, {closeButton: true});
+    }
+    if(orderNotPlaced > 0){
+      console.log(orderNotPlaced);
+      this.toastr.error(orderNotPlaced + " item already ordered.", null, {closeButton: true});
+    }
   }
 
   Remove(emporder: any) {

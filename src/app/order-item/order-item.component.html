@@ -121,27 +121,6 @@
     <form name="form" class="border rounded shadow-sm" style="color: rgb(107, 107, 107);padding: 50px; margin: 10px auto 100px auto;" 
       (ngSubmit)="f.form.valid && addToCart()" #f="ngForm" novalidate>
 
-      <div class="form-group">
-        <div class="alert alert-success alert-dismissible shadow animated zoomIn" role="alert" *ngIf="isLoggedIn && orderPlaced > 0"> 
-            {{ orderedItems }} ordered successfully.
-          
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="alert alert-danger alert-dismissible shadow animated zoomIn" role="alert" *ngIf="isLoggedIn && orderNotPlaced > 0"> 
-            {{ unorderedItems }} already ordered.
-          
-        </div>
-      </div>
-
-      <div class="form-group">
-        <div class="alert alert-danger alert-dismissible shadow animated zoomIn" role="alert" *ngIf="shippingAddressError != null">
-            {{ shippingAddressError }}
-          
-        </div>
-      </div>
-
       <h2>Delivery Details</h2>
       <div class="form-group row col-md-12">
         <label for="address">Address </label>
@@ -165,10 +144,6 @@
       <button type="submit" class="btn btn-primary">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Submit
       </button>
-
-      <div class="alert alert-success" id="onsubmit" style="display:none">
-        <strong>Success!</strong> Order placed sucessfully.
-      </div>
 
     </form>
   </div>
