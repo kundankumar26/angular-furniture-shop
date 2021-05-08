@@ -56,7 +56,7 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'vendor/', httpOptions);
   }
 
-  updateOrderByVendor(orderId: number, date: string): Observable<any> {
+  updateOrderByVendor(orderId: number, date: Date): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',

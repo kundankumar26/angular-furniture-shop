@@ -37,7 +37,7 @@
                 <td>{{ order?.orderDate | date:'h:mm a'}}<br>
                     {{ order?.orderDate | date:'EE, MMM d'}}</td>
                 <td>
-                    <b>{{ order?.shippedDate }}</b><br><br>
+                    <b>{{ order?.shippedDate | date:'EE, MMM d' }}</b><br><br>
                     <input type="date" [ngModel] ="setShippingDate()"
                         (ngModelChange)="getShippingDate($event, order?.orderId)">
                 </td>
