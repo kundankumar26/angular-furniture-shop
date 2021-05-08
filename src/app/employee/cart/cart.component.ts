@@ -8,12 +8,13 @@ import { Product } from 'src/app/models/product';
 })
 export class CartComponent implements OnInit {
 
-  @Input() product: Product;
+  @Input() productsArray: Product[] = [];
   products: Product[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.products);
   }
 
 }

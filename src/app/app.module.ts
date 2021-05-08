@@ -27,6 +27,7 @@ import { StarComponent } from './order-item/star/star.component';
 import { RatingModule } from 'ng-starrating';
 import { ErrorComponent } from './error/error.component';
 import { ProductCardComponent } from './board-vendor/product-card/product-card.component';
+import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProductCardComponent } from './board-vendor/product-card/product-card.c
     StarComponent,
     ErrorComponent,
     ProductCardComponent,
+    ConfirmationPageComponent,
   ],
   imports: [
     CommonModule,

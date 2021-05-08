@@ -5,6 +5,7 @@ import { BoardAdminComponent } from './admin/board-admin/board-admin.component';
 import { CreateProductComponent } from './board-vendor/create-product/create-product.component';
 import { BoardVendorComponent } from './board-vendor/vendor-order-board/board-vendor.component';
 import { CartComponent } from './employee/cart/cart.component';
+import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { LoginComponent } from './login/login.component';
 import { OrderItemComponent } from './order-item/order-item.component';
@@ -18,6 +19,7 @@ import { RoleGuardService } from './_services/role-guard.service';
 const routes: Routes = [
   {path: 'signup', component: RegisterComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent, canActivate: [AuthGuardService]},
+  {path: ':id', component: ConfirmationPageComponent},
   {path: 'home', component: OrderItemComponent},
   {path: 'create-order', component: ViewOrderComponent, canActivate: [AuthGuardService,]},
   {path: 'employee', component: EmployeeComponent, canActivate: [RoleGuardService]},
