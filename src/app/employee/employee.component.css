@@ -13,6 +13,6 @@ td{
 td > span {
     font-size: 0.8em;
 }
-img {
+td > img {
     width: 150px;
 }

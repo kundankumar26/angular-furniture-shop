@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand">
-    <a class="navbar-brand"><span id="brand-color">Perpendicular<br>Shop</span></a>
+
+<div class="fixed-top">
+  <nav class="navbar navbar-expand border-bottom">
+    <a class="navbar-brand"><span id="brand-color"><b>Perpendicular<br>Shop</b></span></a>
 
     <a class="nav-link" routerLink="home" [routerLinkActive]="['is-active']">Home </a>
     
@@ -34,10 +36,10 @@
 
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><input type="text" class="form-control" [ngModel]="filterText" (ngModelChange)="sendTextToComponent($event)" placeholder="search"/></li>
-      <li class="nav-item" style="margin-left: 5px;"><button class="btn btn-outline-light" (click)="sendTextToComponent(filterText)">
+      <li class="nav-item" style="margin-left: 5px;"><button class="btn btn-outline-dark" (click)="sendTextToComponent(filterText)">
         <i class="fas fa-search"></i></button></li>
       <li class="nav-item" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
-        <a class="btn btn-outline-light" routerLink="employee/cart" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
+        <a class="btn btn-outline-dark" routerLink="employee/cart" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
           true}"><i class="fab fa-opencart"></i></a>
       </li>
     </ul>
@@ -54,7 +56,7 @@
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
       <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px;" title="Hi" ></mdb-icon>
       <li class="nav-item" style="margin-right: 20px;">
-        Hey {{ username | titlecase}}<br>
+        Hey <b>{{ username | titlecase}}</b><br>
           <span *ngIf="showEmployeeBoard">Employee </span>
           <span *ngIf="showVendorBoard">Vendor</span>
           <span *ngIf="showAdminBoard">Admin </span>
@@ -63,4 +65,7 @@
         <a class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
-  </nav>  
+  </nav>
+</div>
+
+ 

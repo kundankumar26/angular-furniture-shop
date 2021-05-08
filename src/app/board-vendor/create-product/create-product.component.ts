@@ -23,7 +23,7 @@ export class CreateProductComponent implements OnInit {
       productPrice: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$")]),
       productDescription: new FormControl(null, [Validators.required, Validators.minLength(5)]),
       productQty: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$")]),
-      productImageUrl: new FormControl(null, [Validators.required, Validators.pattern("([^\\s]+(\\.(jpe?g|png|gif|bmp))$)")]),
+      productImageUrl: new FormControl(null, [Validators.required, Validators.pattern("([^\\s]+$)")]),
     });
   }
 

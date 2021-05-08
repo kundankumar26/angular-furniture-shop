@@ -40,11 +40,6 @@ export class OrderItemComponent implements OnInit {
   unorderedItems: string[] = [];
   orderedItems: string[] = [];
 
-  buttonMDisabled = false;
-  buttonKeyboardDisabled: boolean = false;
-  buttonMouseDisabled: boolean = false;
-  buttonChairDisabled: boolean = false;
-  buttonTableDisabled: boolean = false;
   isLoggedIn: boolean = false;
   loading: boolean = false;
   orderPlaced: number = 0;
@@ -54,7 +49,7 @@ export class OrderItemComponent implements OnInit {
   products: Product[] = [];
   employeeCartMap = new Map();
   filteredList: Product[] = [];
-  sortBy: string;
+  sortBy: string = 'name';
   searchText: string;
   screenLoading: boolean = true;
 
@@ -92,9 +87,9 @@ export class OrderItemComponent implements OnInit {
     this.sortBy = value;
     if(this.sortBy == 'name'){
       this.products.sort(sortByName);
-    } else if(this.sortBy == 'price_low_to_high'){
+    } else if(this.sortBy == 'lowToHigh'){
       this.products.sort(sortByPriceLowToHigh);
-    } else if(this.sortBy == 'price_high_to_low'){
+    } else if(this.sortBy == 'highToLow'){
       this.products.sort(sortByPriceHighToLow);
     } else {
       this.products.sort(sortByPopularity);
@@ -192,6 +187,11 @@ export class OrderItemComponent implements OnInit {
     this.employeeCartMap.delete(emporder);
     this.isAddedToCart(emporder);
     console.log("Inside Remove button " + emporder + " tota qty = " + this.map);
+  }
+
+  getProduct(product: Product){
+    console.log(product?.productId, product?.productName);
+    this.addProduct(product?.productId, product?.productName);
   }
 
 }

@@ -25,6 +25,8 @@ import { CartComponent } from './employee/cart/cart.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StarComponent } from './order-item/star/star.component';
 import { RatingModule } from 'ng-starrating';
+import { ErrorComponent } from './error/error.component';
+import { ProductCardComponent } from './board-vendor/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { RatingModule } from 'ng-starrating';
     CreateProductComponent,
     CartComponent,
     StarComponent,
+    ErrorComponent,
+    ProductCardComponent,
   ],
   imports: [
     CommonModule,

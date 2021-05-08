@@ -1,5 +1,5 @@
-<div class="container text-center animated slideInUp" *ngIf="isAllowedToViewPage == 1" style="padding: 50px 0 50px 0;">
-    <img src="assets/images/403-.jpg"  />
+<!-- <div class="container text-center animated slideInUp" *ngIf="isAllowedToViewPage == 1" style="padding: 120px 0 50px 0;">
+    <img src="https://cdn.drlinkcheck.com/blog/403-forbidden.png"  />
 </div>
 
 <div class="container text-center animated slideInUp" *ngIf="tokenExpired" style="padding: 50px 0 50px 0;">
@@ -7,9 +7,11 @@
     <strong style="font-size:larger; height: 50px;">404 - Page not Found. Token expired. <br> 
         <a href="http://localhost:4200/login" class='nav-link'> Log in </a>
     </strong>
-</div>
+</div> -->
 
-<div class="container animated fadeIn"  *ngIf="isAllowedToViewPage == 0 && !tokenExpired">
+<app-error *ngIf="errorType != 0" [errorStatus]="errorType"></app-error>
+
+<div class="container animated fadeIn"  *ngIf="errorType == 0 && !tokenExpired">
 
     <table class="table table-striped" style="text-align: center;">
         <thead>

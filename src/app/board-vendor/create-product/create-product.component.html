@@ -66,4 +66,18 @@
             </button>
         </div>
     </form>
+
+    <div class="col-md-4 text-center img-thumbnail hoverable" >
+          <img [src]="productForm.get('productImageUrl')?.value" class="img-fluid rounded"/><br>
+          <label><h3>{{ productForm.get('productName')?.value }}</h3></label><br>
+          <label><i class="fas fa-tag"></i> {{ productForm.get('productCategory')?.value }}</label><br>
+          <label><b> {{ productForm.get('productPrice')?.value | currency:'INR' }}</b></label><br>
+          <!-- <star-rating [value]="productForm.get('productRating')?.value" [totalstars]="5" checkedcolor="orange" uncheckedcolor="white" size="24px" [readonly]="true" ></star-rating> -->
+          <!-- <button type="submit" id="monitor" [class.grey]="isAddedToCart(product?.productId)" class="btn btn-primary" [disabled]="isAddedToCart(product?.productId)"
+              (click)="addProduct(product?.productId, product?.productName)">
+              {{ isAddedToCart(product?.productId) ? "Go to cart" : "Add to cart"}}
+          </button> -->
+    </div>
+
+    <!-- <app-product-card></app-product-card> -->
 </div>

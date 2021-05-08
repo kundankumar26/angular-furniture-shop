@@ -6,4 +6,5 @@ footer {
 
 .container-fluid {
     min-height: 70%;
+    margin-top: 80px;
 }

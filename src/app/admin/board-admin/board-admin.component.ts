@@ -17,9 +17,8 @@ export class BoardAdminComponent implements OnInit {
 
   orders: AdminResponse[];
   ordersMap = new Map();
-  isAllowedToViewPage: number = 0;
   tokenExpired: boolean = false;
-  errorOccured: boolean = false;
+  errorType: number = 0;
 
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService,
      private toastr: ToastrService) { }
@@ -35,18 +34,18 @@ export class BoardAdminComponent implements OnInit {
       console.log(data.body);
       this.orders = data.body;
     }, err => {
-      //Authentication Failed
+      //Token expired
       if(err.error.status == 401){
         this.tokenExpired = true;
+        this.errorType = 404;
         this.tokenStorage.signOut();
       }
       //Access not Authorised
       if(err.error.status == 403){
-        this.isAllowedToViewPage = 1;
+        this.errorType = 403;
         return;
       }
       this.showToastMessage(2, err.error.message);
-      this.errorOccured = true;
       console.log(err);
     });
   }
@@ -57,13 +56,11 @@ export class BoardAdminComponent implements OnInit {
 
   acceptOrder(orderId: number, qty: number, productId: number){
     this.authService.acceptOrderByAdmin(orderId, qty, productId).subscribe(data => {
-      const order = data['body'];
-      const ordersTable = this.orders[this.ordersMap.get(order.orderId)];
-      ordersTable.isRejectedByAdmin = order.isRejectedByAdmin;
+      const ordersTable = this.orders[this.ordersMap.get(orderId)];
+      ordersTable.isRejectedByAdmin = 1;
       ordersTable.productQty = ordersTable.productQty - qty
       this.showToastMessage(1, "1 order accepted");
     }, err => {
-      this.errorOccured = true;
       this.showToastMessage(2, err.error.message);
       console.log(err);
     });
@@ -71,12 +68,10 @@ export class BoardAdminComponent implements OnInit {
 
   rejectOrder(orderId: number){
     this.authService.rejectOrderByAdmin(orderId).subscribe(data => {
-      const order = data['body'];
-      this.orders[this.ordersMap.get(order.orderId)].isRejectedByAdmin = order.isRejectedByAdmin;
+      this.orders[this.ordersMap.get(orderId)].isRejectedByAdmin = 2;
       this.showToastMessage(3, "1 order rejected");
     }, err => {
       this.showToastMessage(2, err.error.message);
-      this.errorOccured = true;
       console.log(err);
     });
   }

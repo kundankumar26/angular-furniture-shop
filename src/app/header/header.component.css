@@ -1,12 +1,22 @@
+div {
+    height: 60px;
+}
+nav {
+    color: #2d4659;
+}
 .navbar{
-    background-color: #2d4659;
-    height: 80px;
+    /* background-color: #2d4659; */
+    background-color: #ffffff;
+    
     font-size: 1em;
     text-align: center;
 }
 span#brand-color{
-    color: #ffffff;
+    color: #2d4659;
     font-size: 0.9em;
+}
+a {
+    color: #2d4659;
 }
 a:hover {
     color: #f28500;

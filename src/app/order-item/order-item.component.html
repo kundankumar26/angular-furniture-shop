@@ -2,24 +2,22 @@
 
 <div class="container" style="padding: 10px 0 10px 0;">
 
-  <div class="navbar-expand"> 
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item nav-link"> <b style="color: rgb(92, 92, 92);"> Sort By: </b></li>
-      <li class="nav-item" style="margin-left: 20px;" [class.active]="sortBy==='name'"> 
-        <button class="btn btn-link" (click)="sortByMethod('name')"> Name </button> 
-      </li>
-      <li class="nav-item" style="margin-left: 20px;"> 
-        <button class="btn btn-link" (click)="sortByMethod('price_low_to_high')"> Price - Low to High </button> 
-      </li>
-      <li class="nav-item" style="margin-left: 20px;"> 
-        <button class="btn btn-link" (click)="sortByMethod('price_high_to_low')"> Price - High to Low </button> 
-      </li>
-      <li class="nav-item" style="margin-left: 20px;"> 
-        <button class="btn btn-link" (click)="sortByMethod('popularity')"> Popularity </button> 
-      </li>
-    </ul>
-  </div>
-  <hr>
+  <ul class="nav nav-tabs">
+    <li class="nav-item nav-link"> <b style="color: rgb(92, 92, 92);"> Sort By: </b></li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'active-linkk active': sortBy == 'name'}" (click)="sortByMethod('name')">Name</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'active-linkk active': sortBy == 'lowToHigh'}" (click)="sortByMethod('lowToHigh')"> Price - Low to High </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'active-linkk active': sortBy == 'highToLow'}" (click)="sortByMethod('highToLow')"> Price - High to Low </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'active-linkk active': sortBy == 'popularity'}" (click)="sortByMethod('popularity')"> Popularity </a>
+    </li>
+  </ul>
+
 <!-- products -->
 <div class="form-group">
   <div class="alert alert-danger alert-dismissible fade show hoverable animated fadeInUp" role="alert" *ngIf="!isLoggedIn"> Log in to place an order. 
@@ -28,26 +26,26 @@
     </button>
   </div>
 
-  <div class="container text-center" style="width: 100%; height: 100%;" *ngIf="screenLoading" >
+  <!-- <div class="container text-center" style="width: 100%; height: 100%;" *ngIf="screenLoading" >
     <img src="https://acegif.com/wp-content/uploads/loading-95.gif" 
         style="margin-top: 6%; text-align: center; height: 30%; width: 40%;" />
-  </div>
+  </div> -->
   
-  <div class="new-products container animated fadeInUp" *ngIf="!screenLoading">
+  <div class="new-products container animated fadeInUp">
     <div class="row">
-      <div class="col-md-4 text-center img-thumbnail hoverable" *ngFor="let product of products | filter:searchText" >
-        <!-- <div class="text-center img-thumbnail hoverable"> -->
-          <img [src]="product?.productImageUrl" class="img-fluid rounded"/><br>
+      <!-- <div class="col-md-4 text-center img-thumbnail hoverable" *ngFor="let product of products | filter:searchText" > -->
+          <!-- <img [src]="product?.productImageUrl" class="img-fluid rounded"/><br>
           <label><h3>{{ product?.productName }}</h3></label><br>
           <label><i class="fas fa-tag"></i> {{ product?.productCategory }}</label><br>
           <label><b> {{ product?.productPrice | currency:'INR' }}</b></label><br>
-          <!-- <app-star [rating]="5"></app-star><br> -->
           <star-rating [value]="product?.productRating" [totalstars]="5" checkedcolor="orange" uncheckedcolor="white" size="24px" [readonly]="true" ></star-rating>
           <button type="submit" id="monitor" [class.grey]="isAddedToCart(product?.productId)" class="btn btn-primary" [disabled]="isAddedToCart(product?.productId)"
               (click)="addProduct(product?.productId, product?.productName)">
               {{ isAddedToCart(product?.productId) ? "Go to cart" : "Add to cart"}}
-          </button>
-        <!-- </div> -->
+          </button> -->
+        <div class="col-md-4" *ngFor="let product of products | filter:searchText" >
+            <app-product-card [product]="product" (productClicked)="getProduct($event)"></app-product-card>
+        </div>
 
 
         <!-- <div class="col-md-4 text-center img-thumbnail hoverable">
@@ -98,7 +96,7 @@
           <button type="submit" id="chair" [class.grey]="buttonChairDisabled" class="btn btn-primary" [disabled]="buttonChairDisabled"
                 (click)="addchair(true)">Add to cart</button>
         </div> -->
-      </div>
+      <!-- </div> -->
     </div>
 
 

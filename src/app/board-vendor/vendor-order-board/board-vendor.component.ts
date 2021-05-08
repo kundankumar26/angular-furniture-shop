@@ -21,6 +21,7 @@ export class BoardVendorComponent implements OnInit {
   isAllowedToViewPage: number = 0;
   tokenExpired: boolean = false;
   ordersMap = new Map();
+  errorType: number = 0;
   
   constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService, 
     private toastr: ToastrService) { }
@@ -36,16 +37,16 @@ export class BoardVendorComponent implements OnInit {
       data['body'].forEach((element: any, index: any) => {
         this.ordersMap.set(data['body'][index].orderId, index);
       });
-      
     }, err => {
       //Authentication Failed
       if(err.error.status == 401){
         this.tokenExpired = true;
+        this.errorType = 404;
         this.tokenStorage.signOut();
       }
       //Access not Authorised
       if(err.error.status == 403){
-        this.isAllowedToViewPage = 1;
+        this.errorType = 403;
         return;
       }
       this.toastr.error("Something went wrong", null, {closeButton: true});
