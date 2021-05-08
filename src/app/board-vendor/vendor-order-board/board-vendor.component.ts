@@ -74,7 +74,10 @@ export class BoardVendorComponent implements OnInit {
     this.loading = true;
 
     this.map.forEach((element: any, index: any) => {
-      this.authService.updateOrderByVendor(index, element).subscribe(data => {
+      const updatedOrder = this.orders[this.ordersMap.get(index)];
+      updatedOrder.shippedDate = element;
+      console.log(updatedOrder);
+      this.authService.updateOrderByVendor(index, updatedOrder).subscribe(data => {
         //console.log(data, this.orders[this.ordersMap.get(data.orderId)]);
         this.loading = false;
         this.orders[this.ordersMap.get(data.orderId)].shippedDate = data.shippedDate;
@@ -86,7 +89,7 @@ export class BoardVendorComponent implements OnInit {
         console.log(err);
       });
     });
-    this.toastr.success(" orders updated successfully", null, {closeButton: true});
+    //this.toastr.success(" orders updated successfully", null, {closeButton: true});
   }
 
 }
