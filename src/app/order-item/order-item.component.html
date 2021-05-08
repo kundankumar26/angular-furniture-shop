@@ -14,6 +14,9 @@
       <li class="nav-item" style="margin-left: 20px;"> 
         <button class="btn btn-link" (click)="sortByMethod('price_high_to_low')"> Price - High to Low </button> 
       </li>
+      <li class="nav-item" style="margin-left: 20px;"> 
+        <button class="btn btn-link" (click)="sortByMethod('popularity')"> Popularity </button> 
+      </li>
     </ul>
   </div>
   <hr>
@@ -40,8 +43,10 @@
           <label><b> {{ product?.productPrice | currency:'INR' }}</b></label><br>
           <!-- <app-star [rating]="5"></app-star><br> -->
           <star-rating [value]="product?.productRating" [totalstars]="5" checkedcolor="orange" uncheckedcolor="white" size="24px" [readonly]="true" ></star-rating>
-          <button type="submit" id="monitor" [class.grey]="buttonMDisabled" class="btn btn-primary"
-              (click)="addProduct(product?.productId, product?.productName)">Add to cart</button>
+          <button type="submit" id="monitor" [class.grey]="isAddedToCart(product?.productId)" class="btn btn-primary" [disabled]="isAddedToCart(product?.productId)"
+              (click)="addProduct(product?.productId, product?.productName)">
+              {{ isAddedToCart(product?.productId) ? "Go to cart" : "Add to cart"}}
+          </button>
         <!-- </div> -->
 
 
