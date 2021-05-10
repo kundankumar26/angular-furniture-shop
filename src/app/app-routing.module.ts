@@ -17,9 +17,9 @@ import { EmployeeGuardService } from './_services/employee-guard.service';
 import { RoleGuardService } from './_services/role-guard.service';
 
 const routes: Routes = [
-  {path: 'signup', component: RegisterComponent, canActivate: [AuthGuardService]},
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuardService]},
-  {path: ':id', component: ConfirmationPageComponent},
+  {path: 'signup', component: OrderComponent, canActivate: [AuthGuardService]},
+  {path: 'login', component: OrderComponent, canActivate: [AuthGuardService]},
+  {path: 'confirm-account', component: ConfirmationPageComponent},
   {path: 'home', component: OrderItemComponent},
   {path: 'create-order', component: ViewOrderComponent, canActivate: [AuthGuardService,]},
   {path: 'employee', component: EmployeeComponent, canActivate: [RoleGuardService]},
@@ -28,6 +28,7 @@ const routes: Routes = [
   {path: 'vendor/create-product', component: CreateProductComponent, canActivate: [RoleGuardService]},
   {path: 'admin', component: BoardAdminComponent, canActivate: [RoleGuardService]},
   {path: 'admin/view-all', component: AdminViewAllComponent, canActivate: [RoleGuardService]},
+  {path: 'order-page', component: OrderComponent},
   {path: '', redirectTo: 'orders', pathMatch: 'full'},
 ];
 

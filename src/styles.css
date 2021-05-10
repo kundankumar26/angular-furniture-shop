@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import  "~bootstrap/dist/css/bootstrap.css";
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 
 .footer{
     position: fixed;
@@ -17,9 +18,49 @@
     background-color: green;
     color: white;
 }
-
+.blue-color {
+    color: #10234e;
+}
+.magenta-color {
+    color: #76323F;
+}
 .nav-link{
     color: white;
 }
 html, body { height: 100%; color: rgb(58, 58, 58); }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif; }
+
+.btn-blue:hover {
+    border-radius: 100px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    border: 1px solid #ffffff;
+}
+.button1 {
+    border-radius: 100px;
+    border: 1px solid #5f2933;
+    background-color: #76323F;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+}
+.btn-blue {
+    border-radius: 100px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    border: 1px solid #10234e;
+    background-color: #315ca2;
+}
+.span-text {
+    font-size: 18px;
+    opacity: 0.7;
+}

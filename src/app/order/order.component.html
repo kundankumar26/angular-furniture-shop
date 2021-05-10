@@ -1,1 +1,120 @@
-<p>order works!</p>
+
+<div class="container-fluid">
+    <div class="heading-container">
+        <span class="front-heading">We Have everything</span>
+    </div>
+    <div class="container-fluid" style="display: flex; flex-direction: row; justify-content: center;">
+        <div style="width: 40%; display: flex; align-items: center;">
+            <img src="https://cdn.dribbble.com/users/2155177/screenshots/7020787/media/8fca7291a5ad29bc696a9bbc6c5dd1c3.png"/>
+        </div>
+
+        <div style="width: 60%;">
+            <div class="container" id="container" [ngClass]="{'right-panel-active': getBoardType}">
+                <!-- Signup Form -->
+                <div class="form-container sign-up-container">
+                    <form [formGroup]="signupForm" (ngSubmit)="signup(signupForm.value)" style="padding: 20px;">
+                        <h1>Sign Up</h1>
+                        
+                        <div style="display: flex; flex-direction: row; vertical-align: middle; overflow: hidden; max-width: 400px;">
+                            <div class='custom-dropdown big dropdown-primary dropdown-menu-right'>
+                                <select formControlName="role" [ngClass]="{'is-invalid-border': form.role.touched && form.role.errors }">
+                                    <option value="" disabled selected hidden>Choose a Role</option>
+                                    <option value="employee" active> Employee </option>  
+                                    <option value="vendor"> Vendor </option>
+                                </select>
+                            </div>
+                        </div>
+            
+                        <div style="width: 100%;">
+                            <input type="number" formControlName="empId" placeholder="Employee Id" 
+                                [ngClass]="{'is-invalid-border': form.empId.touched && form.empId.errors }"/>
+                        </div>
+            
+                        <div style="display: flex; flex-direction: row; justify-content: center;">
+                            <div style="margin-right: 10px;">
+                                <input type="text" placeholder="First Name" formControlName="empFirstName" 
+                                    [ngClass]="{'is-invalid-border': form.empFirstName.touched && form.empFirstName.errors }"/>
+                            </div>
+                            <div style="margin-left: 10px;">
+                                <input type="text" placeholder="Last Name" formControlName="empLastName" 
+                                    [ngClass]="{'is-invalid-border': form.empLastName.touched && form.empLastName.errors }"/>
+                            </div>
+                        </div>
+            
+                        <div style="width: 100%;">
+                            <input type="text" placeholder="Username" formControlName="empUsername" 
+                                [ngClass]="{'is-invalid-border': form.empUsername.touched && form.empUsername.errors }"/>
+                        </div>
+            
+                        <div style="width: 100%;">
+                            <input type="email" placeholder="Email" formControlName="email"
+                                [ngClass]="{'is-invalid-border': form.email.touched && form.email.errors }"/>
+                        </div>
+            
+                        <div style="width: 100%;">
+                            <input [type]="showPasswordBool ? 'text' : 'password'" placeholder="Password" formControlName="empPassword" 
+                                [ngClass]="{ 'is-invalid-border': form.empPassword.touched && form.empPassword.errors }"/>
+                            <div class="custom-control custom-switch" style="margin: 5px 0 5px; float: left;">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" (click)="showPassword()">
+                                <label class="custom-control-label" for="customSwitch1">Show Password</label>
+                            </div>
+                        </div>
+            
+                        <span class='is-invalid-input'>{{ showSignupError }} </span>   
+                        
+                        <button type="submit" [disabled]="loading">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign Up 
+                        </button>
+                    </form>
+                </div>
+            
+                <!-- Signin Form -->
+                <div class="form-container sign-in-container">
+                    <form [formGroup]="signinForm" (ngSubmit)="signIn(signinForm.value)" style="padding: 30px;">
+                        <span class="verified" *ngIf="verificationEmail != null">We've sent an email to <b> {{ verificationEmail }} </b> with instructions. Please click the link in the mail to activate your account.</span>
+
+                        <h1>Sign In</h1>
+            
+                        <div style="width: 100%;">
+                            <input type="email" formControlName="username" placeholder="Username" 
+                                [ngClass]="{ 'is-invalid-border': signinForm.get('username').touched && signinForm.get('username').errors }"/>
+                        </div>
+                        <div style="width: 100%;">
+                            <input [type]="showPasswordBool2 ? 'text' : 'password'" formControlName="password" placeholder="Password" 
+                                [ngClass]="{ 'is-invalid-border': signinForm.get('password').touched && signinForm.get('password').errors }"/>
+                            <div class="custom-control custom-switch" style="margin: 5px 0 5px; float: left;">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch2" (click)="showPassword2()">
+                                <label class="custom-control-label" for="customSwitch2">Show Password</label>
+                            </div>
+                        </div>
+                        <span class='is-invalid-input'>{{ showSignInError }} </span>  
+            
+                        <button type="submit">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign In
+                        </button>
+                    </form>
+                </div>
+            
+                
+                <div class="overlay-container">
+                    <div class="overlay">
+                        <div class="overlay-panel overlay-left">
+                            <h1>Welcome Back!</h1>
+                            <p>To stay connected with us please login with your personal info.</p>
+                            <button class="btn-over" id="SignIn" (click)="toggleBoard()">Sign In</button>
+                        </div>
+                            <div class="overlay-panel overlay-right">
+                            <h1>Hey, Visitor!</h1>
+                            <p>Enter your details and start your journey with us. </p>
+                            <button class="btn-over" id="SignUp" (click)="toggleBoard()">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="info"> Design inspired by <a href="https://dribbble.com/shots/5311359-Diprella-Login"> Diprella </a></div>
+        </div>
+    </div>
+</div>
+
+
+

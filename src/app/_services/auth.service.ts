@@ -131,4 +131,11 @@ export class AuthService {
     };
     return this.httpClient.get(AUTH_API + 'products/', httpOptions);
   }
+
+  
+  //Methods for token confirmation
+  sendConfirmationToken(confirmationToken: string): Observable<any> {
+    return this.httpClient.get(AUTH_API + 'confirm-account?token=' + confirmationToken,
+      { headers: new HttpHeaders({ 'content-Type': 'application/json' }) });
+  }
 }

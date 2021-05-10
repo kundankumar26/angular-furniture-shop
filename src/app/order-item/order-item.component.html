@@ -19,7 +19,7 @@
   </ul>
 
 <!-- products -->
-<div class="form-group">
+<div class="form-group" style="margin-top: 20px;">
   <div class="alert alert-danger alert-dismissible fade show hoverable animated fadeInUp" role="alert" *ngIf="!isLoggedIn"> Log in to place an order. 
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -43,7 +43,13 @@
               (click)="addProduct(product?.productId, product?.productName)">
               {{ isAddedToCart(product?.productId) ? "Go to cart" : "Add to cart"}}
           </button> -->
-        <div class="col-md-4" *ngFor="let product of products | filter:searchText" >
+        <div class="container text-center" *ngIf="(products | filter:searchText).length == 0" style="">
+          <img src="https://cdn.dribbble.com/users/5057025/screenshots/10951474/media/e9ae4494dc4dd618fb2fbcf093b694b1.jpg" 
+            style="vertical-align: middle; margin-top: 50px;"/><br>
+          <p class="span-text">Are you confused what to buy?</p>
+        </div>
+        <div class="col-md-4" *ngFor="let product of products | filter:searchText as result" >
+            
             <app-product-card [product]="product" (productClicked)="getProduct($event)"></app-product-card>
         </div>
 
@@ -118,7 +124,7 @@
         </tbody>
       </table>
 
-      <button type="button" class="btn btn-primary" style="margin: 20px;" (click)="confirmOrder()">Confirm
+      <button type="button" class="btn-blue" style="margin: 20px;" (click)="confirmOrder()">Confirm
         Orders </button>
     </div>
   </div>
@@ -149,7 +155,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">
+      <button type="submit" class="btn-blue">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Submit
       </button>
 

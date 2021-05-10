@@ -1,1 +1,6 @@
-<p>confirmation-page works!</p>
+
+<div class="text-center">
+    <img *ngIf="statusCode<=200" src="https://cdn.dribbble.com/users/2162267/screenshots/10545709/media/3c2c548c07f9fcf8fd358f51516f9e78.jpg" /><br>
+    <img *ngIf="statusCode>=400" src="https://cdn.dribbble.com/users/2147952/screenshots/4995543/bazodribbble1.jpg" /><br>
+    <b class="span-text">{{ errorMessage }}</b>
+</div>
