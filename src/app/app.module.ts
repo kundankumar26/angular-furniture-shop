@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BoardVendorComponent } from './board-vendor/vendor-order-board/board-vendor.component';
 import { BoardAdminComponent } from './admin/board-admin/board-admin.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { EmployeeComponent } from './employee/employee-order-board/employee.component';
 import { HeaderComponent } from './header/header.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

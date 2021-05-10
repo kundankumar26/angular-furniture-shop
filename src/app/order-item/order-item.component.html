@@ -33,16 +33,6 @@
   
   <div class="new-products container animated fadeInUp">
     <div class="row">
-      <!-- <div class="col-md-4 text-center img-thumbnail hoverable" *ngFor="let product of products | filter:searchText" > -->
-          <!-- <img [src]="product?.productImageUrl" class="img-fluid rounded"/><br>
-          <label><h3>{{ product?.productName }}</h3></label><br>
-          <label><i class="fas fa-tag"></i> {{ product?.productCategory }}</label><br>
-          <label><b> {{ product?.productPrice | currency:'INR' }}</b></label><br>
-          <star-rating [value]="product?.productRating" [totalstars]="5" checkedcolor="orange" uncheckedcolor="white" size="24px" [readonly]="true" ></star-rating>
-          <button type="submit" id="monitor" [class.grey]="isAddedToCart(product?.productId)" class="btn btn-primary" [disabled]="isAddedToCart(product?.productId)"
-              (click)="addProduct(product?.productId, product?.productName)">
-              {{ isAddedToCart(product?.productId) ? "Go to cart" : "Add to cart"}}
-          </button> -->
         <div class="container text-center" *ngIf="(products | filter:searchText).length == 0" style="">
           <img src="https://cdn.dribbble.com/users/5057025/screenshots/10951474/media/e9ae4494dc4dd618fb2fbcf093b694b1.jpg" 
             style="vertical-align: middle; margin-top: 50px;"/><br>

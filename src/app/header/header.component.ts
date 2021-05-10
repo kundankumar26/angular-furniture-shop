@@ -21,8 +21,12 @@ export class HeaderComponent implements OnInit {
   clickEventsubscription: Subscription;
   filterText: string;
 
-  constructor(private tokenStorageService: TokenStorageService, private sharedService: SharedService, 
-      private router: Router, private headerService: HeaderComponentService) { 
+  constructor(
+    private tokenStorageService: TokenStorageService, 
+    private sharedService: SharedService, 
+    private router: Router, 
+    private headerService: HeaderComponentService
+  ) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.checkIfUserLoggedIn();
     });

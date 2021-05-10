@@ -138,4 +138,16 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'confirm-account?token=' + confirmationToken,
       { headers: new HttpHeaders({ 'content-Type': 'application/json' }) });
   }
+
+
+  //Methods related to cart
+  getOrdersForCart(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.get(AUTH_API + 'cart/', httpOptions);
+  }
 }

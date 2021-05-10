@@ -53,9 +53,14 @@ export class OrderItemComponent implements OnInit {
   searchText: string;
   screenLoading: boolean = true;
 
-  constructor(private tokenStorageService: TokenStorageService, private router: Router, 
-    private authService: AuthService, private modalService: NgbModal, private toastr: ToastrService,
-    private headerComponentService: HeaderComponentService) { }
+  constructor(
+    private tokenStorageService: TokenStorageService, 
+    private router: Router, 
+    private authService: AuthService, 
+    private modalService: NgbModal, 
+    private toastr: ToastrService,
+    private headerComponentService: HeaderComponentService
+  ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();

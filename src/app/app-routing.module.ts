@@ -6,7 +6,7 @@ import { CreateProductComponent } from './board-vendor/create-product/create-pro
 import { BoardVendorComponent } from './board-vendor/vendor-order-board/board-vendor.component';
 import { CartComponent } from './employee/cart/cart.component';
 import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { EmployeeComponent } from './employee/employee-order-board/employee.component';
 import { LoginComponent } from './login/login.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrderComponent } from './order/order.component';

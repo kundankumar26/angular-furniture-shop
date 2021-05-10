@@ -24,7 +24,7 @@ export class BoardAdminComponent implements OnInit {
      private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(!window.sessionStorage.getItem('auth-token')){
+    if(!this.tokenStorage.getToken()){
       this.router.navigate(['login']);
     }
     this.authService.getOrdersForAdmin().subscribe(data => {

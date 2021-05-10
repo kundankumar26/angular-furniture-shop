@@ -23,12 +23,15 @@ export class BoardVendorComponent implements OnInit {
   ordersMap = new Map();
   errorType: number = 0;
   
-  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService, 
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private tokenStorage: TokenStorageService, 
     private toastr: ToastrService) { }
   
   //CHECK IF VENDOR LOGGED IN, THEN GET ALL THE ORDERS
   ngOnInit(): void {
-    if(!window.sessionStorage.getItem('auth-token')){
+    if(!this.tokenStorage.getToken()){
       this.router.navigate(['login']);
     }
     this.authService.getOrdersForVendor().subscribe(data => {

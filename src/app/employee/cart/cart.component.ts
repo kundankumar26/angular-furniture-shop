@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -8,13 +10,21 @@ import { Product } from 'src/app/models/product';
 })
 export class CartComponent implements OnInit {
 
-  @Input() productsArray: Product[] = [];
-  products: Product[] = [];
+  productList: Product[] = [];
+  cartList: Cart[] = [];
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.products);
+    this.authService.getOrdersForCart().subscribe(data => {
+      this.cartList = data.body.cartList;
+      this.productList = data.body.productList;
+      console.log(this.cartList, this.productList);
+    }, err => {
+      console.log(err);
+    });
   }
 
 }
