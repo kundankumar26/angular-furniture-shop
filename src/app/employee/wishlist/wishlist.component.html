@@ -1,0 +1,21 @@
+
+
+<div class="container">
+    <div *ngFor="let product of productList; let i=index;" style="display: flex; justify-content: space-around; border: 2px solid black; 
+        margin: 10px; border-radius: 50px; align-items: center; padding: 10px;">
+        <div style="overflow: hidden; align-items: center; vertical-align: middle;">
+            <img [src]="product?.productImageUrl" style="width: 100px; height: 100px;"/>
+        </div>
+        <div>
+            <p>{{ product?.productName }}</p>
+            <p>{{ product?.productCategory }}</p>
+            <p>{{ product?.productDescription }}</p>
+        </div>
+        <div>
+            <p>{{ product?.productPrice | currency:"INR"}}</p>
+        </div>
+        <div>
+            productId from cart: {{ wishList[i]?.productId }}<br>  prouctId from productlist: {{ product?.productId }}
+        </div>
+    </div>
+</div>

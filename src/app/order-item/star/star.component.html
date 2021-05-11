@@ -1,14 +1,26 @@
 
 
-<div class="crop"
-     [style.width.px]="cropWidth"
-     [title]="rating">
-  <div style="width: 75px">
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <i class="fas fa-star"></i>
-    <!-- <span class="fa fa-star"></span> -->
+  <div class="crop" [style.width.px]="cropWidth">
+    <div style="width: 70px">
+      <ul class="rating">
+        <li class="fa fa-star"></li>
+        <li class="fa fa-star"></li>
+        <li class="fa fa-star"></li>
+        <li class="fa fa-star"></li>
+        <li class="fa fa-star"></li>
+      </ul>
+    </div>
   </div>
-</div>  
+
+<!-- 
+<div class="crop">
+  <div style="width: 75px" [style.width.px]="cropWidth">
+    <ul class="rating" >
+      <li class="fa fa-star"></li>
+      <li class="fa fa-star"></li>
+      <li class="fa fa-star"></li>
+      <li class="fa fa-star"></li>
+      <li class="fa fa-star"></li>
+    </ul>
+  </div>
+</div> -->

@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BoardVendorComponent } from './board-vendor/vendor-order-board/board-vendor.component';
 import { BoardAdminComponent } from './admin/board-admin/board-admin.component';
-import { EmployeeComponent } from './employee/employee.component';
+import { EmployeeComponent } from './employee/employee-order-board/employee.component';
 import { HeaderComponent } from './header/header.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,6 +25,10 @@ import { CartComponent } from './employee/cart/cart.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StarComponent } from './order-item/star/star.component';
 import { RatingModule } from 'ng-starrating';
+import { ErrorComponent } from './error/error.component';
+import { ProductCardComponent } from './board-vendor/product-card/product-card.component';
+import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
+import { WishlistComponent } from './employee/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { RatingModule } from 'ng-starrating';
     CreateProductComponent,
     CartComponent,
     StarComponent,
+    ErrorComponent,
+    ProductCardComponent,
+    ConfirmationPageComponent,
+    WishlistComponent,
   ],
   imports: [
     CommonModule,

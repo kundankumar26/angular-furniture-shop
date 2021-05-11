@@ -1,8 +1,17 @@
 
-<div class="container">
-    <form [formGroup]="productForm" (ngSubmit)="createProduct(productForm.value)" style="padding: 20px;">
+<div class="container row col-md-12" style="width: 80%; display: flex; justify-content: center;">
+    <form [formGroup]="productForm" (ngSubmit)="createProduct(productForm.value)" class="col-md-8" style="padding: 20px;">
         <div style="margin-bottom: 40px;">
         <h2>Create Product</h2>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <input type="text" formControlName="productImageUrl" class="form-control" placeholder="Product image url"
+                    [ngClass]="{ 'is-invalid': form.productImageUrl.touched && form.productImageUrl.errors }">
+            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+                <span *ngIf="form.productImageUrl.invalid && form.productImageUrl.touched" class="invalid-feedback"> Enter image url </span>
+            </div>
         </div>
 
         <div class="form-group row">
@@ -10,16 +19,16 @@
             <input type="text" formControlName="productName" class="form-control" placeholder="Product name"
             [ngClass]="{ 'is-invalid': form.productName.touched && form.productName.errors }">
             <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
-            <span *ngIf="form.productName.touched && form.productName.invalid" class="invalid-feedback"> Please eneter product name </span>
+            <span *ngIf="form.productName.touched && form.productName.invalid" class="invalid-feedback"> Please enter product name </span>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-md-6">
-            <input type="text" formControlName="productCategory" class="form-control" placeholder="Product category"
-            [ngClass]="{ 'is-invalid': form.productCategory.touched && form.productCategory.errors }">
-            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
-            <span *ngIf="form.productCategory.touched && form.productCategory.invalid" class="invalid-feedback"> Please eneter product name </span>
+                <input type="text" formControlName="productCategory" class="form-control" placeholder="Product category"
+                [ngClass]="{ 'is-invalid': form.productCategory.touched && form.productCategory.errors }">
+                <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
+                <span *ngIf="form.productCategory.touched && form.productCategory.invalid" class="invalid-feedback"> Please enter product name </span>
             </div>
         </div>
 
@@ -51,19 +60,50 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-md-6">
-                <input type="text" formControlName="productImageUrl" class="form-control" placeholder="Product image url"
-                    [ngClass]="{ 'is-invalid': form.productImageUrl.touched && form.productImageUrl.errors }">
-            <!-- <small *ngIf="!submitted" class="form-text text-muted"> Your first name must be 1-20 characters. </small> -->
-                <span *ngIf="form.productImageUrl.invalid && form.productImageUrl.touched" class="invalid-feedback"> Enter image url </span>
-            </div>
-        </div>
-
         <div class="form-group">
-            <button type="submit" [disabled]="loading || productForm.invalid" class="btn btn-success">
+            <button type="submit" [disabled]="loading || productForm.invalid" class="btn-blue">
                 <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Create
             </button>
         </div>
     </form>
+
+
+    <div class="product-card shadow-5-strong" *ngIf="productForm.touched">
+		<div class="badge">NEW</div>
+		<div class="product-tumb" *ngIf="productForm.get('productImageUrl')?.value">
+			<img [src]="productForm.get('productImageUrl')?.value" alt="">
+		</div>
+		<div class="product-details">
+			<span class="product-catagory"> {{ productForm.get('productCategory')?.value }} </span>
+			<h4><a > {{ productForm.get('productName')?.value }} </a></h4>
+			<p>  {{ productForm?.get('productDescription')?.value  }} </p>
+			<div class="product-bottom-details" *ngIf="productForm.get('productPrice')?.value">
+				<div class="product-price">  {{ productForm.get('productPrice')?.value | currency:'INR' }} </div>
+				<div class="product-links">
+					<a ><i class="fa fa-heart"></i></a>
+					<a ><i class="fa fa-shopping-cart"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+
+    <!-- <app-product-card></app-product-card> -->
 </div>
+
+
+<!-- 
+    <div class="col-md-4 img-thumbnail hoverable" >
+          <img [src]="productForm.get('productImageUrl')?.value" class="img-fluid rounded"/><br>
+          <label><h3>{{ productForm.get('productName')?.value }}</h3></label><br>
+          <label><i class="fas fa-tag"></i> {{ productForm.get('productCategory')?.value }}</label><br>
+          <label><b> {{ productForm.get('productPrice')?.value | currency:'INR' }}</b></label><br>
+          <p> {{ productForm?.get('productDescription')?.value </p>
+          
+    </div>
+
+    <star-rating [value]="productForm.get('productRating')?.value" [totalstars]="5" checkedcolor="orange" uncheckedcolor="white" size="24px" [readonly]="true" ></star-rating>
+          <button type="submit" id="monitor" [class.grey]="isAddedToCart(product?.productId)" class="btn btn-primary" [disabled]="isAddedToCart(product?.productId)"
+              (click)="addProduct(product?.productId, product?.productName)">
+              {{ isAddedToCart(product?.productId) ? "Go to cart" : "Add to cart"}}
+          </button> -->

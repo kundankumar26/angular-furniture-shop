@@ -24,6 +24,8 @@ img{
     border: 2px solid rgb(121, 121, 121);;
 }
 
-.active {
-    color: red;
+.active-linkk {
+    font-weight: bold;
+    color: #315ca2;
+    text-decoration: underline;
 }

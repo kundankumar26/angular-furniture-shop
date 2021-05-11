@@ -1,6 +1,19 @@
 .crop {
-    overflow: hidden;
-  }
-  div {
-    cursor: pointer;
-  }
+  overflow: hidden;
+}
+div {
+  cursor: pointer;
+}
+
+.rating{
+  color:#FFD200;
+  font-size:12px;
+  padding:12px 0 0;
+  margin: 0 auto;
+  list-style:none;
+  position:relative;
+  z-index:-1;
+}
+.rating li.disable{
+    color:rgba(0,0,0,.2)
+}

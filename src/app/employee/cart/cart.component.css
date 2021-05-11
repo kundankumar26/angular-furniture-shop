@@ -1,0 +1,15 @@
+div.col-sm-4 {
+    padding: 0 0 10px 0;
+    max-width: 250px;
+    margin: 15px;
+    overflow: hidden;
+    color: rgb(107, 107, 107);
+}
+
+/* div.shadow > label {
+    margin: 2px auto;
+} */
+
+img{
+    height: 200px;
+}

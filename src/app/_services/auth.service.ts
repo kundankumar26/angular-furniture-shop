@@ -131,4 +131,35 @@ export class AuthService {
     };
     return this.httpClient.get(AUTH_API + 'products/', httpOptions);
   }
+
+  
+  //Methods for token confirmation
+  sendConfirmationToken(confirmationToken: string): Observable<any> {
+    return this.httpClient.get(AUTH_API + 'confirm-account?token=' + confirmationToken,
+      { headers: new HttpHeaders({ 'content-Type': 'application/json' }) });
+  }
+
+
+  //Methods related to cart
+  getProductsFromCart(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.get(AUTH_API + 'cart/', httpOptions);
+  }
+
+
+  //Methods related to wishlist
+  getProductsFromWishlist(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.get(AUTH_API + 'wishlist/', httpOptions);
+  }
 }

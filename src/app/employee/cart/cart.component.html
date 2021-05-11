@@ -1,1 +1,45 @@
-<p>cart works!</p>
+
+
+
+<!-- <table>
+    <thead>
+        <th>Image</th>
+        <th>Name</th>
+        <th>category</th>
+        <th>description</th>
+        <th>price</th>
+        <th>rating</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of productList; let i=index;">
+            <td style="padding: 10px;"><img [src]="product?.productImageUrl" style="width: 100px; height: 100px;"/></td>
+            <td style="padding: 10px;">{{ product?.productName }}</td>
+            <td style="padding: 10px;">{{ product?.productCategory }}</td>
+            <td style="padding: 10px;">{{ product?.productDescription }}</td>
+            <td style="padding: 10px;">{{ product?.productPrice }}</td>
+            <td style="padding: 10px;">
+                productId from cart: {{ cartList[i]?.productId }}<br>  prouctId from productlist: {{ product?.productId }}</td>
+        </tr>
+    </tbody>
+</table> -->
+
+<div class="container">
+    <div *ngFor="let product of productList; let i=index;" style="display: flex; justify-content: space-around; border: 2px solid black; 
+        margin: 10px; border-radius: 50px; align-items: center; padding: 10px;">
+        <div style="overflow: hidden; align-items: center; vertical-align: middle;">
+            <img [src]="product?.productImageUrl" style="width: 100px; height: 100px;"/>
+        </div>
+        <div>
+            <p>{{ product?.productName }}</p>
+            <p>{{ product?.productCategory }}</p>
+            <p>{{ product?.productDescription }}</p>
+        </div>
+        <div>
+            <p>{{ product?.productPrice | currency:"INR"}}</p>
+        </div>
+        <div>
+            productId from cart: {{ cartList[i]?.productId }}<br>  prouctId from productlist: {{ product?.productId }}<br>
+            <button class="btn btn-danger" (click)="deleteFromCart(i)">Delete</button>
+        </div>
+    </div>
+</div>

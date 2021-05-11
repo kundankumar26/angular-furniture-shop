@@ -1,9 +1,10 @@
 footer {
     width: 100%;
-    background-color: #2d4659;
+    background-color: #1c376d;
     margin-top: 100px;
 }
 
 .container-fluid {
-    min-height: 70%;
+    min-height: 80%;
+    margin-top: 80px;
 }

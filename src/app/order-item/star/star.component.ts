@@ -9,11 +9,11 @@ export class StarComponent implements OnChanges {
 
   constructor() { }
 
-    @Input() rating: number = 4;
-    cropWidth: number = 200;
+    @Input() rating: number = 3;
+    cropWidth: number = 70;
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.cropWidth = this.rating*200/5;
+        this.cropWidth = this.rating*70/5;
     }
 
 }
