@@ -28,6 +28,7 @@ import { RatingModule } from 'ng-starrating';
 import { ErrorComponent } from './error/error.component';
 import { ProductCardComponent } from './board-vendor/product-card/product-card.component';
 import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
+import { WishlistComponent } from './employee/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ConfirmationPageComponent } from './employee/confirmation-page/confirma
     ErrorComponent,
     ProductCardComponent,
     ConfirmationPageComponent,
+    WishlistComponent,
   ],
   imports: [
     CommonModule,

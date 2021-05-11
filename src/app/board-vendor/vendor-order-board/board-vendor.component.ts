@@ -66,9 +66,9 @@ export class BoardVendorComponent implements OnInit {
   }
 
   //CHANGE THE SHIPPING DATE ACCORDING TO DATABASE FORMAT
-  getShippingDate(shippingDate: string, orderId: number): any {
-    console.log(shippingDate, new Date(shippingDate));
-    const datePayload =  shippingDate.split("-").reverse().join("-");
+  getShippingDate(shippingDate: string, orderDate: Date, orderId: number): any {
+    console.log(shippingDate, new Date(shippingDate).getDate, orderDate.getDate);
+    const datePayload =  new Date(shippingDate);
     this.map.set(orderId, new Date(shippingDate));
     this.anyOrderChanged = true;
     return shippingDate;
@@ -76,6 +76,9 @@ export class BoardVendorComponent implements OnInit {
 
   updateOrders(): void {
     this.loading = true;
+    if(this.map.size == 0){
+      return;
+    }
 
     this.map.forEach((element: any, index: any) => {
       const updatedOrder = this.orders[this.ordersMap.get(index)];

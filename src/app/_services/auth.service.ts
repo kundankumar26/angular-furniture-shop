@@ -141,7 +141,7 @@ export class AuthService {
 
 
   //Methods related to cart
-  getOrdersForCart(): Observable<any> {
+  getProductsFromCart(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
@@ -149,5 +149,17 @@ export class AuthService {
       })
     };
     return this.httpClient.get(AUTH_API + 'cart/', httpOptions);
+  }
+
+
+  //Methods related to wishlist
+  getProductsFromWishlist(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.get(AUTH_API + 'wishlist/', httpOptions);
   }
 }

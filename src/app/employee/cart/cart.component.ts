@@ -18,13 +18,19 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.getOrdersForCart().subscribe(data => {
+    this.authService.getProductsFromCart().subscribe(data => {
       this.cartList = data.body.cartList;
       this.productList = data.body.productList;
       console.log(this.cartList, this.productList);
     }, err => {
       console.log(err);
     });
+  }
+
+  deleteFromCart(value: number){
+    console.log(value);
+    this.productList = this.productList.filter((element, index) => index != value);
+    this.cartList = this.cartList.filter((element, index) => index != value);
   }
 
 }

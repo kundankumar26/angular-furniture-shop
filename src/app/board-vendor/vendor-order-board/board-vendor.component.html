@@ -41,7 +41,7 @@
                 <td>
                     <b>{{ order?.shippedDate | date:'EE, MMM d' }}</b><br><br>
                     <input type="date" [ngModel] ="setShippingDate()"
-                        (ngModelChange)="getShippingDate($event, order?.orderId)">
+                        (ngModelChange)="getShippingDate($event, order?.orderDate, order?.orderId)">
                 </td>
             </tr>
         </tbody>

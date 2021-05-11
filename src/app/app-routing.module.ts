@@ -7,6 +7,7 @@ import { BoardVendorComponent } from './board-vendor/vendor-order-board/board-ve
 import { CartComponent } from './employee/cart/cart.component';
 import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
 import { EmployeeComponent } from './employee/employee-order-board/employee.component';
+import { WishlistComponent } from './employee/wishlist/wishlist.component';
 import { LoginComponent } from './login/login.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrderComponent } from './order/order.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'create-order', component: ViewOrderComponent, canActivate: [AuthGuardService,]},
   {path: 'employee', component: EmployeeComponent, canActivate: [RoleGuardService]},
   {path: 'employee/cart', component: CartComponent, canActivate: [EmployeeGuardService]},
+  {path: 'employee/wishlist', component: WishlistComponent, canActivate: [EmployeeGuardService]},
   {path: 'vendor', component: BoardVendorComponent, canActivate: [RoleGuardService]},
   {path: 'vendor/create-product', component: CreateProductComponent, canActivate: [RoleGuardService]},
   {path: 'admin', component: BoardAdminComponent, canActivate: [RoleGuardService]},
