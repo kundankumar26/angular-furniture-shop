@@ -47,12 +47,7 @@ select {
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
 }
 
-.is-invalid-input {
-    color: red;
-}
-.is-invalid-border {
-    border: 1px solid #76323F;
-}
+
 .verified {
     color: #4caf50;
     border: 1px solid #4caf50;

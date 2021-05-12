@@ -89,14 +89,17 @@ export class BoardVendorComponent implements OnInit {
         this.loading = false;
         this.orders[this.ordersMap.get(data.orderId)].shippedDate = data.shippedDate;
         
-        
       }, err => {
         this.loading = false;
+        if(err.status == 400){
+          this.toastr.error(err.error.message, null, {closeButton: true});
+          return;
+        }
         this.toastr.error("Failed to update the order", null, {closeButton: true});
         console.log(err);
       });
     });
-    //this.toastr.success(" orders updated successfully", null, {closeButton: true});
+    this.toastr.success("orders updated successfully", null, {closeButton: true});
   }
 
 }

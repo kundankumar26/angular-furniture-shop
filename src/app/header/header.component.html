@@ -1,7 +1,7 @@
 
 <div class="fixed-top">
   <nav class="navbar navbar-expand border-bottom">
-    <a class="navbar-brand"><span id="brand-color"><b>Perpendicular<br>Shop</b></span></a>
+    <a class="navbar-brand"><span id="brand-color"><b>P<br>Shop</b></span></a>
 
     <a class="nav-link" routerLink="home" [routerLinkActive]="['is-active']">Home </a>
     
@@ -60,8 +60,8 @@
       </li>
     </ul>
   
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px;" title="Hi" ></mdb-icon>
+    <ul class="navbar-nav ml-auto" style="color: #2a3c66" *ngIf="isLoggedIn">
+      <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px; " title="Hi" ></mdb-icon>
       <li class="nav-item" style="margin-right: 20px;">
         Hey <b>{{ username | titlecase}}</b><br>
           <span *ngIf="showEmployeeBoard">Employee </span>

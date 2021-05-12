@@ -52,6 +52,10 @@ body{
     left:auto;
     right:0
 }
+.wish-btn {
+    background-color: transparent;
+}
+
 .product-grid .rating{
     color:#FFD200;
     font-size:12px;

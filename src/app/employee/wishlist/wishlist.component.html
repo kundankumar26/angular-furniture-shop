@@ -1,21 +1,35 @@
 
 
-<div class="container">
-    <div *ngFor="let product of productList; let i=index;" style="display: flex; justify-content: space-around; border: 2px solid black; 
-        margin: 10px; border-radius: 50px; align-items: center; padding: 10px;">
-        <div style="overflow: hidden; align-items: center; vertical-align: middle;">
-            <img [src]="product?.productImageUrl" style="width: 100px; height: 100px;"/>
+<div class="container" style="padding-bottom: 50px;">
+    <div class="cart-header">
+        <h1 class="header">My Wishlist</h1>
+    </div>
+    <div class="cart-container" *ngFor="let product of productList; let i=index;">
+        <div style="display: flex; width: 40%;">
+            <div class="cart-img">
+                <img [src]="product?.productImageUrl" class=""/>
+            </div>
+            <div class="product-detail">
+                <p class="product-name">{{ product?.productName }}</p>
+                <p class="product-categ">{{ product?.productCategory }}</p>
+            </div>
         </div>
-        <div>
-            <p>{{ product?.productName }}</p>
-            <p>{{ product?.productCategory }}</p>
-            <p>{{ product?.productDescription }}</p>
-        </div>
-        <div>
-            <p>{{ product?.productPrice | currency:"INR"}}</p>
-        </div>
-        <div>
-            productId from cart: {{ wishList[i]?.productId }}<br>  prouctId from productlist: {{ product?.productId }}
+        <div class="cart-detail">
+            <div style="float: left;">
+                <!-- <input type='number' class="input-number" placeholder="1"/> -->
+                <p class="product-name">{{ product?.productRating }}</p>
+            </div>
+            <div style="float: left;">
+                <p style="margin: 10px; font-size: 16px;"><b>{{ product?.productPrice | currency:"INR"}}</b></p>
+            </div>
+            <div class="button-list">
+                <button class="delete-btn" (click)="removeFromWishlist(i)">
+                    <i class="fas fa-trash-alt" style="margin: 10px; font-size: 20px;"></i>
+                </button>
+                <button class="btnn add-btn btn-small" (click)="addToCart(product?.productId)">
+                    Add to cart
+                </button>
+            </div>
         </div>
     </div>
-</div>
+</div>  

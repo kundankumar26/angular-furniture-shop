@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SignupRequestPayload } from '../register/register-request.payload';
 import { TokenStorageService } from './token-storage.service';
-import { Product } from '../models/product';
 import { Order } from '../models/order';
 
 const AUTH_API = 'http://localhost:8080/';
@@ -15,7 +13,7 @@ export class AuthService {
     
   constructor(private httpClient: HttpClient, private tokenStorage: TokenStorageService) { }
 
-  signup(payload: SignupRequestPayload): Observable<any> {
+  signup(payload: any): Observable<any> {
     return this.httpClient.post(AUTH_API + "signup/", payload, { responseType: 'json' });
   }
 
@@ -151,6 +149,26 @@ export class AuthService {
     return this.httpClient.get(AUTH_API + 'cart/', httpOptions);
   }
 
+  addProductToCart(productId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.post(AUTH_API + 'cart/', {"productId": productId}, httpOptions);
+  }
+
+  deleteFromCart(cartId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.delete(AUTH_API + 'cart/' + cartId + '/', httpOptions);
+  }
+
 
   //Methods related to wishlist
   getProductsFromWishlist(): Observable<any> {
@@ -161,5 +179,25 @@ export class AuthService {
       })
     };
     return this.httpClient.get(AUTH_API + 'wishlist/', httpOptions);
+  }
+
+  addProductToWishlist(productId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.post(AUTH_API + 'wishlist/' + productId, httpOptions);
+  }
+
+  removeFromWishlist(wishlistId: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + this.tokenStorage.getToken(),
+      })
+    };
+    return this.httpClient.delete(AUTH_API + 'wishlist/' + wishlistId + '/', httpOptions);
   }
 }
