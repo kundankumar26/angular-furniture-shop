@@ -1,7 +1,7 @@
 
 <div class="fixed-top">
   <nav class="navbar navbar-expand border-bottom">
-    <a class="navbar-brand"><span id="brand-color"><b>Perpendicular<br>Shop</b></span></a>
+    <a class="navbar-brand"><span id="brand-color"><b>P<br>Shop</b></span></a>
 
     <a class="nav-link" routerLink="home" [routerLinkActive]="['is-active']">Home </a>
     
@@ -40,12 +40,12 @@
         <i class="fas fa-search"></i></button>
       </li>
 
-      <li class="nav-item" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
+      <li class="nav-item link-btn" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
         <a class="btn btn-outline-dark" routerLink="employee/cart" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
           true}"><i class="fab fa-opencart"></i></a>
       </li>
 
-      <li class="nav-item" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
+      <li class="nav-item link-btn" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
         <a class="btn btn-outline-dark" routerLink="employee/wishlist" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
           true}"><i class="fas fa-heart"></i></a>
       </li>
@@ -60,8 +60,8 @@
       </li>
     </ul>
   
-    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
-      <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px;" title="Hi" ></mdb-icon>
+    <ul class="navbar-nav ml-auto" style="color: #2a3c66" *ngIf="isLoggedIn">
+      <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px; " title="Hi" ></mdb-icon>
       <li class="nav-item" style="margin-right: 20px;">
         Hey <b>{{ username | titlecase}}</b><br>
           <span *ngIf="showEmployeeBoard">Employee </span>

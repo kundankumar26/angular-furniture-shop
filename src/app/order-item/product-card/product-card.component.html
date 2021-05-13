@@ -5,13 +5,15 @@
 <div class="product-grid">
     <div class="product-image">
         <img class="pic-1" [src]="product?.productImageUrl">
-        <span class="product-discount-label">wish</span>
+        <button class="wish-btn" (click)="addToWishlist(product?.productId)">
+            <span class="product-discount-label"><i class="fas fa-heart"></i></span>
+        </button>
     </div>
 
     <app-star [rating]="product?.productRating" style="display: flex; justify-content:center;"></app-star>
 
     <div class="product-content">
-        <h3 class="title"><a> {{ product?.productName }} </a></h3>
+        <h3 class="title"><a [routerLink]="['/products/', product?.productId]"> {{ product?.productName }} </a></h3>
         <div class="price">  {{ product?.productPrice | currency:'INR' }} </div>
         <a class="add-to-cart" (click)="emitProductID(product)">+ Add To Cart</a>
     </div>

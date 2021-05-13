@@ -1,0 +1,121 @@
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #D0D0D0;
+    vertical-align: middle;
+    padding: 1px 5px;
+}
+.header {
+    font-family: 'Roboto';
+    color: #000000;
+    opacity: 0.6;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.cart-container {
+    display: flex; 
+    justify-content: space-between;
+    border: 1px solid #e0e0e0; 
+    margin: 20px 0; 
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 5px 5px 15px rgb(235, 235, 235);
+}
+.cart-detail {
+    width: 60%;
+    display: flex; 
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+
+.cart-img {
+    overflow: hidden; 
+    align-items: center; 
+    vertical-align: middle;
+    height: 150px;
+    width: 220px;
+}
+.cart-img > img {
+    height: 100%;
+    width: 100%;
+}
+
+.product-detail {
+    font-family: 'Roboto';
+    margin: 10px 20px;
+}
+.product-categ {
+    font-size: 14px;
+    opacity: 0.6;
+}
+.product-name {
+    font-size: 17px;
+
+}
+.delete-btn {
+    background: transparent;
+    border: none;
+    opacity: 0.4;
+}
+
+.cart-total {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 17px;
+
+}
+.cart-total-text {
+    float: left;
+    margin: 10px 20px;
+}
+.cart-total-value {
+    float: right;
+    font-weight: bold;
+    margin: 10px 10px;
+}
+.cart-total-amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #D0D0D0; 
+    border-bottom: 1px solid #D0D0D0;
+}
+
+.button-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.add-btn {
+    font-weight: bold;
+    background-color: transparent;
+}
+.add-btn:hover {
+    background-color: #76323F;
+    border: 1px solid #5f2933;
+}
+
+.empty-cart {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.empty-cart > img {
+    height: 300px;
+    width: 400px;
+}
+.empty-cart > p{
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
+.empty-cart > a {
+    margin: 10px;
+}

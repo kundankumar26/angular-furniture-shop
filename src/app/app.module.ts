@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { OrderComponent } from './order/order.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ViewOrderComponent } from './view-order/view-order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,7 +10,6 @@ import { BoardVendorComponent } from './board-vendor/vendor-order-board/board-ve
 import { BoardAdminComponent } from './admin/board-admin/board-admin.component';
 import { EmployeeComponent } from './employee/employee-order-board/employee.component';
 import { HeaderComponent } from './header/header.component';
-import { OrderItemComponent } from './order-item/order-item.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AgGridModule } from 'ag-grid-angular';
@@ -26,22 +22,21 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StarComponent } from './order-item/star/star.component';
 import { RatingModule } from 'ng-starrating';
 import { ErrorComponent } from './error/error.component';
-import { ProductCardComponent } from './board-vendor/product-card/product-card.component';
+import { ProductCardComponent } from './order-item/product-card/product-card.component';
 import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
 import { WishlistComponent } from './employee/wishlist/wishlist.component';
+import { HomeComponent } from './order-item/home/home.component';
+import { ProductDetailComponent } from './order-item/product-detail/product-detail.component';
+import { ProductRatingComponent } from './order-item/product-rating/product-rating.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrderComponent,
-    LoginComponent,
-    RegisterComponent,
-    ViewOrderComponent,
     BoardVendorComponent,
     BoardAdminComponent,
     EmployeeComponent,
     HeaderComponent,
-    OrderItemComponent,
     AdminViewAllComponent,
     CreateProductComponent,
     CartComponent,
@@ -50,6 +45,9 @@ import { WishlistComponent } from './employee/wishlist/wishlist.component';
     ProductCardComponent,
     ConfirmationPageComponent,
     WishlistComponent,
+    HomeComponent,
+    ProductDetailComponent,
+    ProductRatingComponent,
   ],
   imports: [
     CommonModule,

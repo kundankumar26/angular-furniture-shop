@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SignupRequestPayload } from '../register/register-request.payload';
 import { TokenStorageService } from './token-storage.service';
-import { Product } from '../models/product';
 import { Order } from '../models/order';
 
 const AUTH_API = 'http://localhost:8080/';
@@ -15,7 +13,7 @@ export class AuthService {
     
   constructor(private httpClient: HttpClient, private tokenStorage: TokenStorageService) { }
 
-  signup(payload: SignupRequestPayload): Observable<any> {
+  signup(payload: any): Observable<any> {
     return this.httpClient.post(AUTH_API + "signup/", payload, { responseType: 'json' });
   }
 
@@ -26,110 +24,49 @@ export class AuthService {
 
   //Methods for Employee only
   getOrdersForEmployee(): Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.get(AUTH_API + 'employee/', httpOptions);
+    return this.httpClient.get(AUTH_API + 'employee/', this.getHeaders());
   }
 
   createOrderForEmployee(payload: any): Observable<any>{
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + this.tokenStorage.getToken(),
-      })
-    };
-    return this.httpClient.post(AUTH_API + 'employee/', payload, httpOptions);
+    return this.httpClient.post(AUTH_API + 'employee/', payload, this.getHeaders());
   }
 
 
   //Methods for Vendor only
   getOrdersForVendor(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.get(AUTH_API + 'vendor/', httpOptions);
+    return this.httpClient.get(AUTH_API + 'vendor/', this.getHeaders());
   }
 
   updateOrderByVendor(orderId: number, payload: Order): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.patch(AUTH_API + 'vendor/' + orderId, payload, httpOptions);
+    return this.httpClient.patch(AUTH_API + 'vendor/' + orderId, payload, this.getHeaders());
   }
 
   createProductByVendor(body: any): Observable<any> {
     const userId = this.tokenStorage.getUser().id;
-    console.log(userId);
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.post(AUTH_API + 'products/' + userId, body, httpOptions);
+    return this.httpClient.post(AUTH_API + 'products/', body, this.getHeaders());
   }
 
   //Methods for Admin only
   getOrdersForAdmin(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.get(AUTH_API + 'admin/', httpOptions);
+    return this.httpClient.get(AUTH_API + 'admin/', this.getHeaders());
   }
 
   getOldOrdersForAdmin(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.get(AUTH_API + 'admin/view-all/', httpOptions);
+    return this.httpClient.get(AUTH_API + 'admin/view-all/', this.getHeaders());
   }
 
   acceptOrderByAdmin(orderId: number, qty: number, productId: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"qty": qty, "isRejectedByAdmin": 1, "productId": productId}, httpOptions);
+    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"qty": qty, "isRejectedByAdmin": 1, "productId": productId}, this.getHeaders());
   }
 
   rejectOrderByAdmin(orderId: number): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + window.sessionStorage.getItem('auth-token'),
-      })
-    };
-    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"isRejectedByAdmin": 2}, httpOptions);
+    return this.httpClient.patch(AUTH_API + 'admin/' + orderId, {"isRejectedByAdmin": 2}, this.getHeaders());
   }
 
 
   //Methods for products
   getAllProducts(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + this.tokenStorage.getToken(),
-      })
-    };
-    return this.httpClient.get(AUTH_API + 'products/', httpOptions);
+    return this.httpClient.get(AUTH_API + 'products/', this.getHeaders());
   }
 
   
@@ -142,24 +79,58 @@ export class AuthService {
 
   //Methods related to cart
   getProductsFromCart(): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + this.tokenStorage.getToken(),
-      })
-    };
-    return this.httpClient.get(AUTH_API + 'cart/', httpOptions);
+    return this.httpClient.get(AUTH_API + 'cart/', this.getHeaders());
+  }
+
+  addProductToCart(productId: number): Observable<any> {
+    return this.httpClient.post(AUTH_API + 'cart/', {"productId": productId}, this.getHeaders());
+  }
+
+  deleteFromCart(cartId: number): Observable<any> {
+    return this.httpClient.delete(AUTH_API + 'cart/' + cartId + '/', this.getHeaders());
   }
 
 
   //Methods related to wishlist
   getProductsFromWishlist(): Observable<any> {
+    return this.httpClient.get(AUTH_API + 'wishlist/', this.getHeaders());
+  }
+
+  addProductToWishlist(productId: number): Observable<any> {
+    return this.httpClient.post(AUTH_API + 'wishlist/', {"productId": productId}, this.getHeaders());
+  }
+
+  removeFromWishlist(wishlistId: number): Observable<any> {
+    return this.httpClient.delete(AUTH_API + 'wishlist/' + wishlistId + '/', this.getHeaders());
+  }
+
+
+  //Methods related to comments
+  getCommentsForProduct(productId: number): Observable<any> {
+    
+    return this.httpClient.get(AUTH_API + 'products/' + productId + '/', this.getHeaders());
+  }
+
+  getCommentByUser(productId: number): Observable<any> {
+    return this.httpClient.get(AUTH_API + 'products/' + productId + '/comments/', this.getHeaders());
+  }
+
+  addCommentToProduct(productId: number, commentPayload: any): Observable<any> {
+    return this.httpClient.post(AUTH_API + 'products/' + productId + '/', commentPayload, this.getHeaders());
+  }
+
+  updateCommentForProduct(commentPayload: any): Observable<any> {
+    return this.httpClient.patch(AUTH_API + 'products/' + commentPayload.productId + '/' + commentPayload.commentId + '/', 
+      commentPayload, this.getHeaders());
+  }
+
+  private getHeaders(): any {
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + this.tokenStorage.getToken(),
       })
     };
-    return this.httpClient.get(AUTH_API + 'wishlist/', httpOptions);
+    return httpOptions;
   }
 }

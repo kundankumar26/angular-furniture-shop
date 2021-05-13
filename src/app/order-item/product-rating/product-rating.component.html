@@ -1,0 +1,22 @@
+
+<div class="comment-container">
+    <div style="display: flex; flex-direction: column; float: left;">
+        <div class="rating-buttons">
+            <button (click)="setRatingStar(1)" [ngClass]="{'is-yellow': ratingValue >= 1}" ><i class="fas fa-star fa-lg"></i></button>
+            <button (click)="setRatingStar(2)" [ngClass]="{'is-yellow': ratingValue >= 2}" ><i class="fas fa-star fa-lg"></i></button>
+            <button (click)="setRatingStar(3)" [ngClass]="{'is-yellow': ratingValue >= 3}" ><i class="fas fa-star fa-lg"></i></button>
+            <button (click)="setRatingStar(4)" [ngClass]="{'is-yellow': ratingValue >= 4}" ><i class="fas fa-star fa-lg"></i></button>
+            <button (click)="setRatingStar(5)" [ngClass]="{'is-yellow': ratingValue == 5}" ><i class="fas fa-star fa-lg"></i></button>
+
+            <div class="rating-text" [ngClass]="{'is-green': ratingValue>=3, 'is-orange': ratingValue==2, 'is-red': ratingValue==1}">
+                {{ showRatingText }}</div>
+        </div>
+        <div>
+            <textarea [(ngModel)]="ratingDesc" placeholder="Description"></textarea>
+        </div>
+        
+    </div>
+    <div>
+        <div><button class="button1 btn-small" (click)="submitReview()"> Submit </button></div>  
+    </div>
+</div>

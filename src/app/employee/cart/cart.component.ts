@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -12,25 +14,131 @@ export class CartComponent implements OnInit {
 
   productList: Product[] = [];
   cartList: Cart[] = [];
+  itemQty: any = new Map();
+  subTotal: number = 0;
+  tax: number = 0;
+  deliveryCharge: number = 0;
+  total: number = 0;
+  showUserDetailBoard: boolean = false;
+  address: string = null;
+  phoneNumber: string = null;
+  showError: string = null;
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.authService.getProductsFromCart().subscribe(data => {
       this.cartList = data.body.cartList;
       this.productList = data.body.productList;
-      console.log(this.cartList, this.productList);
+      this.calculatePrice(this.productList);
+      console.log("Data from server: ", data);
     }, err => {
       console.log(err);
     });
+
+
   }
 
-  deleteFromCart(value: number){
-    console.log(value);
-    this.productList = this.productList.filter((element, index) => index != value);
-    this.cartList = this.cartList.filter((element, index) => index != value);
+  calculatePrice(productList: Product[]) {
+    productList.forEach(element => {
+      this.subTotal += element?.productPrice;
+      console.log(element?.productPrice);
+    });
+    this.tax = 0.18 * this.subTotal;
+    this.deliveryCharge = this.subTotal > 500 ? 0 : 40;
+    this.total = Math.round(this.subTotal + this.tax + this.deliveryCharge);
+    console.log(this.subTotal, this.tax, this.total);
   }
+
+  deleteFromCart(itemIndex: number){
+    this.authService.deleteFromCart(this.cartList[itemIndex].cartId).subscribe(data => {
+      console.log(data);
+      this.calculateCharges(this.productList[itemIndex].productPrice);
+
+      this.productList = this.productList.filter((element, index) => index != itemIndex);
+      this.cartList = this.cartList.filter((element, index) => index != itemIndex);
+      this.toastr.success('Removed from cart', null, {closeButton: true});
+    }, err => {
+      console.log(err);
+      this.toastr.error('Failed to remove from cart', null, {closeButton: true});
+    });
+
+  }
+
+  getQty(productId: number, qty: number): number {
+    console.log(qty);
+    this.itemQty.set(productId, qty);
+    return qty;
+  }
+
+  showAddressBoard(): void {
+    console.log(this.itemQty);
+    this.showUserDetailBoard = !this.showUserDetailBoard;
+  }
+
+  placeOrder(){
+    if(this.checkAddressPhone()){
+      return;
+    }
+    this.loading = true;
+    const productIds: number[] = [];
+    const qty: number[] = [];
+    this.productList.forEach((element) => {
+      const itemQty = this.itemQty.get(element.productId);
+      qty.push(itemQty > 0 ? itemQty : 1);
+      productIds.push(element.productId);
+    });
+
+    const payload = {
+      "productIds": productIds,
+      "qty": qty,
+      "address": this.address,
+      "phoneNumber": this.phoneNumber
+    }
+
+    this.authService.createOrderForEmployee(payload).subscribe(data => {
+      console.log(data);
+      this.loading = false;
+      this.toastr.success(data.body.length + ' orders created successfully.', null, {closeButton: true});
+      this.router.navigate(['employee']);
+    }, err => {
+      this.loading = false; 
+      if(err.status == 404){
+        this.toastr.error(err.error.message, null, {closeButton: true});
+        return;
+      }
+      this.toastr.error(err.error.message, null, {closeButton: true});
+      console.log(err);
+    });
+    console.log(qty, productIds, this.address, this.phoneNumber);
+  }
+
+  checkAddressPhone(): boolean {
+    if(this.address == null || this.address.length < 5){
+      this.showError = "Address is too short";
+      return true;
+    } else if(this.phoneNumber == null || this.phoneNumber.length < 10){
+      this.showError = "Phone number is too short";
+      return true;
+    } else if(this.phoneNumber == null || this.phoneNumber.length > 10){
+      this.showError = "Phone number is too long";
+      return true;
+    }
+    this.showError = null;
+    return false;
+  }
+
+  calculateCharges(itemPrice: number): void {
+    this.subTotal -= itemPrice;
+      this.tax = 0.18 * this.subTotal;
+      this.deliveryCharge = this.subTotal > 500 ? 0 : 40;
+      this.total = Math.round(this.subTotal + this.tax + this.deliveryCharge);
+  }
+
 
 }
