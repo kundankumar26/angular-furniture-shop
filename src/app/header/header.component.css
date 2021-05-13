@@ -22,8 +22,12 @@ a {
     color: #2d4659;
     font-size: 1.2em;
 }
+.link-btn > a:hover {
+    color: #ffffff;
+}
 a:hover {
     color: #2d4659;
+    text-decoration: underline;
 }
 span{
     font-size: 1em;

@@ -4,6 +4,7 @@
     <div class="cart-header">
         <h1 class="header">My Wishlist</h1>
     </div>
+
     <div class="cart-container" *ngFor="let product of productList; let i=index;">
         <div style="display: flex; width: 40%;">
             <div class="cart-img">
@@ -31,5 +32,12 @@
                 </button>
             </div>
         </div>
+    </div>
+
+
+    <div *ngIf="productList.length == 0" class="empty-cart">
+        <img src="https://cdn.dribbble.com/users/591123/screenshots/7114546/media/f9b300a48f97b5c34b98538a99263157.jpg"/>
+        <p>Your wishlist is empty!</p>
+        <a routerLink='/home' class="btn-blue btn-medium">Go to Home</a>
     </div>
 </div>  

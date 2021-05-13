@@ -76,7 +76,7 @@ export class OrderComponent implements OnInit {
       }, err => {
         this.verificationEmail = null;
         this.loading = false;
-        if(err.status == 406){
+        if(err.status == 406 || err.status == 400){
           this.showSignupError = err.error.message;
           return;
         }

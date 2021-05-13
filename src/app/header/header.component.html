@@ -40,12 +40,12 @@
         <i class="fas fa-search"></i></button>
       </li>
 
-      <li class="nav-item" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
+      <li class="nav-item link-btn" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
         <a class="btn btn-outline-dark" routerLink="employee/cart" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
           true}"><i class="fab fa-opencart"></i></a>
       </li>
 
-      <li class="nav-item" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
+      <li class="nav-item link-btn" style="margin-left: 5px;" *ngIf="!isLoggedIn || showEmployeeBoard">
         <a class="btn btn-outline-dark" routerLink="employee/wishlist" [routerLinkActive]="['is-active']" [routerLinkActiveOptions]="{exact:
           true}"><i class="fas fa-heart"></i></a>
       </li>

@@ -39,7 +39,7 @@
             <p class="span-text">Are you confused what to buy?</p>
           </div>
           <div class="col-md-4" *ngFor="let product of products | filter:searchText as result" >
-              <app-product-card [product]="product" (productClicked)="getProduct($event)" (addtowishlist)="addToWishlist($event)"></app-product-card>
+              <app-product-card [product]="product" (productClicked)="getProduct($event)"></app-product-card>
           </div>
       </div>
   </div>

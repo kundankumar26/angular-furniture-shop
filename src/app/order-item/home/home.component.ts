@@ -75,16 +75,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  addToWishlist(product: Product){
-    console.log(product?.productId);
-    this.authService.addProductToWishlist(product?.productId).subscribe(data => {
-      this.toastr.success('Added to wishlist', null, {closeButton: true});
-    }, err => {
-      this.toastr.error('Failed to add to wishlist', null, {closeButton: true});
-      console.log(err);
-    });
-  }
-
 }
 
 function sortByName(p1: Product, p2: Product) {

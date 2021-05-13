@@ -1,0 +1,58 @@
+
+
+<div class="container" style="padding-top: 30px;">
+    <div class="product-container">
+        <div style="display: flex; width: 40%;">
+            <div class="product-img">
+                <img [src]="product?.productImageUrl" />
+            </div>
+            
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; width: 60%; padding: 20px 30px;">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <div class="product-detail">
+                    <p class="product-name">{{ product?.productName }}</p>
+                    <p class="product-categ">{{ product?.productCategory }}</p>
+                    <!-- <app-star class="product-rating" [rating]="product?.productRating"></app-star> -->
+                    <div class="product-rating" style="display: flex; align-items: center;"><b style="font-size: 17px; padding-right: 3px;">
+                        {{ product?.productRating | number: '1.0-1' }} </b><i class="fas fa-star fa-sm"></i></div>
+                    <p class="product-qty">{{ getQtyText(product?.productQty) }}</p>
+                </div>
+                <div style="float: left;">
+                    <p style="margin: 10px; font-size: 22px;"><b>{{ product?.productPrice | currency:"INR"}}</b></p>
+                </div>
+            </div>
+            <div>
+                <p class="product-desc">Product details: {{ product?.productDescription }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="comment-header">
+            <div class="comment-text">Ratings and Reviews</div>
+            <div class="comment-button">
+                <button class="btn-blue btn-small" (click)="toggleRatingBoard()"> 
+                    {{ showRatingBoard ? 'Back' : 'Rate Product' }} </button>
+            </div>
+        </div>
+
+        <div *ngIf="showRatingBoard">
+            <app-product-rating [productId]="product?.productId" (newComment)="updateComment($event)"></app-product-rating>
+        </div>
+
+        <div *ngIf="!showRatingBoard">
+            <div class="comment-container" *ngFor="let comment of commentList; let i=index;">
+                <div style="display: flex; flex-direction: row; align-items: center; vertical-align: middle;">
+                    <p class="comment-rating" style="display: flex; align-items: center;"><b style="font-size: 17px; padding-right: 3px;">
+                        {{ comment?.rating }} </b><i class="fas fa-star fa-sm"></i></p>
+                    <p class="comment-text"> {{ comment?.comment }} </p>
+                </div>
+                <div>
+                    <div clas="comment-owner"> {{ users[i]?.empFirstName + ' ' + users[i]?.empLastName }} </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

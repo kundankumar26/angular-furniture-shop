@@ -22,10 +22,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { StarComponent } from './order-item/star/star.component';
 import { RatingModule } from 'ng-starrating';
 import { ErrorComponent } from './error/error.component';
-import { ProductCardComponent } from './board-vendor/product-card/product-card.component';
+import { ProductCardComponent } from './order-item/product-card/product-card.component';
 import { ConfirmationPageComponent } from './employee/confirmation-page/confirmation-page.component';
 import { WishlistComponent } from './employee/wishlist/wishlist.component';
 import { HomeComponent } from './order-item/home/home.component';
+import { ProductDetailComponent } from './order-item/product-detail/product-detail.component';
+import { ProductRatingComponent } from './order-item/product-rating/product-rating.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { HomeComponent } from './order-item/home/home.component';
     ConfirmationPageComponent,
     WishlistComponent,
     HomeComponent,
+    ProductDetailComponent,
+    ProductRatingComponent,
   ],
   imports: [
     CommonModule,

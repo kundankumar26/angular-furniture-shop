@@ -2,8 +2,9 @@
 <div class="container" style="padding-bottom: 50px;">
     <div class="cart-header">
         <h1 class="header">My Cart</h1>
-        <a href="#" class="btnn btn-small" *ngIf="!showUserDetailBoard">Continue Shopping</a>
+        <a routerLink="/home" class="btnn btn-small" *ngIf="!showUserDetailBoard">Continue Shopping</a>
     </div>
+    
     <div *ngIf="productList.length != 0">
         <div *ngIf="!showUserDetailBoard">
             <div class="cart-container" *ngFor="let product of productList; let i=index;">
