@@ -37,11 +37,11 @@ body{
 
 
 .product-grid .product-discount-label {
-    color:#fff;
-    background-color:#ef5777;
-    font-size:12px;
+    color: white;
+    background-color:#ff0037;
+    font-size:18px;
     text-transform:uppercase;
-    padding:2px 7px;
+    padding: 5px 10px;
     display:block;
     position:absolute;
     top:10px;
@@ -54,6 +54,7 @@ body{
 }
 .wish-btn {
     background-color: transparent;
+    color: #ff0037;
 }
 
 .product-grid .rating{

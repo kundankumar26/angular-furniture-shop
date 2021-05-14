@@ -57,11 +57,9 @@ export class CartComponent implements OnInit {
 
   deleteFromCart(itemIndex: number){
     this.authService.deleteFromCart(this.cartList[itemIndex].cartId).subscribe(data => {
-      console.log(data);
-      this.calculateCharges(this.productList[itemIndex].productPrice);
-
       this.productList = this.productList.filter((element, index) => index != itemIndex);
       this.cartList = this.cartList.filter((element, index) => index != itemIndex);
+      this.calculateNewPrice();
       this.toastr.success('Removed from cart', null, {closeButton: true});
     }, err => {
       console.log(err);
@@ -71,9 +69,27 @@ export class CartComponent implements OnInit {
   }
 
   getQty(productId: number, qty: number): number {
-    console.log(qty);
+    if(qty > 5){
+      this.toastr.error('Qty cannot be more than 5 for any product', null, {closeButton: true});
+      return null;
+    } else if(qty < 1){
+      this.toastr.error('Qty cannot be less than 1 for any product', null, {closeButton: true});
+      return null;
+    }
     this.itemQty.set(productId, qty);
+    this.calculateNewPrice();
     return qty;
+  }
+
+  calculateNewPrice() {
+    this.subTotal = 0;
+    this.productList.forEach((element: Product, index: number) => {
+      const qty = this.itemQty.get(element.productId);
+      this.subTotal += element.productPrice * (qty > 0 ? qty : 1);
+    });
+    this.tax = 0.18 * this.subTotal;
+    this.deliveryCharge = this.subTotal > 500 ? 0 : 40;
+    this.total = Math.round(this.subTotal + this.tax + this.deliveryCharge);
   }
 
   showAddressBoard(): void {
@@ -131,13 +147,6 @@ export class CartComponent implements OnInit {
     }
     this.showError = null;
     return false;
-  }
-
-  calculateCharges(itemPrice: number): void {
-    this.subTotal -= itemPrice;
-      this.tax = 0.18 * this.subTotal;
-      this.deliveryCharge = this.subTotal > 500 ? 0 : 40;
-      this.total = Math.round(this.subTotal + this.tax + this.deliveryCharge);
   }
 
 

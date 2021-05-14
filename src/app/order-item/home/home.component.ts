@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderComponentService } from 'src/app/header/header-component.service';
+import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
+import { Wishlist } from 'src/app/models/wishlist';
 import { AuthService } from 'src/app/_services/auth.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
@@ -15,11 +17,10 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
 export class HomeComponent implements OnInit {
 
   isLoggedIn: boolean = false;
-  loading: boolean = false;
 
   products: Product[] = [];
-  employeeCartMap = new Map();
-  filteredList: Product[] = [];
+  cartSet: any = new Set();
+  wishlistSet: any = new Set();
   sortBy: string = 'name';
   searchText: string;
   screenLoading: boolean = true;
@@ -36,8 +37,19 @@ export class HomeComponent implements OnInit {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
     this.authService.getAllProducts().subscribe(data => {
-      this.products = data['body'];
-      this.filteredList = data['body'];
+      if(this.isLoggedIn){
+        data.body.cartList.forEach((element: Cart) => {
+          this.cartSet.add(element.productId);
+        });
+        data.body.wishlists.forEach((element: Cart) => {
+          this.wishlistSet.add(element.productId);
+        });
+        this.products = data.body.productList;
+        console.log(this.cartSet, this.wishlistSet);
+      } else {
+        this.products = data.body;
+      }
+      
       console.log(data);
       // setTimeout(() => {
       //   console.log('sleep');
@@ -65,14 +77,29 @@ export class HomeComponent implements OnInit {
   }
 
   getProduct(product: Product){
-    console.log(product?.productId, product?.productName);
     this.authService.addProductToCart(product?.productId).subscribe(data => {
+      this.cartSet.add(product?.productId);
       this.toastr.success('Added to cart', null, {closeButton: true});
       console.log(data);
     }, err => {
       this.toastr.error('Failed to add to cart', null, {closeButton: true});
       console.log(err);
     })
+  }
+
+  getWishlistId(productId: number){
+    this.authService.addProductToWishlist(productId).subscribe(data => {
+      console.log(data);
+      if(this.wishlistSet.has(productId)){
+        this.wishlistSet.delete(productId);
+        this.toastr.error('Removed from wishlist', null, {closeButton: true});
+      } else {
+        this.wishlistSet.add(productId);
+        this.toastr.success('Added to wishlist', null, {closeButton: true});
+      }
+    }, err => {
+      console.log(err);
+    });
   }
 
 }

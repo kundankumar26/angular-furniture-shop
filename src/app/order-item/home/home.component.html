@@ -33,13 +33,14 @@
     
     <div class="new-products container animated fadeInUp">
       <div class="row">
-          <div class="container text-center" *ngIf="(products | filter:searchText).length == 0" style="">
+          <div class="container text-center" *ngIf="(products | filter:searchText).length == 0">
             <img src="https://cdn.dribbble.com/users/5057025/screenshots/10951474/media/e9ae4494dc4dd618fb2fbcf093b694b1.jpg" 
               style="vertical-align: middle; margin-top: 50px;"/><br>
             <p class="span-text">Are you confused what to buy?</p>
           </div>
-          <div class="col-md-4" *ngFor="let product of products | filter:searchText as result" >
-              <app-product-card [product]="product" (productClicked)="getProduct($event)"></app-product-card>
+          <div class="col-md-4" *ngFor="let product of products | filter:searchText; let i=index;" >
+              <app-product-card [product]="product" [cart]="cartSet.has(product?.productId)" [wishlist]="wishlistSet.has(product?.productId)"
+                  (productClicked)="getProduct($event)" (wishlistItem)="getWishlistId($event)"></app-product-card>
           </div>
       </div>
   </div>
