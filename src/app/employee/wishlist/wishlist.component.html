@@ -18,7 +18,8 @@
         <div class="cart-detail">
             <div style="float: left;">
                 <!-- <input type='number' class="input-number" placeholder="1"/> -->
-                <p class="product-name">{{ product?.productRating }}</p>
+                <div class="product-rating" style="display: flex; align-items: center;"><b style="font-size: 17px; padding-right: 3px;">
+                    {{ product?.productRating==0 ? 'No rating' : product?.productRating | number: '1.0-1' }} </b><i class="fas fa-star fa-sm"></i></div>
             </div>
             <div style="float: left;">
                 <p style="margin: 10px; font-size: 16px;"><b>{{ product?.productPrice | currency:"INR"}}</b></p>

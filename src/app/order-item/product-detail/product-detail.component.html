@@ -14,8 +14,9 @@
                     <p class="product-name">{{ product?.productName }}</p>
                     <p class="product-categ">{{ product?.productCategory }}</p>
                     <!-- <app-star class="product-rating" [rating]="product?.productRating"></app-star> -->
-                    <div class="product-rating" style="display: flex; align-items: center;"><b style="font-size: 17px; padding-right: 3px;">
-                        {{ product?.productRating | number: '1.0-1' }} </b><i class="fas fa-star fa-sm"></i></div>
+                    <div class="product-rating" style="display: flex; align-items: center;">
+                        <b style="font-size: 17px; padding-right: 3px;">
+                        {{ product?.productRating==0 ? 'No rating' : product?.productRating | number: '1.0-1' }} </b><i class="fas fa-star fa-sm"></i></div>
                     <p class="product-qty">{{ getQtyText(product?.productQty) }}</p>
                 </div>
                 <div style="float: left;">

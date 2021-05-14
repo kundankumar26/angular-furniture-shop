@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
+import { Wishlist } from 'src/app/models/wishlist';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -11,7 +13,11 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;
+  @Input() cart: boolean;
+  @Input() wishlist: boolean;
+
   @Output() productClicked: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() wishlistItem: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     private authService: AuthService,
@@ -19,6 +25,7 @@ export class ProductCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.cart, this.wishlist);
   }
 
   emitProductID(currentProduct: Product){
@@ -26,13 +33,7 @@ export class ProductCardComponent implements OnInit {
   }
 
   addToWishlist(productId: number){
-    console.log(productId);
-    this.authService.addProductToWishlist(productId).subscribe(data => {
-      this.toastr.success('Added to wishlist', null, {closeButton: true});
-    }, err => {
-      this.toastr.error('Failed to add to wishlist', null, {closeButton: true});
-      console.log(err);
-    });
+    this.wishlistItem.emit(productId);
   }
 
 }
