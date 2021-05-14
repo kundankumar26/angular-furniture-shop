@@ -8,6 +8,8 @@ import { TokenStorageService } from './_services/token-storage.service';
 })
 export class AppComponent implements OnInit{
     
+  showSliderMenu: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

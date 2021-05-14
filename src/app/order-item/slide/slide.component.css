@@ -1,0 +1,50 @@
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+
+
+.main-menu {
+    background:#ffffff;
+    border-right:1px solid #e5e5e5;
+    height: 100%;
+    width: 20%;
+    overflow: hidden;
+    transition: all 0.1s ease-in-out;
+    z-index:1000;
+}
+
+.main-menu li {
+    display:block;
+}
+
+
+ul > li {
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+
+#item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 20px; 
+}
+
+#item:hover {
+    background-color: #295aa8;
+    color: white;
+    font-size: 17px;
+}
+
+#item > span {
+    margin-left: 10px;
+}
+
+#item > img {
+    height: 25px;
+    width: 25px;
+}

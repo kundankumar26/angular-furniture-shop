@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../_services/shared.service';
@@ -12,6 +12,8 @@ import { HeaderComponentService } from './header-component.service';
 })
 export class HeaderComponent implements OnInit {
 
+  @Output() showSlider : EventEmitter<boolean> = new EventEmitter<boolean>();
+
   private roles: string[];
   isLoggedIn: boolean = false;
   showAdminBoard: boolean = false;
@@ -20,6 +22,7 @@ export class HeaderComponent implements OnInit {
   username: string;
   clickEventsubscription: Subscription;
   filterText: string;
+  showMenuOption: boolean = false;
 
   constructor(
     private tokenStorageService: TokenStorageService, 
@@ -58,6 +61,11 @@ export class HeaderComponent implements OnInit {
     this.tokenStorageService.signOut();
     this.isLoggedIn = false;
     this.router.navigate(['login']);
+  }
+
+  toggleSlider(): any{
+    this.showMenuOption = !this.showMenuOption;
+    this.showSlider.emit(this.showMenuOption);
   }
 
 }

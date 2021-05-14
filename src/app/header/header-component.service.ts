@@ -13,6 +13,7 @@ export class HeaderComponentService {
   public getSearchText(): Observable<string> {
     return this.searchText.asObservable();
   }
+  
   public setSearchText(value: string) {
     this.searchText.next(value);
   }
