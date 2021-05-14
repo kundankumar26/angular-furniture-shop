@@ -6,6 +6,7 @@ import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
 import { Wishlist } from 'src/app/models/wishlist';
 import { AuthService } from 'src/app/_services/auth.service';
+import { SliderService } from 'src/app/_services/slider.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit {
     private router: Router, 
     private authService: AuthService,
     private toastr: ToastrService,
-    private headerComponentService: HeaderComponentService
+    private headerComponentService: HeaderComponentService,
+    private sliderService: SliderService
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +60,12 @@ export class HomeComponent implements OnInit {
     }, err => {
       console.log(err);
     });
+
     this.headerComponentService.getSearchText().subscribe(data => {
+      this.searchText = data;
+    });
+
+    this.sliderService.getSearchText().subscribe(data => {
       this.searchText = data;
     });
   }

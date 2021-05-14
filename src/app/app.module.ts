@@ -28,6 +28,7 @@ import { WishlistComponent } from './employee/wishlist/wishlist.component';
 import { HomeComponent } from './order-item/home/home.component';
 import { ProductDetailComponent } from './order-item/product-detail/product-detail.component';
 import { ProductRatingComponent } from './order-item/product-rating/product-rating.component';
+import { SlideComponent } from './order-item/slide/slide.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ProductRatingComponent } from './order-item/product-rating/product-rati
     HomeComponent,
     ProductDetailComponent,
     ProductRatingComponent,
+    SlideComponent,
   ],
   imports: [
     CommonModule,

@@ -25,7 +25,6 @@ img{
 }
 
 .active-linkk {
-    font-weight: bold;
+    font-weight: 500;
     color: #315ca2;
-    text-decoration: underline;
 }
