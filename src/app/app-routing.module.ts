@@ -28,7 +28,7 @@ const routes: Routes = [
   {path: 'vendor/create-product', component: CreateProductComponent, canActivate: [RoleGuardService]},
   {path: 'admin', component: BoardAdminComponent, canActivate: [RoleGuardService]},
   {path: 'admin/view-all', component: AdminViewAllComponent, canActivate: [RoleGuardService]},
-  {path: '', redirectTo: 'orders', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 @NgModule({
