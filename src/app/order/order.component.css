@@ -1,14 +1,4 @@
 
-/* CodePen demo */
-/* body {
-    background: #2a2a2b;
-    color: #fff;
-    text-align: center;
-    font-family: Arial, Helvetica;
-  } */
-  
-  /* Custom dropdown */
-
 div > img {
     width: 100%;
 }
@@ -142,18 +132,7 @@ button {
     border: 1px solid #10234e;
     background-color: #ffffff;
 }
-/* button:hover {
-    border-radius: 100px;
-    border: 1px solid #5f2933;
-    background-color: #76323F;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-} */
+
 
 button:active {
     transform: scale(0.95);
