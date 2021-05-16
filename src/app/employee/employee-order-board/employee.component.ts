@@ -60,8 +60,8 @@ export class EmployeeComponent implements OnInit {
     return orderDate;
   }
 
-  calculatePrice(price: number){
-    return price * 0.18 + price;
+  calculatePrice(price: number, qty: number){
+    return price * 0.18 + price*qty;
   }
 
 }
