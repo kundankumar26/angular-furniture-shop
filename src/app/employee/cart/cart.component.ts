@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -24,20 +25,28 @@ export class CartComponent implements OnInit {
   phoneNumber: string = null;
   showError: string = null;
   loading: boolean = false;
+  showCartImage: boolean = false;
 
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private ngxLoader: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
+    this.ngxLoader.start();
+    
     this.authService.getProductsFromCart().subscribe(data => {
       this.cartList = data.body.cartList;
       this.productList = data.body.productList;
       this.calculatePrice(this.productList);
+      this.ngxLoader.stop();
+      this.showCartImage = true;
       console.log("Data from server: ", data);
     }, err => {
+      this.showCartImage = true;
+      this.ngxLoader.stop();
       console.log(err);
     });
 

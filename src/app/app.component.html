@@ -5,6 +5,10 @@
   </div>
   <div style="width: 100%;" [ngStyle]="{'width': showSliderMenu ? '80%' : '100%'}">
     <app-header class="fixed-top" (showSlider)="showSliderMenu=$event"></app-header>
+
+    <ngx-ui-loader [bgsTemplate]="backgroundSpinner"></ngx-ui-loader>
+    <ng-template #backgroundSpinner> </ng-template>
+
     <router-outlet></router-outlet>
   </div>
 </div>

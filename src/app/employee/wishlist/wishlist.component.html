@@ -36,7 +36,7 @@
     </div>
 
 
-    <div *ngIf="productList.length == 0" class="empty-cart">
+    <div *ngIf="productList.length == 0 && showWishlistImage" class="empty-cart">
         <img src="https://cdn.dribbble.com/users/591123/screenshots/7114546/media/f9b300a48f97b5c34b98538a99263157.jpg"/>
         <p>Your wishlist is empty!</p>
         <a routerLink='/home' class="btn-blue btn-medium">Go to Home</a>

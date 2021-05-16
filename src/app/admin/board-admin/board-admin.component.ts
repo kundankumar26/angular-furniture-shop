@@ -7,6 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { map } from 'jquery';
 import { AdminResponse } from 'src/app/models/adminResponse';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-board-admin',
@@ -20,18 +21,26 @@ export class BoardAdminComponent implements OnInit {
   tokenExpired: boolean = false;
   errorType: number = 0;
 
-  constructor(private authService: AuthService, private router: Router, private tokenStorage: TokenStorageService,
-     private toastr: ToastrService) { }
+  constructor(
+    private authService: AuthService, 
+    private router: Router, 
+    private tokenStorage: TokenStorageService,
+    private toastr: ToastrService,
+    private ngxLoader: NgxUiLoaderService
+  ) { }
 
   ngOnInit(): void {
     if(!this.tokenStorage.getToken()){
       this.router.navigate(['login']);
     }
+    this.ngxLoader.start();
+
     this.authService.getOrdersForAdmin().subscribe(data => {
       data['body'].forEach((element: any, index: any) => {
         this.ordersMap.set(data['body'][index].orderId, index);
       });
       console.log(data.body);
+      this.ngxLoader.stop();
       this.orders = data.body;
     }, err => {
       //Token expired
@@ -45,6 +54,7 @@ export class BoardAdminComponent implements OnInit {
         this.errorType = 403;
         return;
       }
+      this.ngxLoader.stop();
       this.showToastMessage(2, err.error.message);
       console.log(err);
     });

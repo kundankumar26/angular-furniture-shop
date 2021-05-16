@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Product } from 'src/app/models/product';
 import { Wishlist } from 'src/app/models/wishlist';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -13,18 +14,26 @@ export class WishlistComponent implements OnInit {
 
   wishList: Wishlist[] = [];
   productList: Product[] = [];
+  showWishlistImage: boolean = false;
 
   constructor(
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngxLoader: NgxUiLoaderService,
   ) { }
 
   ngOnInit(): void {
+    this.ngxLoader.start();
+
     this.authService.getProductsFromWishlist().subscribe(data => {
       this.wishList = data.body.wishList;
       this.productList = data.body.productList;
+      this.ngxLoader.stop();
       console.log(data);
+      this.showWishlistImage = true;
     }, err => {
+      this.showWishlistImage = true;
+      this.ngxLoader.stop();
       console.log(err);
     });
   }

@@ -1,7 +1,7 @@
 
 
 <div class="container" style="padding-top: 30px;">
-    <div class="product-container">
+    <div class="product-container" *ngIf="product != null">
         <div style="display: flex; width: 40%;">
             <div class="product-img">
                 <img [src]="product?.productImageUrl" />

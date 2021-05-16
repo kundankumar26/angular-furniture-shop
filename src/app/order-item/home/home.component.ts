@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HeaderComponentService } from 'src/app/header/header-component.service';
 import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
-import { Wishlist } from 'src/app/models/wishlist';
+import { NgxSpinnerService } from "ngx-spinner";
 import { AuthService } from 'src/app/_services/auth.service';
 import { SliderService } from 'src/app/_services/slider.service';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { IImage } from 'src/app/models/iimage';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 
 @Component({
@@ -16,6 +18,12 @@ import { TokenStorageService } from 'src/app/_services/token-storage.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
+  images: any = ['https://cdn.pixabay.com/photo/2016/07/07/16/46/dice-1502706_1280.jpg',
+              'https://cdn.pixabay.com/photo/2017/01/08/13/58/cube-1963036_1280.jpg',
+              'https://cdn.pixabay.com/photo/2017/02/01/21/47/cube-2031512_1280.jpg',
+              'https://cdn.pixabay.com/photo/2015/07/15/11/53/woodtype-846088_1280.jpg'
+  ]
 
   isLoggedIn: boolean = false;
 
@@ -32,11 +40,15 @@ export class HomeComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private headerComponentService: HeaderComponentService,
-    private sliderService: SliderService
+    private sliderService: SliderService,
+    private spinner: NgxSpinnerService,
+    private ngxLoader: NgxUiLoaderService,
   ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
+    this.spinner.show();
+    this.ngxLoader.start();
 
     this.authService.getAllProducts().subscribe(data => {
       if(this.isLoggedIn){
@@ -52,12 +64,15 @@ export class HomeComponent implements OnInit {
         this.products = data.body;
       }
       
+      this.ngxLoader.stopAll();
+      this.spinner.hide();
       console.log(data);
       // setTimeout(() => {
       //   console.log('sleep');
       //   this.screenLoading = false;
       // }, 1000);
     }, err => {
+      this.spinner.hide();
       console.log(err);
     });
 
