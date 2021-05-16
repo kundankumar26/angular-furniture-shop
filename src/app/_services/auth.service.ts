@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 import { Order } from '../models/order';
 
-const AUTH_API = 'http://localhost:8080/';
+const AUTH_API = 'https://perpendicular-shop.herokuapp.com/';
 
 @Injectable({
   providedIn: 'root'

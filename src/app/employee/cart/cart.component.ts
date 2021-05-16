@@ -120,7 +120,7 @@ export class CartComponent implements OnInit {
     this.authService.createOrderForEmployee(payload).subscribe(data => {
       console.log(data);
       this.loading = false;
-      this.toastr.success(data.body.length + ' orders created successfully.', null, {closeButton: true});
+      this.toastr.success(data.body.length + ' items ordered successfully.', null, {closeButton: true});
       this.router.navigate(['employee']);
     }, err => {
       this.loading = false; 
