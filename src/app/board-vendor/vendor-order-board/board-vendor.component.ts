@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs';
 import { LoadingScreenService } from 'src/app/_services/loading-screen.service';
 import { Order } from '../../models/order';
@@ -27,15 +28,20 @@ export class BoardVendorComponent implements OnInit {
     private authService: AuthService, 
     private router: Router, 
     private tokenStorage: TokenStorageService, 
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private ngxLoader: NgxUiLoaderService
+  ) { }
   
   //CHECK IF VENDOR LOGGED IN, THEN GET ALL THE ORDERS
   ngOnInit(): void {
     if(!this.tokenStorage.getToken()){
       this.router.navigate(['login']);
     }
+    this.ngxLoader.start();
+
     this.authService.getOrdersForVendor().subscribe(data => {
       this.orders = data.body;
+      this.ngxLoader.stop();
       console.log(data.body);
       data['body'].forEach((element: any, index: any) => {
         this.ordersMap.set(data['body'][index].orderId, index);
@@ -52,6 +58,7 @@ export class BoardVendorComponent implements OnInit {
         this.errorType = 403;
         return;
       }
+      this.ngxLoader.stop();
       this.toastr.error("Something went wrong", null, {closeButton: true});
       console.log(err);
     });

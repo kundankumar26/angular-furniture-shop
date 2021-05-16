@@ -29,6 +29,30 @@ import { HomeComponent } from './order-item/home/home.component';
 import { ProductDetailComponent } from './order-item/product-detail/product-detail.component';
 import { ProductRatingComponent } from './order-item/product-rating/product-rating.component';
 import { SlideComponent } from './order-item/slide/slide.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { TippyModule } from '@ngneat/helipopper';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { MatCarouselModule } from 'ng-mat-carousel';
+import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: "red",
+  fgsColor: 'white',
+  pbColor: "white",
+  bgsPosition: POSITION.bottomCenter,
+  fgsSize: 100,
+  bgsType: SPINNER.threeStrings,
+  fgsType: SPINNER.threeStrings,
+  pbDirection: PB_DIRECTION.leftToRight,
+  pbThickness: 1,
+  blur: 15,
+  fgsPosition: POSITION.centerCenter,
+  hasProgressBar: true,
+  text: "Loading...",
+  textColor: 'white',
+  overlayColor: 'rgba(40,40,40,.8)',
+};
+
 
 @NgModule({
   declarations: [
@@ -63,9 +87,14 @@ import { SlideComponent } from './order-item/slide/slide.component';
     HttpClientModule,
     NgbModule,
     RatingModule,
+    NgxSpinnerModule,
+    NgxIntlTelInputModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    MatCarouselModule.forRoot(),
     MDBBootstrapModule.forRoot(),
     AgGridModule.withComponents([]),
     ToastrModule.forRoot(),
+    TippyModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

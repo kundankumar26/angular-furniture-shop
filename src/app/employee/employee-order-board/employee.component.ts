@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -25,15 +26,18 @@ export class EmployeeComponent implements OnInit {
     private router: Router, 
     private sharedService: SharedService,
     private tokenStorage: TokenStorageService, 
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngxLoader: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
     if(!this.tokenStorage.getToken()){
       this.router.navigate(['login']);
     }
+    this.ngxLoader.start();
     this.authService.getOrdersForEmployee().subscribe(data => {
       this.orders = data.body;
+      this.ngxLoader.stop();
     }, err => {
       //Authentication Failed
       if(err.error.status == 401){
@@ -46,6 +50,7 @@ export class EmployeeComponent implements OnInit {
         this.errorType = 403;
         return;
       }
+      this.ngxLoader.stop();
       this.toastr.error("Something went wrong", null, {closeButton: true});
       console.log(err);
     });
