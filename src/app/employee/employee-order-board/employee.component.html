@@ -17,7 +17,7 @@
     <a routerLink='/home' class="btn-blue btn-medium">Order Now</a>
 </div>
 
-<div class="container animated fadeIn" *ngIf="errorType == 0 && !tokenExpired && orders.length!=0">
+<div class="container animated fadeIn" *ngIf="errorType == 0 && !tokenExpired && !showErrorBoard">
     <table class="table table-striped" style="text-align: center;">
         <thead>
             <tr>
