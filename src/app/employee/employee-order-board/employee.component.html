@@ -10,7 +10,14 @@
 
 <app-error *ngIf="errorType != 0" [errorStatus]="errorType"></app-error>
 
-<div class="container animated fadeIn" *ngIf="errorType == 0 && !tokenExpired">
+
+<div *ngIf="orders.length == 0 && showErrorBoard" class="empty-order">
+    <img src="https://cdn.dribbble.com/users/163342/screenshots/3669380/pw_i04_800x600.png"/>
+    <p>It seems you haven't ordered anything!</p>
+    <a routerLink='/home' class="btn-blue btn-medium">Order Now</a>
+</div>
+
+<div class="container animated fadeIn" *ngIf="errorType == 0 && !tokenExpired && orders.length!=0">
     <table class="table table-striped" style="text-align: center;">
         <thead>
             <tr>
@@ -45,3 +52,4 @@
         </tbody>
     </table>
 </div>
+

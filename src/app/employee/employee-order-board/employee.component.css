@@ -16,3 +16,26 @@ td > span {
 td > img {
     width: 150px;
 }
+
+.empty-order {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.empty-order > img {
+    height: 300px;
+    width: 400px;
+}
+.empty-order > p{
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
+.empty-order > a {
+    margin: 10px;
+}
+
+
+

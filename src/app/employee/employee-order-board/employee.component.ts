@@ -2,7 +2,6 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order';
 import { AuthService } from 'src/app/_services/auth.service';
 import { SharedService } from 'src/app/_services/shared.service';
@@ -20,6 +19,7 @@ export class EmployeeComponent implements OnInit {
   isAllowedToViewPage: number = 0;
   tokenExpired: boolean = false;
   errorType: number = 0;
+  showErrorBoard: boolean = false;
   
   constructor(
     private authService: AuthService, 
@@ -34,11 +34,15 @@ export class EmployeeComponent implements OnInit {
     if(!this.tokenStorage.getToken()){
       this.router.navigate(['login']);
     }
-    this.ngxLoader.start();
+    this.ngxLoader.startBackground();
+    
     this.authService.getOrdersForEmployee().subscribe(data => {
       this.orders = data.body;
-      this.ngxLoader.stop();
+      this.ngxLoader.stopAll();
+      this.showErrorBoard = true;
     }, err => {
+      this.ngxLoader.stopAll();
+      this.showErrorBoard = true;
       //Authentication Failed
       if(err.error.status == 401){
         this.errorType = 404;
@@ -50,7 +54,7 @@ export class EmployeeComponent implements OnInit {
         this.errorType = 403;
         return;
       }
-      this.ngxLoader.stop();
+      
       this.toastr.error("Something went wrong", null, {closeButton: true});
       console.log(err);
     });
