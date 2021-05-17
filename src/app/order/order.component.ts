@@ -121,6 +121,7 @@ export class OrderComponent implements OnInit {
     if(this.showSignInErrorType()){
       return;
     }
+    this.loading = true;
     console.log(" verified sign in ");
 
     const payload: any = {
@@ -129,6 +130,7 @@ export class OrderComponent implements OnInit {
     }
 
     this.authService.signin(payload).subscribe(data => {
+      this.loading = false;
       this.tokenStorage.saveToken(data.accessToken);
       this.tokenStorage.saveUser(data);
       const roles = this.tokenStorage.getUser().roles;
@@ -141,6 +143,7 @@ export class OrderComponent implements OnInit {
         this.showSignInError = err.error.message;
         return;
       }
+      this.loading = false;
       this.toastr.error('Failed to log in', null, {closeButton: true});
       console.log(err);
     });
