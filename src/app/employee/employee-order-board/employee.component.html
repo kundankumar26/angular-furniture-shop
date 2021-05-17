@@ -32,7 +32,7 @@
                 <td>{{ order?.productName | titlecase}} <br> 
                     <span>Qty: {{ order?.qty }}</span></td>
 
-                <td><b>{{ calculatePrice(order?.productPrice, order?.qty) | currency:'INR' }}</b></td>
+                <td><b><b>{{ calculatePrice(order?.productPrice, order?.qty) | currency:'INR' }}</b></b></td>
 
                 <td>{{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
                     {{ order?.email }}</td>

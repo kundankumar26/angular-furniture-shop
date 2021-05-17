@@ -29,6 +29,7 @@ body{
 .product-grid .product-image img{
     width:100%;
     height: 100%;
+    background-position: center;
 }
 .product-grid .pic-1{
     opacity:1;

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CountryISO, SearchCountryField } from 'ngx-intl-tel-input';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Cart } from 'src/app/models/cart';
@@ -22,10 +23,15 @@ export class CartComponent implements OnInit {
   total: number = 0;
   showUserDetailBoard: boolean = false;
   address: string = null;
-  phoneNumber: string = null;
+  phoneNumber: any = null;
   showError: string = null;
   loading: boolean = false;
   showCartImage: boolean = false;
+
+  separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
 
   constructor(
     private authService: AuthService,
@@ -144,6 +150,7 @@ export class CartComponent implements OnInit {
   }
 
   checkAddressPhone(): boolean {
+    this.phoneNumber = this.phoneNumber['number'];
     if(this.address == null || this.address.length < 5){
       this.showError = "Address is too short";
       return true;
@@ -158,5 +165,8 @@ export class CartComponent implements OnInit {
     return false;
   }
 
+  runAfunc(value: string){
+    console.log(value);
+  }
 
 }

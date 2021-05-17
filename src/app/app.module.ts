@@ -30,7 +30,7 @@ import { ProductDetailComponent } from './order-item/product-detail/product-deta
 import { ProductRatingComponent } from './order-item/product-rating/product-rating.component';
 import { SlideComponent } from './order-item/slide/slide.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-import { TippyModule } from '@ngneat/helipopper';
+import { TippyModule, tooltipVariation, popperVariation } from '@ngneat/helipopper';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MatCarouselModule } from 'ng-mat-carousel';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
@@ -94,7 +94,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MDBBootstrapModule.forRoot(),
     AgGridModule.withComponents([]),
     ToastrModule.forRoot(),
-    TippyModule.forRoot(),
+    TippyModule.forRoot({defaultVariation: 'tooltip',
+    variations: {
+      tooltip: tooltipVariation,
+      popper: popperVariation,
+    }}),
   ],
   providers: [],
   bootstrap: [AppComponent]
