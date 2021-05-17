@@ -94,12 +94,15 @@ span{
 
 li > input {
   border: none;
+  width: 80%;
   border-bottom: 1px solid #315ca2;
 }
 
 li > input:focus {
-  border-bottom: 1px solid #315ca2;
+  border-bottom: 2px solid #315ca2;
   outline: none;
+  width: 100%;
+  transition: all 0.1s 'ease-in-out';
 }
 
 
