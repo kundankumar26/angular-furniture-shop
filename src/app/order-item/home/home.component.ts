@@ -19,11 +19,17 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class HomeComponent implements OnInit {
   
-  images: any = ['https://cdn.pixabay.com/photo/2016/07/07/16/46/dice-1502706_1280.jpg',
-              'https://cdn.pixabay.com/photo/2017/01/08/13/58/cube-1963036_1280.jpg',
-              'https://cdn.pixabay.com/photo/2017/02/01/21/47/cube-2031512_1280.jpg',
-              'https://cdn.pixabay.com/photo/2015/07/15/11/53/woodtype-846088_1280.jpg'
-  ]
+  images: any = [
+              'https://cdn.pixabay.com/photo/2017/11/27/21/31/computer-2982270_1280.jpg',
+              'https://cdn.pixabay.com/photo/2016/02/17/15/37/laptop-1205256_1280.jpg',
+              'https://cdn.pixabay.com/photo/2017/10/08/23/26/apple-2831949_1280.png',
+              'https://cdn.pixabay.com/photo/2017/05/24/21/33/workplace-2341642_1280.jpg',
+              'https://cdn.pixabay.com/photo/2017/03/28/12/11/chairs-2181960_1280.jpg',
+              'https://cdn.pixabay.com/photo/2017/03/28/12/16/tables-2181979_1280.jpg',
+              'https://cdn.pixabay.com/photo/2014/05/03/00/46/notebook-336634_1280.jpg',
+              'https://cdn.pixabay.com/photo/2016/11/18/13/02/bed-1834327_1280.jpg',
+              'https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_1280.jpg',
+            ]
 
   isLoggedIn: boolean = false;
 
@@ -33,6 +39,7 @@ export class HomeComponent implements OnInit {
   sortBy: string = 'name';
   searchText: string;
   screenLoading: boolean = true;
+  showErrorBoard: boolean = false;
 
   constructor(
     private tokenStorageService: TokenStorageService, 
@@ -64,6 +71,7 @@ export class HomeComponent implements OnInit {
         this.products = data.body;
       }
       
+      this.showErrorBoard = true;
       this.ngxLoader.stopAll();
       this.spinner.hide();
       console.log(data);
@@ -72,6 +80,7 @@ export class HomeComponent implements OnInit {
       //   this.screenLoading = false;
       // }, 1000);
     }, err => {
+      this.showErrorBoard = true;
       this.spinner.hide();
       console.log(err);
     });

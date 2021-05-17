@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Product } from 'src/app/models/product';
 import { AuthService } from 'src/app/_services/auth.service';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,7 +23,8 @@ export class ProductDetailComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private ngxLoader: NgxUiLoaderService
+    private ngxLoader: NgxUiLoaderService,
+    private tokenStorage: TokenStorageService
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   toggleRatingBoard(){
+    if(!this.tokenStorage.getToken()){
+      this.router.navigate(['/login']);
+    }
     this.showRatingBoard = !this.showRatingBoard;
   }
 

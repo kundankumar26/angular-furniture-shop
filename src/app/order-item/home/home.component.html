@@ -29,9 +29,9 @@
     </div>
     
 
-    <div class="container-fluid">
-      <mat-carousel timings="250ms ease-in" [autoplay]="true" [interval]="2000" color="primary" [proportion]="25"
-        maxWidth="auto" [loop]="true" [hideArrows]="true" [hideIndicators]="true" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr" >
+    <div class="container-fluid" *ngIf="searchText == null || searchText == ''">
+      <mat-carousel timings="250ms ease-in" [autoplay]="true" [interval]="2000" color="primary" [proportion]="35"
+        maxWidth="auto" [loop]="true" [hideArrows]="false" [hideIndicators]="true" [useKeyboard]="true" [useMouseWheel]="false" orientation="ltr" >
         <mat-carousel-slide #matCarouselSlide *ngFor="let slide of images; let i = index" [image]="slide" overlayColor="#00000040" [hideOverlay]="false"></mat-carousel-slide>
       </mat-carousel>
     </div>
@@ -44,7 +44,7 @@
     
     <div class="new-products container animated fadeInUp">
       <div class="row">
-          <div class="container text-center" *ngIf="(products | filter:searchText).length == 0 && searchText != null">
+          <div class="container text-center" *ngIf="(products | filter:searchText).length == 0 && searchText != null && showErrorBoard">
             <img src="https://cdn.dribbble.com/users/5057025/screenshots/10951474/media/e9ae4494dc4dd618fb2fbcf093b694b1.jpg" 
               style="vertical-align: middle; margin-top: 50px;"/><br>
             <p class="span-text">Are you confused what to buy?</p>

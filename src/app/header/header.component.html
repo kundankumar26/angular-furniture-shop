@@ -76,7 +76,7 @@
     <ul class="navbar-nav ml-auto" style="color: #2a3c66" *ngIf="isLoggedIn">
       <mdb-icon fas icon="user-tie fa-2x" style="margin: 5px 5px; " title="Hi" ></mdb-icon>
       <li class="nav-item" style="margin-right: 20px;">
-        Hey <b>{{ username | titlecase}}</b><br>
+        Hey <b><b>{{ username | titlecase}}</b></b><br>
           <span *ngIf="showEmployeeBoard">Employee </span>
           <span *ngIf="showVendorBoard">Vendor</span>
           <span *ngIf="showAdminBoard">Admin </span>

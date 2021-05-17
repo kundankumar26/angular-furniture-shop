@@ -1,27 +1,34 @@
 <nav class="main-menu" style="left: 0; position: absolute;">
     <ul style="padding: 0; margin: 0;">
-        <li><a id="item" (click)="selectedItemMethod('')"><img src="assets/images/expand.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText==null || currentText.length==0}" (click)="selectedItemMethod('')">
+                <img src="assets/images/expand.png">
                 <span> All </span></a>
         </li>
-        <li><a id="item" (click)="selectedItemMethod('monitor')"><img src="assets/images/monitor.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText=='monitor'}" (click)="selectedItemMethod('monitor')">
+                <img src="assets/images/monitor.png">
                 <span class="nav-text"> Monitor </span></a>
         </li>
-        <li><a id="item"  (click)="selectedItemMethod('laptop')"><img src="assets/images/laptop.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText=='laptop'}" (click)="selectedItemMethod('laptop')">
+                <img src="assets/images/laptop.png">
                 <span class="nav-text"> Laptop </span></a>
         </li>
 
-        <li><a id="item"  (click)="selectedItemMethod('keyboard')"><img src="assets/images/keyboard.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText=='keyboard'}" (click)="selectedItemMethod('keyboard')">
+                <img src="assets/images/keyboard.png">
                 <span class="nav-text"> Keyboard </span></a>
         </li>
 
-        <li><a id="item"  (click)="selectedItemMethod('mouse')"><img src="assets/images/mouse.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText=='mouse'}" (click)="selectedItemMethod('mouse')">
+                <img src="assets/images/mouse.png">
                 <span class="nav-text"> Mouse </span></a>
         </li>
 
-        <li><a id="item" (click)="selectedItemMethod('table')"><img src="assets/images/table.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText=='table'}" (click)="selectedItemMethod('table')">
+                <img src="assets/images/table.png">
                 <span class="nav-text"> Table </span></a>
         </li>
-        <li><a id="item" (click)="selectedItemMethod('chair')"><img src="assets/images/office-chair.png">
+        <li><a class="item" [ngClass]="{'is-active': currentText=='chair'}" (click)="selectedItemMethod('chair')">
+                <img src="assets/images/office-chair.png">
                 <span class="nav-text"> Chair </span></a>
         </li>
     </ul>

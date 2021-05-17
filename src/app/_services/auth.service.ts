@@ -5,7 +5,6 @@ import { TokenStorageService } from './token-storage.service';
 import { Order } from '../models/order';
 
 const AUTH_API = 'https://perpendicular-shop.herokuapp.com/';
-//comment
 
 @Injectable({
   providedIn: 'root'

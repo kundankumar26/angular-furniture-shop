@@ -4,7 +4,15 @@
         <h1 class="header">My Cart</h1>
         <a routerLink="/home" class="btnn btn-small" *ngIf="!showUserDetailBoard">Continue Shopping</a>
     </div>
+
+      
+      <!-- <ng-template #tpl>
+        <p>This cannot be undone.</p>
+        <button (click)="runAfunc('just delete it')">yes delete</button>
+      </ng-template>
+      <button [tippy]="tpl" (click)="tooltip.show()" trigger="manual" #tooltip="tippy" variation="popper">Delete</button> -->
     
+
     <div *ngIf="productList.length != 0">
         <div *ngIf="!showUserDetailBoard">
             <div class="cart-container" *ngFor="let product of productList; let i=index;">
@@ -38,8 +46,22 @@
             <div class=user-detail>
                 <input type="text" class="input-number" placeholder="Address" [(ngModel)]="address" 
                     [ngClass]="{ 'is-invalid-border': address!=null && address.length < 5 }"/>
-                <input type="text" class="input-number" placeholder="Phone number" [(ngModel)]="phoneNumber" 
-                    [ngClass]="{ 'is-invalid-border': phoneNumber!=null && phoneNumber.length != 10 }"/>
+                <!-- <input type="text" class="input-number" placeholder="Phone number" [(ngModel)]="phoneNumber" 
+                    [ngClass]="{ 'is-invalid-border': phoneNumber!=null && phoneNumber.length != 10 }"/> -->
+
+                    <ngx-intl-tel-input 
+                        [cssClass]="'input-number phone-no'"
+                        [preferredCountries]="[CountryISO.India, CountryISO.UnitedKingdom]"
+                        [enableAutoCountrySelect]="false"
+                        [enablePlaceholder]="true"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                        [selectFirstCountry]="false"
+                        [selectedCountryISO]="CountryISO.India"
+                        [maxLength]="'11'"
+                        [phoneValidation]="true"
+                        [(ngModel)]="phoneNumber" ></ngx-intl-tel-input>
+
                 <span class='is-invalid-input'>{{ showError != null ? showError : null }}</span>
             </div>
             <div>
@@ -89,19 +111,6 @@
 
 
 <!-- <form #f="ngForm" [formGroup]="phoneForm">
-    <ngx-intl-tel-input
-        [cssClass]="'custom'"
-        [preferredCountries]="[CountryISO.UnitedStates, CountryISO.UnitedKingdom]"
-        [enableAutoCountrySelect]="false"
-        [enablePlaceholder]="true"
-        [searchCountryFlag]="true"
-        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-        [selectFirstCountry]="false"
-        [selectedCountryISO]="CountryISO.India"
-        [maxLength]="15"
-        [phoneValidation]="true"
-        [inputId]="my-input-id"
-        name="phone"
-        formControlName="phone"
-    ></ngx-intl-tel-input>
+    
 </form> -->
+
