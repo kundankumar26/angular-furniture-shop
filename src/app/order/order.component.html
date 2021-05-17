@@ -17,7 +17,8 @@
                         
                         <div style="display: flex; flex-direction: row; vertical-align: middle; overflow: hidden; max-width: 400px;">
                             <div class='custom-dropdown big dropdown-primary dropdown-menu-right'>
-                                <select formControlName="role" [ngClass]="{'is-invalid-border': form.role.touched && form.role.errors }">
+                                <select formControlName="role" [ngClass]="{'is-invalid-border': form.role.touched && form.role.errors }" 
+                                    style="background-color: white; width: 100%; opacity: 0.8;">
                                     <option value="" disabled selected hidden>Choose a Role</option>
                                     <option value="employee" active> Employee </option>  
                                     <option value="vendor"> Vendor </option>

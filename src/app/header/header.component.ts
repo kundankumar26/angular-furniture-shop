@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../_services/shared.service';
+import { SliderService } from '../_services/slider.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { HeaderComponentService } from './header-component.service';
 
@@ -22,13 +23,14 @@ export class HeaderComponent implements OnInit {
   username: string;
   clickEventsubscription: Subscription;
   filterText: string;
-  showMenuOption: boolean = false;
+  showMenuOption: boolean = true;
 
   constructor(
     private tokenStorageService: TokenStorageService, 
     private sharedService: SharedService, 
     private router: Router, 
-    private headerService: HeaderComponentService
+    private headerService: HeaderComponentService,
+    private sliderService: SliderService
   ) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.checkIfUserLoggedIn();
@@ -37,6 +39,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkIfUserLoggedIn();
+    this.sliderService.getSearchText().subscribe(data => {
+      this.toggleSlider();
+    })
   }
 
   sendTextToComponent(value: string){
