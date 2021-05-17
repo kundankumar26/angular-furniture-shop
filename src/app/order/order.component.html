@@ -60,7 +60,7 @@
                             </div>
                         </div>
             
-                        <span class='is-invalid-input'>{{ showSignupError }} </span>   
+                        <span style="margin-bottom: 5px; font-size: 0.8em;" class='is-invalid-input'><b>{{ showSignupError }} </b></span>   
                         
                         <button type="submit" [disabled]="loading">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign Up 
@@ -87,7 +87,7 @@
                                 <label class="custom-control-label" for="customSwitch2">Show Password</label>
                             </div>
                         </div>
-                        <span class='is-invalid-input'>{{ showSignInError }} </span>  
+                        <span style="margin-bottom: 5px; font-size: 0.8em;" class='is-invalid-input'><b> {{ showSignInError }} </b></span>  
             
                         <button type="submit">
                             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Sign In

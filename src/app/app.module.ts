@@ -34,6 +34,7 @@ import { TippyModule, tooltipVariation, popperVariation } from '@ngneat/helipopp
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MatCarouselModule } from 'ng-mat-carousel';
 import { NgxUiLoaderConfig, NgxUiLoaderModule, PB_DIRECTION, POSITION, SPINNER } from 'ngx-ui-loader';
+import { AboutComponent } from './about/about.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "red",
@@ -74,6 +75,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ProductDetailComponent,
     ProductRatingComponent,
     SlideComponent,
+    AboutComponent,
   ],
   imports: [
     CommonModule,

@@ -106,7 +106,6 @@ export class BoardVendorComponent implements OnInit {
         console.log(err);
       });
     });
-    this.toastr.success("orders updated successfully", null, {closeButton: true});
   }
 
 }

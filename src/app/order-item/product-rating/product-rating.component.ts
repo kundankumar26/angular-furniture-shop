@@ -17,6 +17,7 @@ export class ProductRatingComponent implements OnInit {
   ratingDesc: string = null;
   commentId: number = 0;
   isRated: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -59,12 +60,14 @@ export class ProductRatingComponent implements OnInit {
     if(this.ratingDesc==null || this.ratingDesc.length < 5){
       return;
     }
+    this.loading = true;
     const payload = {
       "rating": this.ratingValue,
       "comment": this.ratingDesc,
       "productId": this.productId,
       "commentId": this.commentId,
     }
+
     if(this.isRated){
       this.authService.updateCommentForProduct(payload).subscribe(data => {
         console.log(data);
@@ -79,9 +82,11 @@ export class ProductRatingComponent implements OnInit {
 
       this.authService.addCommentToProduct(this.productId, payload).subscribe(data => {
         console.log(data);
+        this.loading = false;
         this.toastr.success('Comment added successfully', null, {closeButton: true});
         this.emitComment(payload);
       }, err => {
+        this.loading = false;
         this.toastr.error('Failed to add comment', null, {closeButton: true});
         console.log(err);
       });

@@ -139,13 +139,18 @@ export class OrderComponent implements OnInit {
       this.router.navigate(['home']);
       this.sharedServices.sendClickEvent();
     }, err => {
+      console.log(err);
+      this.loading = false;
+      if(err.status == 401){
+        this.showSignInError = "Username or password is wrong!";
+        return;
+      }
       if(err.status >= 400 && err.status < 500){
         this.showSignInError = err.error.message;
         return;
       }
-      this.loading = false;
       this.toastr.error('Failed to log in', null, {closeButton: true});
-      console.log(err);
+      
     });
   }
 

@@ -8,6 +8,9 @@ import { map } from 'jquery';
 import { AdminResponse } from 'src/app/models/adminResponse';
 import { ToastrService } from 'ngx-toastr';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AdminOrders } from 'src/app/models/admin-order';
+import { Product } from 'src/app/models/product';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-board-admin',
@@ -16,7 +19,10 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 })
 export class BoardAdminComponent implements OnInit {
 
-  orders: AdminResponse[];
+  
+  ordersList: AdminOrders[];
+  productList: Product[];
+  userList: User[];
   ordersMap = new Map();
   tokenExpired: boolean = false;
   errorType: number = 0;
@@ -36,12 +42,15 @@ export class BoardAdminComponent implements OnInit {
     this.ngxLoader.start();
 
     this.authService.getOrdersForAdmin().subscribe(data => {
-      data['body'].forEach((element: any, index: any) => {
-        this.ordersMap.set(data['body'][index].orderId, index);
-      });
-      console.log(data.body);
+      console.log(data);
+      // data['body'].forEach((element: any, index: any) => {
+      //   this.ordersMap.set(data['body'][index].orderId, index);
+      // });
+      
       this.ngxLoader.stop();
-      this.orders = data.body;
+      this.ordersList = data.body.orders;
+      this.productList = data.body.product;
+      this.userList = data.body.user;
     }, err => {
       //Token expired
       if(err.error.status == 401){
@@ -66,9 +75,20 @@ export class BoardAdminComponent implements OnInit {
 
   acceptOrder(orderId: number, qty: number, productId: number){
     this.authService.acceptOrderByAdmin(orderId, qty, productId).subscribe(data => {
-      const ordersTable = this.orders[this.ordersMap.get(orderId)];
-      ordersTable.isRejectedByAdmin = 1;
-      ordersTable.productQty = ordersTable.productQty - qty
+
+      //const ordersTable = this.ordersList[this.ordersMap.get(orderId)];
+      this.ordersList.forEach(order => {
+        if(order.orderId == orderId){
+          order.isRejectedByAdmin = 1;
+        }
+      })
+
+      this.productList.forEach(product => {
+        if(product.productId == productId){
+          product.productQty = product.productQty - qty;
+        }
+      })
+      //this.productList.productQty = ordersTable.productQty - qty
       this.showToastMessage(1, "1 order accepted");
     }, err => {
       this.showToastMessage(2, err.error.message);
@@ -78,7 +98,8 @@ export class BoardAdminComponent implements OnInit {
 
   rejectOrder(orderId: number){
     this.authService.rejectOrderByAdmin(orderId).subscribe(data => {
-      this.orders[this.ordersMap.get(orderId)].isRejectedByAdmin = 2;
+      this.ordersList.find(order => order.orderId == orderId).isRejectedByAdmin = 2;
+      //this.ordersList[this.ordersMap.get(orderId)].isRejectedByAdmin = 2;
       this.showToastMessage(3, "1 order rejected");
     }, err => {
       this.showToastMessage(2, err.error.message);
@@ -111,4 +132,15 @@ export class BoardAdminComponent implements OnInit {
   isDisabled(value: number): boolean {
     return value == 0 ? false : true;
   }
+
+  getUser(id: number): User {
+    return this.userList.find(user => user.id == id);
+  }
+
+  getProduct(id: number): Product {
+    return this.productList.find(product => product.productId == id);
+  }
+
+
+
 }
