@@ -17,6 +17,9 @@
         
     </div>
     <div>
-        <div><button class="button1 btn-small" (click)="submitReview()"> Submit </button></div>  
+        <div><button class="button1 btn-small" (click)="submitReview()">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span> Submit 
+            </button>
+        </div>  
     </div>
 </div>

@@ -29,16 +29,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let order of orders">
+            <tr *ngFor="let order of ordersList">
                 <td>{{ order?.orderId }}</td>
-                <td><b>{{ order?.empId }}</b><br>
-                    {{ order?.empFirstName + " " + order?.empLastName | titlecase}}<br>
-                    {{ order?.email }}</td>
-                <td>{{ order?.productName | titlecase}}<br>
-                    <span><b>{{ order?.productPrice | currency:"INR"}}</b></span><br>
-                    <span>{{ showProductQty(order?.productQty) }} </span></td>
+
+                <td><b>{{ getUser(order?.userId).empId }}</b><br>
+                    {{ getUser(order?.userId).empFirstName + " " + getUser(order?.userId).empLastName | titlecase}}<br>
+                    {{ getUser(order?.userId).email }}</td>
+
+                <td>{{ getProduct(order?.productId).productName | titlecase}}<br>
+                    <span><b><b>{{ getProduct(order?.productId).productPrice | currency:"INR"}}</b></b></span><br>
+                    <span>{{ showProductQty(getProduct(order?.productId).productQty) }} </span></td>
+
                 <td><input type="number" class="form-control" [(ngModel)]="order.qty" [disabled]="isDisabled(order?.isRejectedByAdmin)"></td>
+                
                 <td *ngIf="order.isRejectedByAdmin!=0"> <b><i>{{ order?.isRejectedByAdmin == 1 ? "Approved" : "Rejected" }}</i></b></td>
+                
                 <td *ngIf="order.isRejectedByAdmin==0">
                     <button (click)="acceptOrder(order?.orderId, order?.qty, order?.productId)" class="btn btn-outline-dark"><i class="fas fa-check"></i></button>
                     <button (click)="rejectOrder(order?.orderId)" class="btn btn-outline-dark" style="margin: 10px;"><i class="fas fa-times"></i></button>
