@@ -30,6 +30,28 @@ export class HomeComponent implements OnInit {
               'https://cdn.pixabay.com/photo/2016/11/18/13/02/bed-1834327_1280.jpg',
               'https://cdn.pixabay.com/photo/2015/01/08/18/24/children-593313_1280.jpg',
             ]
+  tempProducts: Product[] = [
+    {
+      productId: 123,
+      productCategory: 'Laptop',
+      productName: 'HP Laptop',
+      productPrice: 150000,
+      productDescription: 'This is a very good laptop',
+      productQty: 4,
+      productRating: 4.3,
+      productImageUrl: 'https://cdn.pixabay.com/photo/2014/05/02/21/49/laptop-336373_960_720.jpg'
+    },
+    {
+      productId: 124,
+      productCategory: 'Table',
+      productName: 'LRX Table',
+      productPrice: 15000,
+      productDescription: 'This is a very good table for gamers',
+      productQty: 1,
+      productRating: 4.5,
+      productImageUrl: 'https://cdn.pixabay.com/photo/2015/05/31/15/18/technology-792180_960_720.jpg'
+    }
+  ]
 
   isLoggedIn: boolean = false;
 
@@ -70,7 +92,9 @@ export class HomeComponent implements OnInit {
       } else {
         this.products = data.body;
       }
-      
+      if(data.body.length == 0){
+        this.products = this.tempProducts;
+      }
       this.showErrorBoard = true;
       this.ngxLoader.stopAll();
       this.spinner.hide();
